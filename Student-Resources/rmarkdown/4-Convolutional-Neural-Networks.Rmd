@@ -50,7 +50,7 @@ Now that we have our scored results, let's put them in a confusion matrix:
 
 ```{r nnet_confusion}
 
-rxCube( ~ Label + PredictedLabel , data = nnet_score,
+rxCube( ~ Label : PredictedLabel , data = nnet_score,
        returnDataFrame = TRUE) -> nnet_scores_df
 
 nnet_scores_df %>% 
@@ -111,7 +111,7 @@ and visualize our error rates:
 
 ```{r leconfusion}
 
-rxCube( ~ Label + PredictedLabel , data = lescores,
+rxCube( ~ Label : PredictedLabel , data = lescores,
        returnDataFrame = TRUE) -> le_scores_df
 
 le_scores_df %>% 
@@ -129,4 +129,108 @@ le_scores_df %>%
 
 Looks even better!
 
+## Model Metrics
+
+While our visualizations provide some insight into our model's improvement, let's try to calculate empricial metrics of our models' performacne.
+
+The three metrics we'll focus on are "accuracy", "precision", and "recall". Accuracy simply measures how many of our estimates we classified correctly. While simple and intuitive, it does not account for class-imbalances. For example, if 99% of our data is in class A, and we simply use the rule that everything is class A, we'll get an accuracy of 99%. Sounds impressive, but probably not going to win any Turing tests.
+
+### Accuracy 
+
+To calculate accuracy, we can simply measure the sum of our confusion matrix's diagonal over all values. Our data was in a long format to make it amenable for visualizations using ggplot2. Here we'll use `tidyr` to put it into a wide format amenable for calculating model metrics quickly and efficiently.
+
+```{r accuracy}
+
+calc_accuracy <- function(scores_df) {
+  
+  library(tidyr)
+  
+  scores_df <- as.data.frame(scores_df)
+  scores_conf <- scores_df %>% spread(PredictedLabel, Counts)
+  
+  scores_conf <- as.matrix(scores_conf[, 2:ncol(scores_conf)])
+  sum(diag(scores_conf))/sum(scores_conf)
+  
+}
+
+sprintf("Accuracy of the softmax model is %s", calc_accuracy(softmax_scores_df))
+sprintf("Accuracy of the convolutional model is %s", calc_accuracy(nnet_scores_df))
+sprintf("Accuracy of the LeCun-5 model is %s", calc_accuracy(le_scores_df))
+
+```
+
+### Precision
+
+Precision is another measure of model performance. It calculates the ratio of true positives to all values, i.e., how precise your model is in classifying any digit. To calculate precision, we'll take the diagonal of our confusion matrix over the sum of that column.
+
+```{r precision}
+
+
+calc_precision <- function(scores_df) {
+  
+  library(tidyr)
+  
+  scores_df <- as.data.frame(scores_df)
+  scores_conf <- scores_df %>% spread(PredictedLabel, Counts)
+  
+  scores_conf <- as.matrix(scores_conf[, 2:ncol(scores_conf)])
+  diag(scores_conf)/colSums(scores_conf)
+  
+}
+
+calc_precision(softmax_scores_df)
+
+```
+
+### Recall
+
+Lastly, we can calculate recall. Recall is a measure of how relevant the predictions are for the given class, i.e., how many of the actual classes were properly predicted. In this case, we'll sum over the predicted labels rather than the actual labels:
+
+```{r recall}
+
+calc_recall <- function(scores_df) {
+  
+  library(tidyr)
+  
+  scores_df <- as.data.frame(scores_df)
+  scores_conf <- scores_df %>% spread(PredictedLabel, Counts)
+  
+  scores_conf <- as.matrix(scores_conf[, 2:ncol(scores_conf)])
+  diag(scores_conf)/rowSums(scores_conf)
+  
+}
+
+calc_recall(softmax_scores_df)
+
+
+```
+
+### Visualzing our Metrics
+
+Let's calculate the metrics for all three of our mdoels and visualize them.
+
+```{r calc_metrics}
+
+results <- list(softmax = softmax_scores_df,
+                nnet = nnet_scores_df,
+                lecun5 = le_scores_df)
+
+metrics_df <- data.frame(
+  map_df(results, calc_precision),
+  digits = 0:9,
+  metric = rep("precision", 10)
+) %>% 
+  bind_rows(data.frame(
+    map_df(results, calc_recall),
+    digits = 0:9,
+    metric = rep("recall", 10))
+  )
+
+metrics_df %>% gather(model, metrics, -digits, -metric) %>% 
+  ggplot(aes(x = factor(digits),
+             y = metrics,
+             fill = model)) + 
+  geom_bar(stat = 'identity', position = "dodge")
+
+```
 

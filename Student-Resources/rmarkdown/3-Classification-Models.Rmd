@@ -142,7 +142,7 @@ We can make a confusion matrix of all our results:
 
 ```{r conf_softmax}
 
-rxCube( ~ Label + PredictedLabel , data = softmax_scores,
+rxCube( ~ Label : PredictedLabel , data = softmax_scores,
        returnDataFrame = TRUE) -> softmax_scores_df
 
 softmax_scores_df %>% ggplot(aes(x = Label, y = PredictedLabel,
