@@ -38,7 +38,7 @@ We'll use easy the `readr` package to load in our data. You could equivalently u
 Since we're using `readr`, our data is a `tbl`. This means we will get some `dplyr` and `tibble` features, and it'll behave a little differently than a traditional `data.frame`.
 
 ```{r import-data, message = F}
-housing <- read_csv("~/data/housing.csv")
+housing <- read_csv("../data/housing.csv")
 class(housing)
 glimpse(housing)
 housing
