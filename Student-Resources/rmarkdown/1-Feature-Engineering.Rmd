@@ -27,6 +27,7 @@ library(scales)   # for units
 library(magrittr) # for pipes
 library(foreach)  # for parallelization
 library(doRSR)    # register backends
+library(d3wordcloud) # for d3wordclouds
 theme_set(theme_minimal())      # setting up your default theme
 
 ```
