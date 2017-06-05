@@ -230,7 +230,8 @@ metrics_df %>% gather(model, metrics, -digits, -metric) %>%
   ggplot(aes(x = factor(digits),
              y = metrics,
              fill = model)) + 
-  geom_bar(stat = 'identity', position = "dodge")
+  geom_bar(stat = 'identity', position = "dodge") + 
+  facet_wrap(~metric)
 
 ```
 
