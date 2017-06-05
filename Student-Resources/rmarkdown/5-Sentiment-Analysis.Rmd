@@ -1,0 +1,170 @@
+---
+title: "Natural Language Processing - Sentiment Analysis"
+author: "Ali Zaidi"
+date: "2017/06/05"
+output: 
+  html_notebook:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+## Text Classification
+
+Let's take a look at using `MML` to estimate a model that would be very hard to do with `RevoScaleR`. 
+
+In particular, there are virtually no functionality in `RevoScaleR` for handling large text data. We will use `MML` to transform text data into useful features that we can use in a logistic regression learner. In order to deal with the high cardinality of text data, we will use the penalized regression models in `MML`.
+
+### IMDB Data
+
+Our data is taken from the paper __Learning Word Vectors for Sentiment Analysis__ written in 2011 by Andrew L. Maas, Raymond E. Daly, Peter T. Pham, Dan Huang, Andrew Y. Ng, and Christopher Potts. The paper and data are available here: http://ai.stanford.edu/~amaas/data/sentiment/. I've already downloaded and converted the data into an XDF. Please see the `1-ingest-data.R` script if you are interested in the ingestion process.
+
+```{r load_imdb}
+
+train_xdf <- RxXdfData("../data/imdb-train.xdf")
+test_xdf <- RxXdfData("../data/imdb-test.xdf")
+
+```
+
+
+
+### Feature Transformers
+
+MicrosoftML has a set of functions for feature engineering. In this example, let's take a look at creating sparse word vectors.
+
+We'll use the `featurizeText` function to convert our text data into numeric columns. In particular, we'll ask for new columns with tri-grams after removing stopwords, punctuations, and numbers.
+
+We can do this transform directly in our modeling call, and in particular, we'll train logistic regression models and a fast gradient boosted tree model:
+
+```{r train_models}
+
+system.time(logit_model <- rxLogisticRegression(sentiment ~ reviewTran,
+                                                data = train_xdf,
+                                                l1Weight = 0.05,
+                                                l2Weight = 0.05,
+                                                mlTransforms = list(featurizeText(vars = c(reviewTran = "review"),
+                                                                                  language = "English",
+                                                                                  stopwordsRemover = stopwordsDefault(),
+                                                                                  wordFeatureExtractor = ngramCount(3),
+                                                                                  keepNumbers = FALSE,
+                                                                                  keepPunctuations = FALSE)))
+)
+
+
+
+system.time(fast_trees <- rxFastTrees(sentiment ~ reviewTran,
+                                       data = train_xdf,
+                                       mlTransforms = list(featurizeText(vars = c(reviewTran = "review"),
+                                                                         language = "English",
+                                                                         stopwordsRemover = stopwordsDefault(),
+                                                                         wordFeatureExtractor = ngramCount(3),
+                                                                         keepNumbers = FALSE,
+                                                                         keepPunctuations = FALSE)))
+)
+
+```
+
+Now that we have our trained model, we can do some visualizations. For example, for the elastic net, we can visualize the coefficients.
+
+```{r coefs}
+
+logit_cof <- coefficients(logit_model)
+coefs <- data.frame(coef = logit_cof, word = names(logit_cof))
+coefs <- tbl_df(coefs)
+
+coefs <- coefs %>%
+  filter(word != "(Bias)") %>% 
+  mutate(abs_value = abs(coef), 
+         sentiment = ifelse(coef > 0, "Positive", "Negative"), 
+         score = round(abs_value, 0)) %>% 
+  arrange(desc(abs_value)) %>% slice(1:100) 
+
+
+library(ggplot2)
+library(ggrepel)
+
+coefs %>% 
+  ggplot +
+    aes(x = 1, y = 1, colour = sentiment, size = score, label = word) +
+    geom_text_repel(segment.size = 0, force = 10) +
+    scale_size(range = c(2, 15), guide = FALSE) +
+    scale_y_continuous(breaks = NULL) +
+    scale_x_continuous(breaks = NULL) +
+    labs(x = '', y = '') +
+    theme_classic() +
+    facet_wrap(~sentiment)
+
+```
+
+Let's try and makea  more interactive visual. We'll use `purrr` again to map our coefficients to the beautiful [d3wordcloud](https://github.com/jbkunst/d3wordcloud) package
+
+```{r d3word}
+
+coefs %>% 
+  split(.$sentiment) %>% 
+  purrr::map( ~ d3wordcloud(.$word, .$score, tooltip = TRUE)) -> d3_graphs
+
+d3_graphs[[1]]
+d3_graphs[[2]]
+
+```
+
+
+### Testing the Logit Model
+
+In order to predict our classifer on test data, we will use the `mxPredict` function from the `MML` package.
+
+```{r scorelogit}
+
+predictions <- rxPredict(logit_model, data = test_xdf, extraVarsToWrite = "sentiment")
+roc_results <- rxRoc(actualVarName = "sentiment", predVarNames = "Probability.1", data = predictions)
+roc_results$predVarName <- factor(roc_results$predVarName)
+plot(roc_results)
+
+```
+
+### Testing the Fast Trees Model
+
+```{r score_sdca}
+predictions <- rxPredict(fast_trees, data = test_xdf, extraVarsToWrite = "sentiment")
+roc_results <- rxRoc(actualVarName = "sentiment", predVarNames = "Probability.1", data = predictions)
+roc_results$predVarName <- factor(roc_results$predVarName)
+plot(roc_results)
+
+
+```
+
+
+
+## Neural Networks
+
+Let's try to estimate another binary classifier from this dataset, but with a Neural Network architecture rather than a logistic regression model. 
+
+In the following chunk, we call our neural  network model, and set the optimizer to be a stochastic gradient descent optimizer with a learning rate of 0.2. Furthermore, we use the `type` argument to ensure we are learning a binary classifier. By default our network architecture will have 100 hidden nodes.
+
+```{r nnex}
+
+nn_sentiment <- rxNeuralNet(sentiment ~ reviewTran,
+                            data = train_xdf,
+                            type = "binary",
+                            mlTransforms = list(featurizeText(vars = c(reviewTran = "review"),
+                                                         language = "English",
+                                                         stopwordsRemover = stopwordsDefault(),
+                                                         keepPunctuations = FALSE)),
+                          # acceleration = "gpu",
+                          miniBatchSize = 4)
+
+```
+
+### Scoring the Neural Net
+
+We can similary score our results from the neural network model
+
+```{r}
+predictions <- rxPredict(nn_sentiment, data = test_xdf, extraVarsToWrite = "sentiment")
+roc_results <- rxRoc(actualVarName = "sentiment", predVarNames = "Probability.1", data = predictions)
+roc_results$predVarName <- factor(roc_results$predVarName)
+plot(roc_results)
+```
