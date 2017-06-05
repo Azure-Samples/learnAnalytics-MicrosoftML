@@ -1,0 +1,132 @@
+---
+title: "Convolutional Neural Networks"
+author: "Ali Zaidi"
+date: "2017/06/05"
+output: 
+  html_notebook:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+## Convolutional Neural Networks
+
+In the previous section we conducted multi-class classification using a softmax regression algorithm. The most popular approach for image classification is now convolutional neural networks. This module describes how to use convolutional networks.
+
+MicrosoftML uses the [Net#](https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-azure-ml-netsharp-reference-guide) specification for defining neural network architectures. In the `../nnet` directory, we have already created the specifications for you.
+
+Examine the architecture in "MNIST.nn". In this network, we have two convolutional layers and one fully connected layer. 
+
+
+```{r nnet}
+rxNeuralNetFile <- file.path("../nnet/MNIST.nn")
+nn <- readChar(rxNeuralNetFile, file.info(rxNeuralNetFile)$size)
+nnet_fit <- rxNeuralNet(make_form(splits$train, 
+                                           resp_var = "Label", 
+                                           vars_to_skip = c("splitVar")),
+                              data = splits$train,
+                              type = "multiClass",
+                              numIterations = 9,
+                              netDefinition = nn,
+                              initWtsDiameter = 1.0,
+                              normalize = "No")
+```
+
+As in the previous section with linear classifiers, we can create our confusion matrices:
+
+```{r nnet_scores}
+
+nnet_score <- rxPredict(modelObject = nnet_fit,
+                        data = splits$test,
+                        outData = tempfile(fileext = ".xdf"),
+                        overwrite = TRUE,
+                        extraVarsToWrite = "Label")
+
+```
+
+Now that we have our scored results, let's put them in a confusion matrix:
+
+```{r nnet_confusion}
+
+rxCube( ~ Label + PredictedLabel , data = nnet_score,
+       returnDataFrame = TRUE) -> nnet_scores_df
+
+nnet_scores_df %>% 
+  tbl_df %>% 
+  group_by(Label) %>% 
+  mutate(rate = Counts/sum(Counts)) %>%
+  mutate(error_rate = ifelse(Label == PredictedLabel,
+                             0, rate)) %>% 
+  ggplot(aes(x = Label, y = PredictedLabel, fill = error_rate)) +
+  geom_raster() +
+  scale_fill_continuous(low = "steelblue2", high = "mediumblue",
+                        labels = scales::percent)
+
+```
+
+Just judging from the label it looks we have already done better than the linear classifier. 
+
+## LeNet-5
+
+Convolutional neural networks were popularized by Yann LeCun. In this section, we'll fit his model from 1998, effectionately called [LeNet-5](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf).
+
+The network differs from the previous implementation in that there are now more layers, but in between layers there is a pooling/sampling layer. This helps preventing the neural network from overfitting in between layers and extracting higher-order representations from the data.
+
+Because this neural network has significantly more weights to learn, it'll take a while longer, especially if we aren't using GPUs (which would give us at least 5-7x speed improvement). If you're especially impatient, you can lower the `numIterations` parameter.
+
+```{r lenet-5}
+
+rxNeuralNetFile <- file.path("../nnet/LeCun5.nn")
+lecun <- readChar(rxNeuralNetFile, file.info(rxNeuralNetFile)$size)
+system.time(lenet_fit <- rxNeuralNet(make_form(splits$train,
+                                               resp_var = "Label",
+                                               vars_to_skip = c("splitVar")),
+                                     data = splits$train,
+                                     type = "multiClass",
+                                     numIterations = 9,
+                                     netDefinition = lecun,
+                                     initWtsDiameter = 1.0,
+                                     normalize = "No"))
+
+```
+
+As before, let's score our pretty model:
+
+```{r lescores}
+
+
+lescores <- rxPredict(modelObject = lenet_fit,
+                      data = splits$test,
+                      outData = tempfile(fileext = ".xdf"),
+                      overwrite = TRUE,
+                      extraVarsToWrite = "Label")
+
+
+```
+
+and visualize our error rates:
+
+
+```{r leconfusion}
+
+rxCube( ~ Label + PredictedLabel , data = lescores,
+       returnDataFrame = TRUE) -> le_scores_df
+
+le_scores_df %>% 
+  tbl_df %>% 
+  group_by(Label) %>% 
+  mutate(rate = Counts/sum(Counts)) %>%
+  mutate(error_rate = ifelse(Label == PredictedLabel,
+                             0, rate)) %>% 
+  ggplot(aes(x = Label, y = PredictedLabel, fill = error_rate)) +
+  geom_raster() +
+  scale_fill_continuous(low = "steelblue2", high = "mediumblue",
+                        labels = scales::percent)
+
+```
+
+Looks even better!
+
+
