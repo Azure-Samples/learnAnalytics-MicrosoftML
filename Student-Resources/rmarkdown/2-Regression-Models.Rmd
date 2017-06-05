@@ -1,0 +1,189 @@
+---
+title: "Regression Models"
+author: "Ali Zaidi"
+date: "2017/06/06"
+output: 
+  html_notebook:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+## Splitting into Train and Test Sets
+
+Let's sample our data into train and test sets. In order to do this efficiently, we will use the `RevoScaleR` package.
+
+We'll first create a `RxXdfData` object, which is a more efficient and scalable data structure than R `data.frames`. Their primary distinction is that they do not reside in memory, but on-disk.
+
+```{r xdf_create}
+
+out_xdf <- file.path("/home", system("whoami", intern = TRUE),
+                     "data",
+                     "housing.xdf")
+
+housing_xdf <- rxDataStep(inData = housing,
+                          outFile = out_xdf,
+                          maxRowsByCols = nrow(housing)*ncol(housing),
+                          rowsPerRead = 5000,
+                          overwrite = TRUE)
+
+housing_xdf %<>% factorise(ocean_proximity) %>% 
+  persist(out_xdf, overwrite = TRUE)
+
+```
+
+The `RevoScaleR` and `MicrosoftML` functions are primarily prefixed with `rx`. In this function below, we will use the `rxSplit` function to split our data into train and test sets. Observe that since our data is now on-disk, and compromises of multiple blocks, we have to use the `.rxNumRows` argument to inform the session how many rows are currently being processed in the current block:
+
+```{r split}
+
+split_xdf <- function(data) {
+
+    splits <- rxSplit(data,
+                      outFileSuffixes = c("Train", "Test", "Validate"),
+                         splitByFactor = "splitVar",
+                         overwrite = TRUE,
+                         transforms = list(splitVar = factor(
+                           sample(c("Train", "Test", "Validate"),
+                                  size = .rxNumRows,
+                                  replace = TRUE,
+                                  prob = c(0.65, 0.25, 0.1)),
+                           levels = c("Train", "Test", "Validate"))),
+                         rngSeed = 123,
+                         consoleOutput = TRUE)
+  return(splits)
+}
+
+
+splits <- split_xdf(housing_xdf)
+names(splits) <- c("train", "test", "validate")
+```
+
+Now that we have our train and test sets, we can conduct begin to train our models.
+
+
+## Training Regression Learners
+
+Let's train our first regression model.
+
+We can start with the a `glm` model. GLMs, short for generalized linear models, are a general class of linear algorithms. In this exercise, our goal is to predict the median housing value given the other variables. 
+
+
+```{r glm}
+
+lin_mod <- rxLinMod(median_house_value ~ housing_median_age + total_rooms + total_bedrooms +
+           population + households + median_income + ocean_proximity,
+         data = splits$train)
+
+```
+
+That was pretty easy, but let's generalize our approach so that we can estimate a variety of models quickly and efficiently. 
+
+First, we'll create a wrapper function to automatically create our model matrix for us dynamically from our data.
+
+```{r wrapper_formula}
+
+make_form <- function(xdf = housing_xdf,
+                      resp_var = "median_house_value",
+                      vars_to_skip = c("splitVar", "longitude", 
+                                       "latitude")) {
+  
+  library(stringr)
+  
+  non_incl <- paste(vars_to_skip, collapse = "|")
+  
+  x_names <- names(xdf)
+  
+  features <- x_names[!str_detect(x_names, resp_var)]
+  features <- features[!str_detect(features, non_incl)]
+  
+  form <- as.formula(paste(resp_var, paste0(features, collapse = " + "),
+                           sep  = " ~ "))
+  
+  return(form)
+}
+
+make_form(xdf = splits$train)
+
+```
+
+Now let's create a modeling wrapper, which will take our dataset, a formula, and a model, and train it for us.
+
+```{r wrapper_fn}
+
+estimate_model <- function(xdf_data = splits$train,
+                           form = make_form(xdf = xdf_data),
+                           model = rxLogit, ...) {
+  
+  rx_model <- model(form, data = xdf_data, ...)
+  
+  return(rx_model)
+  
+  
+}
+```
+
+Now we can quickly iterate over our data and train models using different learning algorithms. For example, the above example suffers from the issue that we didn't scale our data prior to learning. This can have an adverse effect on the optimization function of the learning algorithm, as it'll favor the variables with more disperse scales. 
+
+We'll use the [SDCA - Stochastic Dual Coordinate Ascent](http://dl.acm.org/citation.cfm?id=2783412) learning algorithm, which automatically applies a min-max scaling to our data prior to training.
+
+```{r sdca}
+
+sdca <- estimate_model(model = rxFastLinear, type = "regression")
+summary(sdca)
+```
+
+## Scoring Our Data on the Test Set
+
+Now that we our model trained, we can score it on our test set.
+
+Let's create a prediction XDF where we'll save our results to.
+
+```{r predictxdf}
+
+pred_xdf <- file.path("/home", system("whoami", intern = TRUE), "scored.xdf")
+if (file.exists(pred_xdf)) file.remove(pred_xdf)
+scored_xdf <- RxXdfData(pred_xdf)
+
+```
+
+
+```{r predict}
+
+rxPredict(lin_mod, data = splits$test, 
+          outData = pred_xdf, writeModelVars = T, 
+          predVarNames = c("linmod"), overwrite = T)
+rxGetInfo(pred_xdf)
+rxLinePlot(linmod ~ median_house_value, data = pred_xdf, type = "p")
+```
+
+Let's also score our SDCA model:
+
+```{r sdca-preds}
+
+
+rxPredict(sdca, data = splits$test, 
+          outData = pred_xdf, writeModelVars = T)
+# rxGetInfo(pred_xdf, numRows = 2)
+rxLinePlot(Score ~ median_house_value, data = pred_xdf, type = "p")
+
+```
+
+
+## Training Many Models Concurrently
+
+Let's take our functions and train multiple models in parallel. We have already trained two linear models. Let's add two ensemble tree algorithms to the mix, `rxBTrees`, and simultaneously train a random forest using `rxDForest`.
+
+To run them in parallel, we can use the foreach package with a local parallel backend.
+
+```{r parallel}
+
+rxSetComputeContext(RxLocalParallel())
+registerDoRSR(computeContext = rxGetComputeContext())
+
+models <- list("btrees" = rxBTrees, 
+               "forest" = rxDForest)
+models <- foreach(i = models) %dopar% estimate_model(model = i)
+names(models) <- c("btrees", "forest")
+```
