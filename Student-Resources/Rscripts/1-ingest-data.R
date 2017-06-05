@@ -50,10 +50,17 @@ table(train_df$sentiment)
 # Save to XDF -------------------------------------------------------------
 
 library(dplyrXdf)
-to_xdf <- . %>% rxDataStep(inData = .,
-                           outFile = tempfile(fileext = ".xdf"))
+to_xdf <- function(df, name) {
+  
+  rxDataStep(inData = .,
+             outFile = paste0(
+               "Student-Resources/data/imdb-",
+               name, ".xdf"
+             ))
+  
+}
 
-train_xdf <- train_df %>% to_xdf
-test_xdf <- test_df %>% to_xdf
+train_xdf <- train_df %>% to_xdf("train")
+test_xdf <- test_df %>% to_xdf("test")
 
 train_xdf %>% group_by(sentiment) %>% tally %>% as.data.frame
