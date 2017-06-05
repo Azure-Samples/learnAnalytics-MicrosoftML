@@ -19,7 +19,7 @@ We'll first create a `RxXdfData` object, which is a more efficient and scalable 
 
 ```{r xdf_create}
 
-out_xdf <- file.path("/home", system("whoami", intern = TRUE),
+out_xdf <- file.path("../",
                      "data",
                      "housing.xdf")
 
