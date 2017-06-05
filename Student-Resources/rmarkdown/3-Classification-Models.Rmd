@@ -1,0 +1,186 @@
+---
+title: "Classification Models for Computer Vision"
+author: "Ali Zaidi"
+date: "2017/06/06"
+output: 
+  html_notebook:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+## Hand-Written Digit Classifiation
+
+In this module, we will examine the [MNIST](http://yann.lecun.com/exdb/mnist/) dataset, which is a set of 70,000 images of digits handwritten by high school students and employees of the US Census Bureau.
+
+MNIST is considered the "hello-world" of the machine-learning world, and is often a good place to start for understanding classification algorithms.
+
+Let's load the MNIST dataset.
+
+```{r mnist_load}
+
+mnist_xdf <- file.path("/home", system("whoami", intern = TRUE), "data/", "MNIST.xdf")
+mnist_xdf <- RxXdfData("/home/alizaidi/data")
+
+```
+
+Let's take a look at the data:
+
+```{r mnist_str}
+
+rxGetInfo(mnist_xdf)
+
+```
+
+Our dataset contains 70K records, and 786 columns. There are actually 784 features, because each image in the dataset is a 28x28 pixel image. The two additional columns are for the label, and a column with a pre-sampled train and test split.
+
+## Visualizing Digits
+
+Let's make some visualizations to examine the MNIST data and see what we can use for a classifier to classify the digits.
+
+```{r mnist_df}
+
+mnist_df <- rxDataStep(inData = mnist_xdf, outFile = NULL,
+                       maxRowsByCols = nrow(mnist_xdf)*ncol(mnist_xdf)) %>% 
+  tbl_df
+
+```
+
+Let's see the average for each digit:
+
+```{r agg_activation}
+
+mnist_df %>% 
+  keep(is.numeric) %>% 
+  rowMeans() %>% data.frame(intensity = .) %>% 
+  tbl_df %>% 
+  bind_cols(mnist_df) -> mnist_df
+
+```
+
+Visualize average intensity by label:
+
+```{r density}
+
+ggplot(mnist_df, aes(x = intensity, y = ..density..)) +
+  geom_density(aes(fill = Label), alpha = 0.3)
+
+```
+
+Let's try a boxplot:
+
+```{r boxplot}
+
+ggplot(mnist_df, aes(x = Label, y = intensity)) +
+  geom_boxplot(aes(fill = Label), alpha = 0.3)
+```
+
+## Visualize Digits
+
+Let's plot a sample set of digits:
+
+
+```{r}
+
+flip <- function(matrix) {
+
+      apply(matrix, 2, rev)
+}
+
+plot_digit <- function(samp) {
+  
+  digit <- unlist(samp)
+  m <- flip(matrix(rev(as.numeric(digit)), nrow = 28))
+  image(m, col = grey.colors(255))
+  
+}
+
+mnist_df[11, ] %>% 
+  select(-Label, -intensity, -splitVar) %>% 
+  sample_n(1) %>% 
+  rowwise() %>% plot_digit
+
+```
+
+## Split the Data into Train and Test Sets
+
+```{r splits}
+
+splits <- rxSplit(mnist_xdf,
+                  splitByFactor = "splitVar")
+names(splits) <- c("train", "test")
+
+```
+
+Let's first train a softmax classifier using the `rxLogisticRegression`:
+
+```{r multinomial}
+
+softmax <- estimate_model(xdf_data = splits$train,
+                          form = make_form(splits$train, 
+                                           resp_var = "Label", 
+                                           vars_to_skip = c("splitVar")),
+                          model = rxLogisticRegression,
+                          type = "multiClass")
+
+```
+
+Let's see how we did. Let's examine our results on the train set:
+
+```{r predict_multinomial}
+
+softmax_scores <- rxPredict(modelObject = softmax, 
+                            data = splits$test, 
+                            outData = tempfile(fileext = ".xdf"),
+                            overwrite = TRUE,
+                            extraVarsToWrite = "Label")
+
+```
+We can make a confusion matrix of all our results:
+
+```{r conf_softmax}
+
+rxCube( ~ Label + PredictedLabel , data = softmax_scores,
+       returnDataFrame = TRUE) -> softmax_scores_df
+
+softmax_scores_df %>% ggplot(aes(x = Label, y = PredictedLabel,
+                                 fill = Counts)) +
+  geom_raster() +
+  scale_fill_continuous(low = "steelblue2", high = "mediumblue")
+
+```
+
+Here we are plotting the raw counts. This might unfairly represent the more populated classes. Let's weight each count by the total number of samples in that class:
+
+```{r rates}
+
+label_rates <- softmax_scores_df %>% 
+  tbl_df %>% 
+  group_by(Label) %>% 
+  mutate(rate = Counts/sum(Counts))
+
+label_rates %>% ggplot(aes(x = Label, y = PredictedLabel, fill = rate)) +
+  geom_raster() +
+  scale_fill_continuous(low = "steelblue2", high = "mediumblue")
+
+
+```
+
+Let's fill out all the correct scores with zeros so we can see the errors more clearly:
+
+
+```{r errors}
+
+label_rates %>%
+  mutate(error_rate = ifelse(Label == PredictedLabel,
+                             0, rate)) %>% 
+  ggplot(aes(x = Label, y = PredictedLabel, fill = error_rate)) +
+  geom_raster() +
+  scale_fill_continuous(low = "steelblue2", high = "mediumblue",
+                        labels = scales::percent)
+
+
+```
+
