@@ -1,0 +1,133 @@
+---
+title: "Feature Engineering"
+author: "Ali Zaidi"
+date: "2017/06/06"
+output: 
+  html_notebook:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+## Exploratory Data Analysis and Feature Engineering
+
+Import your favorite libraries and set up your favorite plotting theme.
+
+```{r import-libs, message = F}
+library(readr)    # for reading data
+library(dplyr)    # for data manipluation
+library(tidyr)    # for data aggregation and spreading
+library(purrr)    # for functionals and closures 
+library(ggplot2)  # for visualizations
+library(maps)     # for maps data
+library(scales)   # for units
+theme_set(theme_minimal())      # setting up your default theme
+
+```
+
+Now let's import some data. Our [data source](http://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html) is 1990-census level of housing in California.
+
+We'll use easy the `readr` package to load in our data. You could equivalently use `read.csv`, or `data.table::fread` if you wanted incredible speed. We'll later see how to use data sources using the `RevoScaleR` readers.
+
+Since we're using `readr`, our data is a `tbl`. This means we will get some `dplyr` and `tibble` features, and it'll behave a little differently than a traditional `data.frame`.
+
+```{r import-data, message = F}
+housing <- read_csv("~/data/housing.csv")
+class(housing)
+glimpse(housing)
+housing
+```
+
+## Visualize Densities
+
+Suppose we want to visualize the distribution of the numeric columns, such as **housing_median_age**. How would you visualize that density?
+
+```{r gather, message = FALSE}
+housing %>% keep(is_double) %>% 
+  gather %>% 
+  ggplot(aes(x = value)) + geom_histogram() + facet_wrap(~key, scales = "free")
+```
+
+## Spatial Visualizations
+
+The histograms of the longitude and latitude columns seem like they are in some reasonable range of data. Let's visualize the locations.
+
+```{r spatial-visuals}
+
+housing %>% ggplot(aes(x = longitude, y = latitude)) + 
+  geom_point()
+
+```
+
+Looks indeed like California!
+
+We can improve this chart in many ways. Let's first add some transparency so we can get a better sense of the _density_ of points:
+
+```{r alpha}
+
+
+housing %>% ggplot(aes(x = longitude, y = latitude)) + 
+  geom_point(alpha = 0.15)
+
+```
+
+Nice, we can already see some dense clusters for higher population regions like the Bay Area, Sacramento and Los Angeles.
+
+Let's add some additional attributes, like the population:
+
+```{r population}
+
+housing %>% ggplot(aes(x = longitude, y = latitude,
+                       size = population)) + 
+  geom_point(alpha = 0.15)
+```
+
+And now let's see if we can add a gradient fill for another numeric value, like the median housing price:
+
+```{r gradient-fill}
+
+housing %>% ggplot(aes(x = longitude, y = latitude,
+                       size = population,
+                       colour = median_house_value)) + 
+  geom_point(alpha = 0.095)
+
+```
+
+Interesting, we can definitely see the higher price ranges in LA and the Bay Area. Let's see if we can change the colour scheme to get an even better visualization:
+
+
+```{r colour}
+
+housing %>% ggplot(aes(x = longitude, y = latitude,
+                       size = population,
+                       colour = median_house_value)) + 
+  geom_point(alpha = 0.095) +
+  scale_colour_gradient(low = "yellow", high = "red")
+
+```
+
+If you want to plot the points on top of an actual polygon of the state map, you can do that using `geom_map` and using the `map_data` function in ggplot2. I find it a bit messy, but it might be worthwile if you are plotting various regions/states.
+
+While we're at it, let's put some final themes on our plot to make it more aesthetically pleasing.
+
+```{r}
+
+housing %>% 
+  mutate(state = "california") %>% 
+  ggplot(aes(x = longitude, y = latitude,
+             size = population,
+             colour = median_house_value)) +
+  geom_map(map = filter(map_data("state"), region == "california"),
+           aes(map_id = state), 
+           fill = "lightgrey",
+           colour = "lightgrey") +
+  geom_point(alpha = 0.1) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) + 
+  scale_size_continuous(labels = scales::comma) +
+  scale_colour_gradient(low = "yellow", high = "red",
+                        labels = scales::dollar)
+```
+
