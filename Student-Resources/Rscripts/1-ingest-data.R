@@ -52,7 +52,7 @@ table(train_df$sentiment)
 library(dplyrXdf)
 to_xdf <- function(df, name) {
   
-  rxDataStep(inData = .,
+  rxDataStep(inData = df,
              outFile = paste0(
                "Student-Resources/data/imdb-",
                name, ".xdf"
@@ -60,7 +60,7 @@ to_xdf <- function(df, name) {
   
 }
 
-train_xdf <- train_df %>% to_xdf("train")
-test_xdf <- test_df %>% to_xdf("test")
+train_xdf <- train_df %>% to_xdf(name = "train")
+test_xdf <- test_df %>% to_xdf(name = "test")
 
 train_xdf %>% group_by(sentiment) %>% tally %>% as.data.frame
