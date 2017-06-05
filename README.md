@@ -18,7 +18,7 @@ You can download **Microsoft R Client** through the following sources:
 2. [R Client for Linux](https://msdn.microsoft.com/en-us/microsoft-r/r-client-install-linux)
 3. [R Client Docker Image](https://github.com/akzaidi/etc/blob/master/docker-images/mrs-docker/Dockerfile)
 
-## References
+## MicrosoftML References
 
 + [Cheat Sheet](https://msdn.microsoft.com/en-us/microsoft-r/microsoftml-algorithm-cheat-sheet)
 + [Overview of MicrosoftML Functions](https://msdn.microsoft.com/en-us/microsoft-r/overview-microsoftml-functions)
