@@ -3,3 +3,6 @@
 *.Rproj.user
 *.Rhistory
 .Rproj.user
+
+## ignore data files
+*.xdf
