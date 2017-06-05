@@ -1,0 +1,4 @@
+## ignore Rproj files
+*.Rproj
+*.Rproj.user
+*.Rhistory
