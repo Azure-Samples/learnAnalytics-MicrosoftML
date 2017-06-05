@@ -21,8 +21,8 @@ Let's load the MNIST dataset.
 
 ```{r mnist_load}
 
-mnist_xdf <- file.path("/home", system("whoami", intern = TRUE), "data/", "MNIST.xdf")
-mnist_xdf <- RxXdfData("/home/alizaidi/data")
+mnist_xdf <- file.path("..", "data", "MNIST.xdf")
+mnist_xdf <- RxXdfData(mnist_xdf)
 
 ```
 
