@@ -6,3 +6,6 @@
 
 ## ignore data files
 *.xdf
+
+## ignore log.txt
+log.txt
