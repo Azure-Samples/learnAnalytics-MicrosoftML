@@ -15,7 +15,7 @@ Additional Resources: Open Source Hub, OSS Attribution Guidelines, JavaScript Gu
 
 Copyright Notice/License Declaration: Insert the following license notice in the source code header files or in a license.txt file in the root directory for the Microsoft OSS. Be sure to insert the name of the Microsoft OSS project in the license notice text.
 ------------------------------------------ START OF LICENSE -----------------------------------------
-LearnAnalytics-wintro-instructorled
+LearnAnalytics-MicrosoftML
 Copyright (c) Microsoft Corporation
 All rights reserved. 
 MIT License
