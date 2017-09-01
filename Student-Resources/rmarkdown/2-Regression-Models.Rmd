@@ -18,7 +18,7 @@ Let's sample our data into train and test sets. In order to do this efficiently,
 We'll first create a `RxXdfData` object, which is a more efficient and scalable data structure than R `data.frames`. Their primary distinction is that they do not reside in memory, but on-disk.
 
 ```{r xdf_create}
-
+library(MicrosoftML)
 out_xdf <- file.path("..",
                      "data",
                      "housing.xdf")
