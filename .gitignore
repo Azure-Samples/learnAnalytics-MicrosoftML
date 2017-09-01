@@ -6,3 +6,9 @@
 
 ## ignore data files
 *.xdf
+
+## ignore log.txt
+log.txt
+
+## ignore vs directory
+.vs/

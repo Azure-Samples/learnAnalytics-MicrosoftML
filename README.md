@@ -16,7 +16,7 @@ You can download **Microsoft R Client** through the following sources:
 
 1. [R Client for Windows](https://msdn.microsoft.com/en-us/microsoft-r/r-client-install-windows)
 2. [R Client for Linux](https://msdn.microsoft.com/en-us/microsoft-r/r-client-install-linux)
-3. [R Client Docker Image](https://github.com/akzaidi/etc/blob/master/docker-images/mrs-docker/Dockerfile)
+3. [R Client Docker Image](https://github.com/akzaidi/mrclient-docker)
 
 ## MicrosoftML References
 
@@ -31,7 +31,7 @@ You can download **Microsoft R Client** through the following sources:
 
 ## Useful Resources
 
-+ [Introduction to Statistical Learning Video Lectures](http://www.dataschool.io/15-hours-of-expert-machine-learning-videos/)
++ [Introduction to Statistical Learning Video Lectures](https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about)
 	* My favorite course on statistical learning
 	* Worth doing twice!
 + [Introduction to Statistical Learning Textbook](http://www-bcf.usc.edu/~gareth/ISL/)

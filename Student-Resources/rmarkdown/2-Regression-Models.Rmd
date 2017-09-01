@@ -186,4 +186,6 @@ models <- list("btrees" = rxBTrees,
                "forest" = rxDForest)
 models <- foreach(i = models) %dopar% estimate_model(model = i)
 names(models) <- c("btrees", "forest")
+models
+lapply(models, summary)
 ```
