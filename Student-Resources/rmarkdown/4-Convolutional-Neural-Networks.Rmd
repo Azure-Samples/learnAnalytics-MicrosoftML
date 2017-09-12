@@ -76,7 +76,7 @@ Just judging from the label it looks we have already done better than the linear
 
 Convolutional neural networks were popularized by Yann LeCun. In this section, we'll fit his model from 1998, effectionately called [LeNet-5](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf).
 
-The network differs from the previous implementation in that there are now more layers, but in between layers there is a pooling/sampling layer. This helps preventing the neural network from overfitting in between layers and extracting higher-order representations from the data.
+The network differs from the previous implementation in that there are now more layers, but in between layers there is a pooling/sampling layer. This helps preventing the neural network from overfitting in between layers and allows for extracting higher-order representations from the data.
 
 Because this neural network has significantly more weights to learn, it'll take a while longer, especially if we aren't using GPUs (which would give us at least 5-7x speed improvement). If you're especially impatient, you can lower the `numIterations` parameter.
 

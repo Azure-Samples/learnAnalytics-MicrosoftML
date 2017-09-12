@@ -185,3 +185,7 @@ roc_results <- rxRoc(actualVarName = "sentiment", predVarNames = "Probability.1"
 roc_results$predVarName <- factor(roc_results$predVarName)
 plot(roc_results)
 ```
+
+## Exercises
+
+1. The Rscript [Rscripts/9-Other-Sentiment-Datasets.R](../Rscripts/9-Other-Sentiment-Datasets.R) has two additional datasets with reviews and ratings (binarized). Try the above analysis on the other two datasets.
