@@ -196,3 +196,8 @@ names(models) <- c("btrees", "forest")
 models
 lapply(models, summary)
 ```
+
+## Exercise
+
+1. Use the `rxDTree` function to sit a single regression tree to this dataset.
+2. Visualize the fit of your decision tree using the `RevoTreeView` library and it's `createTreeView` and `plot` functions.

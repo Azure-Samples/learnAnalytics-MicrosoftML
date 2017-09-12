@@ -123,3 +123,8 @@ housing %>%
   scale_colour_gradient(low = "yellow", high = "red",
                         labels = scales::dollar)
 ```
+
+## Exercises
+
+1. How does proximity to the ocean effect median house values? Try to visualize housing prices the above using the ocean proximity variable as the colour/fill aesthetic and median_house_value as the size aesthetic.
+2. We saw that faceting could allow us to compare distributions rather easily. Try a facetted plot where you facet by quantiles of the `median_income` column. This will allow you to compare the distribution of housing values, populations/demographics across different income groups. The `dplyr::mutate`, `stats::quntile`, and `ggplot2::facet_wrap` functions should be useful here.
