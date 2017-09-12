@@ -28,6 +28,15 @@ You can download **Microsoft R Client** through the following sources:
 + [MSDN Site for Microsoft R Client](https://msdn.microsoft.com/en-us/microsoft-r/r-client)
 	* [R Client Overview](https://channel9.msdn.com/blogs/MicrosoftR/Microsoft-Introduces-new-free-Microsoft-R-Client)
 
+## Table of Contents
+
+1. [Feature Engineering](https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/1-Feature-Engineering.nb.html)
+2. [Regression Models](http://htmlpreview.github.io/?https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/2-Regression-Models.nb.html)
+3. [Classification Models](http://htmlpreview.github.io/?https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/3-Classification-Models.nb.html)
+4. [Convolutional Neural Networks](http://htmlpreview.github.io/?https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/4-Convolutional-Neural-Networks.nb.html)
+5. [Sentiment Analysis](https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/5-Sentiment-Analysis.nb.html)
+6. [Transfer Learning - The Shallow End of Deep Learning](https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/6-Transfer-Learning.nb.html)
+
 
 ## Useful Resources
 
