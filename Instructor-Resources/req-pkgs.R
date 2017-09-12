@@ -5,9 +5,10 @@ r[["CRAN"]] <- paste0("https://mran.revolutionanalytics.com/snapshot/", mran_dat
 options(repos = r)
 
 ## install CRAN packages
-reg_pkgs <- c("dplyr", "purrr", "tidyr", 
-              "ggplot2", "scales", "magrittr", 
-              "foreach", "readr", 
+reg_pkgs <- c("tidyverse",
+              "scales", 
+              "foreach",
+              "ggrepel",
               "maps", "scales", "foreach", "devtools")
 pks_missing <- reg_pkgs[!(reg_pkgs %in% installed.packages()[, 1])]
 install.packages(c(pks_missing, 'knitr', 'formatR', 'rmarkdown'))

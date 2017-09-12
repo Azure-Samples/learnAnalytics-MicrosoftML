@@ -23,6 +23,9 @@ Our data is taken from the paper __Learning Word Vectors for Sentiment Analysis_
 
 ```{r load_imdb}
 
+library(MicrosoftML)
+library(tidyverse)
+library(d3wordcloud)
 train_xdf <- RxXdfData("../data/imdb-train.xdf")
 test_xdf <- RxXdfData("../data/imdb-test.xdf")
 
@@ -43,26 +46,40 @@ We can do this transform directly in our modeling call, and in particular, we'll
 system.time(logit_model <- rxLogisticRegression(sentiment ~ reviewTran,
                                                 data = train_xdf,
                                                 l1Weight = 0.05,
-                                                l2Weight = 0.05,
-                                                mlTransforms = list(featurizeText(vars = c(reviewTran = "review"),
-                                                                                  language = "English",
-                                                                                  stopwordsRemover = stopwordsDefault(),
-                                                                                  wordFeatureExtractor = ngramCount(3),
-                                                                                  keepNumbers = FALSE,
-                                                                                  keepPunctuations = FALSE)))
-)
+                                                l2Weight = 0.01,
+                                                mlTransforms = 
+                                                  list(featurizeText(
+                                                    vars = c(reviewTran = "review"),
+                                                    language = "English",
+                                                    stopwordsRemover = stopwordsDefault(),
+                                                    wordFeatureExtractor = 
+                                                      ngramCount(ngramLength = 3,
+                                                                 weighting = "tfidf",
+                                                                 maxNumTerms = 1e+09),
+                                                    keepNumbers = FALSE,
+                                                    keepPunctuations = FALSE)
+                                                    )
+                                                )
+            )
 
 
 
 system.time(fast_trees <- rxFastTrees(sentiment ~ reviewTran,
                                        data = train_xdf,
-                                       mlTransforms = list(featurizeText(vars = c(reviewTran = "review"),
-                                                                         language = "English",
-                                                                         stopwordsRemover = stopwordsDefault(),
-                                                                         wordFeatureExtractor = ngramCount(3),
-                                                                         keepNumbers = FALSE,
-                                                                         keepPunctuations = FALSE)))
-)
+                                       mlTransforms = 
+                                                  list(featurizeText(
+                                                    vars = c(reviewTran = "review"),
+                                                    language = "English",
+                                                    stopwordsRemover = stopwordsDefault(),
+                                                    wordFeatureExtractor = 
+                                                      ngramCount(ngramLength = 3,
+                                                                 weighting = "tfidf",
+                                                                 maxNumTerms = 1e+09),
+                                                    keepNumbers = FALSE,
+                                                    keepPunctuations = FALSE)
+                                                    )
+                                      )
+            )
 
 ```
 

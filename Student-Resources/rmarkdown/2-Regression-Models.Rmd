@@ -18,7 +18,14 @@ Let's sample our data into train and test sets. In order to do this efficiently,
 We'll first create a `RxXdfData` object, which is a more efficient and scalable data structure than R `data.frames`. Their primary distinction is that they do not reside in memory, but on-disk.
 
 ```{r xdf_create}
+
+library(tidyverse)
+library(dplyrXdf)
+library(foreach)
+library(doRSR)
 library(MicrosoftML)
+theme_set(theme_minimal())
+
 out_xdf <- file.path("..",
                      "data",
                      "housing.xdf")
@@ -73,8 +80,8 @@ We can start with the a `glm` model. GLMs, short for generalized linear models, 
 ```{r glm}
 
 lin_mod <- rxLinMod(median_house_value ~ housing_median_age + total_rooms + total_bedrooms +
-           population + households + median_income + ocean_proximity,
-         data = splits$train)
+                      population + households + median_income + ocean_proximity,
+                    data = splits$train)
 
 ```
 

@@ -21,11 +21,15 @@ Examine the architecture in "MNIST.nn". In this network, we have two convolution
 
 
 ```{r nnet}
+library(tidyverse)
+library(MicrosoftML)
+theme_set(theme_minimal())
+
 rxNeuralNetFile <- file.path("../nnet/MNIST.nn")
 nn <- readChar(rxNeuralNetFile, file.info(rxNeuralNetFile)$size)
-nnet_fit <- rxNeuralNet(make_form(splits$train, 
-                                           resp_var = "Label", 
-                                           vars_to_skip = c("splitVar")),
+nnet_fit <- rxNeuralNet(make_form(splits$train,
+                                  resp_var = "Label",
+                                  vars_to_skip = c("splitVar")),
                               data = splits$train,
                               type = "multiClass",
                               numIterations = 9,
@@ -231,7 +235,7 @@ metrics_df %>% gather(model, metrics, -digits, -metric) %>%
              y = metrics,
              fill = model)) + 
   geom_bar(stat = 'identity', position = "dodge") + 
-  facet_wrap(~metric)
+  facet_wrap(~metric) + theme_minimal()
 
 ```
 

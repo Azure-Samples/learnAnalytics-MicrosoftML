@@ -16,20 +16,8 @@ editor_options:
 Import your favorite libraries and set up your favorite plotting theme.
 
 ```{r import-libs, message = F}
-library(readr)    # for reading data
-library(dplyr)    # for data manipluation
-library(dplyrXdf) # for RxXdfData dplyr methods
-library(tidyr)    # for data aggregation and spreading
-library(purrr)    # for functionals and closures 
-library(ggplot2)  # for visualizations
-library(maps)     # for maps data
-library(scales)   # for units
-library(magrittr) # for pipes
-library(foreach)  # for parallelization
-library(doRSR)    # register backends
-library(d3wordcloud) # for d3wordclouds
-theme_set(theme_minimal())      # setting up your default theme
-
+library(tidyverse)
+theme_set(theme_minimal())
 ```
 
 Now let's import some data. Our [data source](http://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html) is 1990-census level of housing in California.

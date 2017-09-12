@@ -21,6 +21,12 @@ Let's load the MNIST dataset.
 
 ```{r mnist_load}
 
+library(MicrosoftML)
+library(tidyverse)
+library(magrittr)
+library(dplyrXdf)
+theme_set(theme_minimal())
+
 mnist_xdf <- file.path("..", "data", "MNIST.xdf")
 mnist_xdf <- RxXdfData(mnist_xdf)
 
@@ -43,8 +49,7 @@ Let's make some visualizations to examine the MNIST data and see what we can use
 ```{r mnist_df}
 
 mnist_df <- rxDataStep(inData = mnist_xdf, outFile = NULL,
-                       maxRowsByCols = nrow(mnist_xdf)*ncol(mnist_xdf)) %>% 
-  tbl_df
+                       maxRowsByCols = nrow(mnist_xdf)*ncol(mnist_xdf)) %>% tbl_df
 
 ```
 
@@ -56,7 +61,7 @@ mnist_df %>%
   keep(is.numeric) %>% 
   rowMeans() %>% data.frame(intensity = .) %>% 
   tbl_df %>% 
-  bind_cols(mnist_df) -> mnist_df
+  bind_cols(mnist_df) %T>% print -> mnist_df
 
 ```
 
@@ -109,7 +114,8 @@ mnist_df[11, ] %>%
 ```{r splits}
 
 splits <- rxSplit(mnist_xdf,
-                  splitByFactor = "splitVar")
+                  splitByFactor = "splitVar", 
+                  overwrite = TRUE)
 names(splits) <- c("train", "test")
 
 ```

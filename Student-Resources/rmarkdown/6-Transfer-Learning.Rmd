@@ -1,0 +1,156 @@
+---
+title: "Transfer Learning with Pre-Trained Deep Neural Network Architectures -- The Shallow End of Deep Learning"
+author: "Ali Zaidi"
+date: "2017/09/12"
+output: 
+  html_notebook:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+## Pre-Trained Models
+
+Transfer learning is a pretty incredible method for learning expressive models without having to train a deep architecture from scratch. In some ways, it's nearly a "free-lunch": take a pre-built model trained for weeks on a large image corpus, and reuse the features from that model for your domain-specific task.
+
+`MicrosoftML` ships with a number of pre-trained DNNs on the [ImageNet](http://www.image-net.org/) challenge dataset
+
+```{r pretrainedDNN}
+AlexNetFeatures <- read.csv(system.file(
+  "extdata/ImageAnalyticsTestData/featurizeImage_alexnet_output.csv",
+  package = "MicrosoftML"), 
+  header = FALSE)
+
+ResNet18Features <- read.csv(system.file(
+  "extdata/ImageAnalyticsTestData/featurizeImage_resnet18_output.csv",
+  package = "MicrosoftML"),
+  header = FALSE)
+
+ResNet50Features <- read.csv(system.file(
+  "extdata/ImageAnalyticsTestData/featurizeImage_resnet50_output.csv",
+  package = "MicrosoftML"), 
+  header = FALSE)
+
+ResNet101Features <- read.csv(system.file(
+  "extdata/ImageAnalyticsTestData/featurizeImage_resnet101_output.csv",
+  package = "MicrosoftML"), 
+  header = FALSE)
+
+lapply(list(AlexNetFeatures, ResNet18Features, ResNet50Features, ResNet101Features),
+       dim)
+```
+
+## CMU Faces Dataset
+
+For this notebook, we'll use the [CMU Faces dataset](http://archive.ics.uci.edu/ml/datasets/CMU+Face+Images) compiled by Tom Mitchell and his students way back in 1999.
+
+```{r cmufaces}
+
+
+# get paths to full-resolution images, regex"[[:alpha:]_]+.pgm"
+# see: http://archive.ics.uci.edu/ml/machine-learning-databases/faces-mld/faces.data.html for image resolution info
+# prepare training and testing data, extract labels: left VS right
+l <- "left"
+r <- "right"
+imgs_l <- list.files("../data/faces",
+                     pattern = paste0(l, "[[:alpha:]_]+.pgm"),
+                     recursive = TRUE, full.names = TRUE)
+imgs_r <- list.files("../data/faces",
+                     pattern = paste0(r, "[[:alpha:]_]+.pgm"), 
+                     recursive = TRUE, full.names = TRUE)
+
+l_l <- length(imgs_l)
+l_r <- length(imgs_r)
+
+train_l_l <- ceiling(l_l / 2) #get balanced train and test set, split each class by half
+train_l_r <- ceiling(l_r / 2)
+
+trainIndex_l <- sample(l_l, train_l_l)
+trainIndex_r <- sample(l_r, train_l_r)
+
+train_df <- data.frame(Path = c(imgs_l[trainIndex_l], imgs_r[trainIndex_r]),
+                       Label = c(rep(TRUE, train_l_l), rep(FALSE, train_l_r)),
+                       stringsAsFactors = FALSE)
+
+test_df <- data.frame(Path = c(imgs_l[-trainIndex_l], imgs_r[-trainIndex_r]),
+                      Label = c(rep(TRUE, l_l-train_l_l), rep(FALSE, l_r-train_l_r)),
+                      stringsAsFactors = FALSE)
+
+train_df <- train_df[sample(nrow(train_df)),]
+test_df <- test_df[sample(nrow(test_df)),]
+
+lapply(list(train_df, test_df), dim)
+
+```
+
+## On-the Fly Featurization
+
+We can develop features on-the-fly and embed them into any of the `MicrosoftML` learners. This is especially useful if we want to train on data that is too large to fit in memory, so instead we work in batches.
+
+
+```{r featurizeTransforms}
+
+mlTransform <- list(loadImage(vars = list(Image = "Path")),
+                    resizeImage(vars = "Image", 
+                                width = 224, height = 224, 
+                                resizingOption = "IsoPad"),
+                    extractPixels(vars = list(Pixels = "Image")),
+                    featurizeImage(var = "Pixels", outVar = "Feature", 
+                                   dnnModel = "resnet101"))
+
+model <- rxLogisticRegression(Label ~ Feature, 
+                              data = train_df,
+                              mlTransforms = mlTransform, mlTransformVars = "Path")
+summary(model)
+
+score  <- rxPredict(model, test_df, extraVarsToWrite = "Label")
+sum(score$Label==score$PredictedLabel)/nrow(score)
+rxRocCurve("Label","Probability", score)
+
+```
+
+## Retaining Features
+
+While the above approach is scalable beyond datasets that can fit in memory, it has the drawback of not being reusable. In paricular, we can't "pull-out" the features we trained on our dataset for later use.
+
+If you would like to retain the features you trained on, you can do so by using the `featurizeImage` function in MicrosoftML directly. It is analogous to the `mlTransforms` argumenet above.
+
+```{r featurizeImage}
+rxFeaturize(data = train_df, 
+            outData = "../data/train.xdf", 
+            overwrite = TRUE,
+            mlTransforms = list(loadImage(vars = list(Image = "Path")),
+                                resizeImage(vars = "Image", 
+                                            width = 224, height = 224, 
+                                            resizingOption = "IsoPad"),
+                                extractPixels(vars = list(Pixels = "Image")),
+                                featurizeImage(var = "Pixels", 
+                                               outVar = "Feature", 
+                                               dnnModel = "resnet18")),
+            mlTransformVars = c("Path", "Label")) -> train_xdf
+
+rxFeaturize(data = test_df, outData = "../data/test.xdf", overwrite = TRUE,
+            mlTransforms = list(loadImage(vars = list(Image = "Path")),
+                                resizeImage(vars = "Image", width = 224, height = 224,
+                                            resizingOption = "IsoPad"),
+                                extractPixels(vars = list(Pixels = "Image")),
+                                featurizeImage(var = "Pixels", 
+                                               outVar = "Feature", 
+                                               dnnModel = "resnet18")),
+            mlTransformVars = c("Path", "Label")) -> test_xdf
+
+varInfo <- rxGetVarInfo(train_xdf)
+
+features <- paste("Feature", 0:511, sep=".", collapse = " + ")
+form <- as.formula(paste("Label", features, sep="~"))
+model <- rxLogisticRegression(formula = form, data = train_xdf)
+
+summary(model)
+score <-rxPredict(model, test_xdf, extraVarsToWrite = "Label")
+sum(score$Label==score$PredictedLabel)/nrow(score)
+rxRocCurve("Label","Probability",score)
+```
+
+
