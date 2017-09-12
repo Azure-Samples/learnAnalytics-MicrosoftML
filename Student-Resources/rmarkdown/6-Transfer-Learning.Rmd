@@ -15,7 +15,7 @@ editor_options:
 
 Transfer learning is a pretty incredible method for learning expressive models without having to train a deep architecture from scratch. In some ways, it's nearly a "free-lunch": take a pre-built model trained for weeks on a large image corpus, and reuse the features from that model for your domain-specific task.
 
-`MicrosoftML` ships with a number of pre-trained DNNs on the [ImageNet](http://www.image-net.org/) challenge dataset
+`MicrosoftML` ships with a number of pre-trained DNNs on the [ImageNet](http://www.image-net.org/) challenge dataset.
 
 ```{r pretrainedDNN}
 AlexNetFeatures <- read.csv(system.file(

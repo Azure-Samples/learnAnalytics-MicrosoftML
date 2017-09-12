@@ -190,3 +190,7 @@ label_rates %>%
 
 ```
 
+## Exercises
+
+1. Take a look at David Robinson's [tweet](https://twitter.com/drob/status/869991240099549185) on using a single pixel to distinguish between pairs of digits.
+2. You can find his [gist](https://gist.github.com/dgrtwo/aaef94ecc6a60cd50322c0054cc04478) saved in the [Rscripts directory](../Rscripts/8-drob-just-a-pixel.R).
