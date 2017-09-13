@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with the MicrosoftML Package</title>
+  <meta name="description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with the MicrosoftML Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  <meta name="github-repo" content="Azure/learnAnalytics-MicrosoftML" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with the MicrosoftML Package" />
+  
+  <meta name="twitter:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  
+
+<meta name="author" content="Ali Zaidi">
+
+
+<meta name="date" content="2017-09-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="natural-language-processing.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.2/d3.min.js"></script>
+<script src="libs/d3wordcloud-1/d3.layout.cloud.js"></script>
+<script src="libs/d3wordcloud-binding-0.1/d3wordcloud.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning with MicrosoftML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#microsoftml-references"><i class="fa fa-check"></i><b>1.1</b> MicrosoftML References</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#useful-resources"><i class="fa fa-check"></i><b>1.2</b> Useful Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis and Feature Engineering</a><ul>
+<li class="chapter" data-level="2.1" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#visualize-densities"><i class="fa fa-check"></i><b>2.1</b> Visualize Densities</a></li>
+<li class="chapter" data-level="2.2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#spatial-visualizations"><i class="fa fa-check"></i><b>2.2</b> Spatial Visualizations</a></li>
+<li class="chapter" data-level="2.3" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>3</b> Regression Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="regression-models.html"><a href="regression-models.html#splitting-into-train-and-test-sets"><i class="fa fa-check"></i><b>3.1</b> Splitting into Train and Test Sets</a></li>
+<li class="chapter" data-level="3.2" data-path="regression-models.html"><a href="regression-models.html#training-regression-learners"><i class="fa fa-check"></i><b>3.2</b> Training Regression Learners</a></li>
+<li class="chapter" data-level="3.3" data-path="regression-models.html"><a href="regression-models.html#scoring-our-data-on-the-test-set"><i class="fa fa-check"></i><b>3.3</b> Scoring Our Data on the Test Set</a></li>
+<li class="chapter" data-level="3.4" data-path="regression-models.html"><a href="regression-models.html#training-many-models-concurrently"><i class="fa fa-check"></i><b>3.4</b> Training Many Models Concurrently</a></li>
+<li class="chapter" data-level="3.5" data-path="regression-models.html"><a href="regression-models.html#exercise"><i class="fa fa-check"></i><b>3.5</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html"><i class="fa fa-check"></i><b>4</b> Classification Models for Computer Vision</a><ul>
+<li class="chapter" data-level="4.1" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#hand-written-digit-classifiation"><i class="fa fa-check"></i><b>4.1</b> Hand-Written Digit Classifiation</a></li>
+<li class="chapter" data-level="4.2" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualizing-digits"><i class="fa fa-check"></i><b>4.2</b> Visualizing Digits</a></li>
+<li class="chapter" data-level="4.3" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualize-digits"><i class="fa fa-check"></i><b>4.3</b> Visualize Digits</a></li>
+<li class="chapter" data-level="4.4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#split-the-data-into-train-and-test-sets"><i class="fa fa-check"></i><b>4.4</b> Split the Data into Train and Test Sets</a></li>
+<li class="chapter" data-level="4.5" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#exercises-1"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html"><i class="fa fa-check"></i><b>5</b> Convolutional Neural Networks for Computer Vision</a><ul>
+<li class="chapter" data-level="5.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#lenet-5"><i class="fa fa-check"></i><b>5.1</b> LeNet-5</a></li>
+<li class="chapter" data-level="5.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#model-metrics"><i class="fa fa-check"></i><b>5.2</b> Model Metrics</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#accuracy"><i class="fa fa-check"></i><b>5.2.1</b> Accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#precision"><i class="fa fa-check"></i><b>5.2.2</b> Precision</a></li>
+<li class="chapter" data-level="5.2.3" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#recall"><i class="fa fa-check"></i><b>5.2.3</b> Recall</a></li>
+<li class="chapter" data-level="5.2.4" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#visualzing-our-metrics"><i class="fa fa-check"></i><b>5.2.4</b> Visualzing our Metrics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="natural-language-processing.html"><a href="natural-language-processing.html"><i class="fa fa-check"></i><b>6</b> Natural Language Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#text-classification"><i class="fa fa-check"></i><b>6.1</b> Text Classification</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#imdb-data"><i class="fa fa-check"></i><b>6.1.1</b> IMDB Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#feature-transformers"><i class="fa fa-check"></i><b>6.1.2</b> Feature Transformers</a></li>
+<li class="chapter" data-level="6.1.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-logit-model"><i class="fa fa-check"></i><b>6.1.3</b> Testing the Logit Model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-fast-trees-model"><i class="fa fa-check"></i><b>6.1.4</b> Testing the Fast Trees Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#neural-networks"><i class="fa fa-check"></i><b>6.2</b> Neural Networks</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#scoring-the-neural-net"><i class="fa fa-check"></i><b>6.2.1</b> Scoring the Neural Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#exercises-2"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><i class="fa fa-check"></i><b>7</b> Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#pre-trained-models"><i class="fa fa-check"></i><b>7.1</b> Pre-Trained Models</a></li>
+<li class="chapter" data-level="7.2" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#cmu-faces-dataset"><i class="fa fa-check"></i><b>7.2</b> CMU Faces Dataset</a></li>
+<li class="chapter" data-level="7.3" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#on-the-fly-featurization"><i class="fa fa-check"></i><b>7.3</b> On-the Fly Featurization</a></li>
+<li class="chapter" data-level="7.4" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#retaining-features"><i class="fa fa-check"></i><b>7.4</b> Retaining Features</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/Azure/learnAnalytics-MicrosoftML" target="blank">Ali Zaidi</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with the <code>MicrosoftML</code> Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning</h1>
+<div id="pre-trained-models" class="section level2">
+<h2><span class="header-section-number">7.1</span> Pre-Trained Models</h2>
+<p>Transfer learning is a pretty incredible method for learning expressive models without having to train a deep architecture from scratch. In some ways, it’s nearly a “free-lunch”: take a pre-built model trained for weeks on a large image corpus, and reuse the features from that model for your domain-specific task.</p>
+<p><code>MicrosoftML</code> ships with a number of pre-trained DNNs on the <a href="http://www.image-net.org/">ImageNet</a> challenge dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">AlexNetFeatures &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(
+  <span class="st">&quot;extdata/ImageAnalyticsTestData/featurizeImage_alexnet_output.csv&quot;</span>,
+  <span class="dt">package =</span> <span class="st">&quot;MicrosoftML&quot;</span>), 
+  <span class="dt">header =</span> <span class="ot">FALSE</span>)
+
+ResNet18Features &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(
+  <span class="st">&quot;extdata/ImageAnalyticsTestData/featurizeImage_resnet18_output.csv&quot;</span>,
+  <span class="dt">package =</span> <span class="st">&quot;MicrosoftML&quot;</span>),
+  <span class="dt">header =</span> <span class="ot">FALSE</span>)
+
+ResNet50Features &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(
+  <span class="st">&quot;extdata/ImageAnalyticsTestData/featurizeImage_resnet50_output.csv&quot;</span>,
+  <span class="dt">package =</span> <span class="st">&quot;MicrosoftML&quot;</span>), 
+  <span class="dt">header =</span> <span class="ot">FALSE</span>)
+
+ResNet101Features &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(
+  <span class="st">&quot;extdata/ImageAnalyticsTestData/featurizeImage_resnet101_output.csv&quot;</span>,
+  <span class="dt">package =</span> <span class="st">&quot;MicrosoftML&quot;</span>), 
+  <span class="dt">header =</span> <span class="ot">FALSE</span>)
+
+<span class="kw">lapply</span>(<span class="kw">list</span>(AlexNetFeatures, ResNet18Features, ResNet50Features, ResNet101Features),
+       dim)</code></pre></div>
+<pre><code>## [[1]]
+## [1]    2 4097
+## 
+## [[2]]
+## [1]   2 513
+## 
+## [[3]]
+## [1]    2 2049
+## 
+## [[4]]
+## [1]    2 2049</code></pre>
+</div>
+<div id="cmu-faces-dataset" class="section level2">
+<h2><span class="header-section-number">7.2</span> CMU Faces Dataset</h2>
+<p>For this notebook, we’ll use the <a href="http://archive.ics.uci.edu/ml/datasets/CMU+Face+Images">CMU Faces dataset</a> compiled by Tom Mitchell and his students way back in 1999.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get paths to full-resolution images, regex&quot;[[:alpha:]_]+.pgm&quot;</span>
+<span class="co"># see: http://archive.ics.uci.edu/ml/machine-learning-databases/faces-mld/faces.data.html for image resolution info</span>
+<span class="co"># prepare training and testing data, extract labels: left VS right</span>
+l &lt;-<span class="st"> &quot;left&quot;</span>
+r &lt;-<span class="st"> &quot;right&quot;</span>
+imgs_l &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;data/faces&quot;</span>,
+                     <span class="dt">pattern =</span> <span class="kw">paste0</span>(l, <span class="st">&quot;[[:alpha:]_]+.pgm&quot;</span>),
+                     <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)
+imgs_r &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;data/faces&quot;</span>,
+                     <span class="dt">pattern =</span> <span class="kw">paste0</span>(r, <span class="st">&quot;[[:alpha:]_]+.pgm&quot;</span>), 
+                     <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)
+
+l_l &lt;-<span class="st"> </span><span class="kw">length</span>(imgs_l)
+l_r &lt;-<span class="st"> </span><span class="kw">length</span>(imgs_r)
+
+train_l_l &lt;-<span class="st"> </span><span class="kw">ceiling</span>(l_l <span class="op">/</span><span class="st"> </span><span class="dv">2</span>) <span class="co">#get balanced train and test set, split each class by half</span>
+train_l_r &lt;-<span class="st"> </span><span class="kw">ceiling</span>(l_r <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)
+
+trainIndex_l &lt;-<span class="st"> </span><span class="kw">sample</span>(l_l, train_l_l)
+trainIndex_r &lt;-<span class="st"> </span><span class="kw">sample</span>(l_r, train_l_r)
+
+train_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Path =</span> <span class="kw">c</span>(imgs_l[trainIndex_l], imgs_r[trainIndex_r]),
+                       <span class="dt">Label =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>, train_l_l), <span class="kw">rep</span>(<span class="ot">FALSE</span>, train_l_r)),
+                       <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+
+test_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Path =</span> <span class="kw">c</span>(imgs_l[<span class="op">-</span>trainIndex_l], imgs_r[<span class="op">-</span>trainIndex_r]),
+                      <span class="dt">Label =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>, l_l<span class="op">-</span>train_l_l), <span class="kw">rep</span>(<span class="ot">FALSE</span>, l_r<span class="op">-</span>train_l_r)),
+                      <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+
+train_df &lt;-<span class="st"> </span>train_df[<span class="kw">sample</span>(<span class="kw">nrow</span>(train_df)),]
+test_df &lt;-<span class="st"> </span>test_df[<span class="kw">sample</span>(<span class="kw">nrow</span>(test_df)),]
+
+<span class="kw">lapply</span>(<span class="kw">list</span>(train_df, test_df), dim)</code></pre></div>
+<pre><code>## [[1]]
+## [1] 157   2
+## 
+## [[2]]
+## [1] 155   2</code></pre>
+</div>
+<div id="on-the-fly-featurization" class="section level2">
+<h2><span class="header-section-number">7.3</span> On-the Fly Featurization</h2>
+<p>We can develop features on-the-fly and embed them into any of the <code>MicrosoftML</code> learners. This is especially useful if we want to train on data that is too large to fit in memory, so instead we work in batches.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mlTransform &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">loadImage</span>(<span class="dt">vars =</span> <span class="kw">list</span>(<span class="dt">Image =</span> <span class="st">&quot;Path&quot;</span>)),
+                    <span class="kw">resizeImage</span>(<span class="dt">vars =</span> <span class="st">&quot;Image&quot;</span>, 
+                                <span class="dt">width =</span> <span class="dv">224</span>, <span class="dt">height =</span> <span class="dv">224</span>, 
+                                <span class="dt">resizingOption =</span> <span class="st">&quot;IsoPad&quot;</span>),
+                    <span class="kw">extractPixels</span>(<span class="dt">vars =</span> <span class="kw">list</span>(<span class="dt">Pixels =</span> <span class="st">&quot;Image&quot;</span>)),
+                    <span class="kw">featurizeImage</span>(<span class="dt">var =</span> <span class="st">&quot;Pixels&quot;</span>, <span class="dt">outVar =</span> <span class="st">&quot;Feature&quot;</span>, 
+                                   <span class="dt">dnnModel =</span> <span class="st">&quot;resnet101&quot;</span>))
+
+model &lt;-<span class="st"> </span><span class="kw">rxLogisticRegression</span>(Label <span class="op">~</span><span class="st"> </span>Feature, 
+                              <span class="dt">data =</span> train_df,
+                              <span class="dt">mlTransforms =</span> mlTransform, <span class="dt">mlTransformVars =</span> <span class="st">&quot;Path&quot;</span>)</code></pre></div>
+<pre><code>## Automatically adding a MinMax normalization transform, use &#39;norm=Warn&#39; or &#39;norm=No&#39; to turn this behavior off.
+## LBFGS multi-threading will attempt to load dataset into memory. In case of out-of-memory issues, turn off multi-threading by setting trainThreads to 1.
+## Warning: Too few instances to use 32 threads, decreasing to 1 thread(s)
+## Beginning optimization
+## num vars: 2049
+## improvement criterion: Mean Improvement
+## L1 regularization selected 144 of 2049 weights.
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:04:18.1299345
+## Elapsed time: 00:00:00.0076987</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model)</code></pre></div>
+<pre><code>## Call:
+## rxLogisticRegression(formula = Label ~ Feature, data = train_df, 
+##     mlTransforms = mlTransform, mlTransformVars = &quot;Path&quot;)
+## 
+## LogisticRegression (BinaryClassifierTrainer) for: Label~Feature
+## Data: train_df 
+## 
+## 
+## First 20 of 144 Non-zero Coefficients:
+## (Bias): 0.2561404
+## f765: 0.9757374
+## f1789: -0.8494654
+## f1752: -0.7844995
+## f396: 0.6964862
+## f1837: -0.6718948
+## f1496: -0.614819
+## f1173: 0.614722
+## f530: -0.6073583
+## f78: 0.5863273
+## f851: 0.5443665
+## f39: -0.5386707
+## f1961: -0.5299587
+## f1409: -0.4981045
+## f529: 0.4914077
+## f573: 0.4909203
+## f619: -0.4871628
+## f2011: 0.4459811
+## f779: -0.4267508
+## f596: 0.4123578</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">score  &lt;-<span class="st"> </span><span class="kw">rxPredict</span>(model, test_df, <span class="dt">extraVarsToWrite =</span> <span class="st">&quot;Label&quot;</span>)</code></pre></div>
+<pre><code>## Elapsed time: 00:04:20.7192206</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(score<span class="op">$</span>Label<span class="op">==</span>score<span class="op">$</span>PredictedLabel)<span class="op">/</span><span class="kw">nrow</span>(score)</code></pre></div>
+<pre><code>## [1] 0.9612903</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxRocCurve</span>(<span class="st">&quot;Label&quot;</span>,<span class="st">&quot;Probability&quot;</span>, score)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/featurizeTransforms-1.png" width="672" /></p>
+</div>
+<div id="retaining-features" class="section level2">
+<h2><span class="header-section-number">7.4</span> Retaining Features</h2>
+<p>While the above approach is scalable beyond datasets that can fit in memory, it has the drawback of not being reusable. In paricular, we can’t “pull-out” the features we trained on our dataset for later use.</p>
+<p>If you would like to retain the features you trained on, you can do so by using the <code>featurizeImage</code> function in MicrosoftML directly. It is analogous to the <code>mlTransforms</code> argumenet above.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxFeaturize</span>(<span class="dt">data =</span> train_df, 
+            <span class="dt">outData =</span> <span class="st">&quot;data/train.xdf&quot;</span>, 
+            <span class="dt">overwrite =</span> <span class="ot">TRUE</span>,
+            <span class="dt">mlTransforms =</span> <span class="kw">list</span>(<span class="kw">loadImage</span>(<span class="dt">vars =</span> <span class="kw">list</span>(<span class="dt">Image =</span> <span class="st">&quot;Path&quot;</span>)),
+                                <span class="kw">resizeImage</span>(<span class="dt">vars =</span> <span class="st">&quot;Image&quot;</span>, 
+                                            <span class="dt">width =</span> <span class="dv">224</span>, <span class="dt">height =</span> <span class="dv">224</span>, 
+                                            <span class="dt">resizingOption =</span> <span class="st">&quot;IsoPad&quot;</span>),
+                                <span class="kw">extractPixels</span>(<span class="dt">vars =</span> <span class="kw">list</span>(<span class="dt">Pixels =</span> <span class="st">&quot;Image&quot;</span>)),
+                                <span class="kw">featurizeImage</span>(<span class="dt">var =</span> <span class="st">&quot;Pixels&quot;</span>, 
+                                               <span class="dt">outVar =</span> <span class="st">&quot;Feature&quot;</span>, 
+                                               <span class="dt">dnnModel =</span> <span class="st">&quot;resnet18&quot;</span>)),
+            <span class="dt">mlTransformVars =</span> <span class="kw">c</span>(<span class="st">&quot;Path&quot;</span>, <span class="st">&quot;Label&quot;</span>)) -&gt;<span class="st"> </span>train_xdf</code></pre></div>
+<pre><code>## Elapsed time: 00:00:22.4899601</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxFeaturize</span>(<span class="dt">data =</span> test_df, <span class="dt">outData =</span> <span class="st">&quot;data/test.xdf&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>,
+            <span class="dt">mlTransforms =</span> <span class="kw">list</span>(<span class="kw">loadImage</span>(<span class="dt">vars =</span> <span class="kw">list</span>(<span class="dt">Image =</span> <span class="st">&quot;Path&quot;</span>)),
+                                <span class="kw">resizeImage</span>(<span class="dt">vars =</span> <span class="st">&quot;Image&quot;</span>, <span class="dt">width =</span> <span class="dv">224</span>, <span class="dt">height =</span> <span class="dv">224</span>,
+                                            <span class="dt">resizingOption =</span> <span class="st">&quot;IsoPad&quot;</span>),
+                                <span class="kw">extractPixels</span>(<span class="dt">vars =</span> <span class="kw">list</span>(<span class="dt">Pixels =</span> <span class="st">&quot;Image&quot;</span>)),
+                                <span class="kw">featurizeImage</span>(<span class="dt">var =</span> <span class="st">&quot;Pixels&quot;</span>, 
+                                               <span class="dt">outVar =</span> <span class="st">&quot;Feature&quot;</span>, 
+                                               <span class="dt">dnnModel =</span> <span class="st">&quot;resnet18&quot;</span>)),
+            <span class="dt">mlTransformVars =</span> <span class="kw">c</span>(<span class="st">&quot;Path&quot;</span>, <span class="st">&quot;Label&quot;</span>)) -&gt;<span class="st"> </span>test_xdf</code></pre></div>
+<pre><code>## Elapsed time: 00:00:21.9257951</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">varInfo &lt;-<span class="st"> </span><span class="kw">rxGetVarInfo</span>(train_xdf)
+
+features &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Feature&quot;</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">511</span>, <span class="dt">sep=</span><span class="st">&quot;.&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>)
+form &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">paste</span>(<span class="st">&quot;Label&quot;</span>, features, <span class="dt">sep=</span><span class="st">&quot;~&quot;</span>))
+model &lt;-<span class="st"> </span><span class="kw">rxLogisticRegression</span>(<span class="dt">formula =</span> form, <span class="dt">data =</span> train_xdf)</code></pre></div>
+<pre><code>## Automatically adding a MinMax normalization transform, use &#39;norm=Warn&#39; or &#39;norm=No&#39; to turn this behavior off.
+## LBFGS multi-threading will attempt to load dataset into memory. In case of out-of-memory issues, turn off multi-threading by setting trainThreads to 1.
+## Warning: Too few instances to use 32 threads, decreasing to 1 thread(s)
+## Beginning optimization
+## num vars: 513
+## improvement criterion: Mean Improvement
+## L1 regularization selected 97 of 513 weights.
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:00:00.6764841
+## Elapsed time: 00:00:00.0022477</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model)</code></pre></div>
+<pre><code>## Call:
+## rxLogisticRegression(formula = form, data = train_xdf)
+## 
+## LogisticRegression (BinaryClassifierTrainer) for: Label~Feature.0+Feature.1+Feature.2+Feature.3+Feature.4+Feature.5+Feature.6+Feature.7+Feature.8+Feature.9+Feature.10+Feature.11+Feature.12+Feature.13+Feature.14+Feature.15+Feature.16+Feature.17+Feature.18+Feature.19+Feature.20+Feature.21+Feature.22+Feature.23+Feature.24+Feature.25+Feature.26+Feature.27+Feature.28+Feature.29+Feature.30+Feature.31+Feature.32+Feature.33+Feature.34+Feature.35+Feature.36+Feature.37+Feature.38+Feature.39+Feature.40+Feature.41+Feature.42+Feature.43+Feature.44+Feature.45+Feature.46+Feature.47+Feature.48+Feature.49+Feature.50+Feature.51+Feature.52+Feature.53+Feature.54+Feature.55+Feature.56+Feature.57+Feature.58+Feature.59+Feature.60+Feature.61+Feature.62+Feature.63+Feature.64+Feature.65+Feature.66+Feature.67+Feature.68+Feature.69+Feature.70+Feature.71+Feature.72+Feature.73+Feature.74+Feature.75+Feature.76+Feature.77+Feature.78+Feature.79+Feature.80+Feature.81+Feature.82+Feature.83+Feature.84+Feature.85+Feature.86+Feature.87+Feature.88+Feature.89+Feature.90+Feature.91+Feature.92+Feature.93+Feature.94+Feature.95+Feature.96+Feature.97+Feature.98+Feature.99+Feature.100+Feature.101+Feature.102+Feature.103+Feature.104+Feature.105+Feature.106+Feature.107+Feature.108+Feature.109+Feature.110+Feature.111+Feature.112+Feature.113+Feature.114+Feature.115+Feature.116+Feature.117+Feature.118+Feature.119+Feature.120+Feature.121+Feature.122+Feature.123+Feature.124+Feature.125+Feature.126+Feature.127+Feature.128+Feature.129+Feature.130+Feature.131+Feature.132+Feature.133+Feature.134+Feature.135+Feature.136+Feature.137+Feature.138+Feature.139+Feature.140+Feature.141+Feature.142+Feature.143+Feature.144+Feature.145+Feature.146+Feature.147+Feature.148+Feature.149+Feature.150+Feature.151+Feature.152+Feature.153+Feature.154+Feature.155+Feature.156+Feature.157+Feature.158+Feature.159+Feature.160+Feature.161+Feature.162+Feature.163+Feature.164+Feature.165+Feature.166+Feature.167+Feature.168+Feature.169+Feature.170+Feature.171+Feature.172+Feature.173+Feature.174+Feature.175+Feature.176+Feature.177+Feature.178+Feature.179+Feature.180+Feature.181+Feature.182+Feature.183+Feature.184+Feature.185+Feature.186+Feature.187+Feature.188+Feature.189+Feature.190+Feature.191+Feature.192+Feature.193+Feature.194+Feature.195+Feature.196+Feature.197+Feature.198+Feature.199+Feature.200+Feature.201+Feature.202+Feature.203+Feature.204+Feature.205+Feature.206+Feature.207+Feature.208+Feature.209+Feature.210+Feature.211+Feature.212+Feature.213+Feature.214+Feature.215+Feature.216+Feature.217+Feature.218+Feature.219+Feature.220+Feature.221+Feature.222+Feature.223+Feature.224+Feature.225+Feature.226+Feature.227+Feature.228+Feature.229+Feature.230+Feature.231+Feature.232+Feature.233+Feature.234+Feature.235+Feature.236+Feature.237+Feature.238+Feature.239+Feature.240+Feature.241+Feature.242+Feature.243+Feature.244+Feature.245+Feature.246+Feature.247+Feature.248+Feature.249+Feature.250+Feature.251+Feature.252+Feature.253+Feature.254+Feature.255+Feature.256+Feature.257+Feature.258+Feature.259+Feature.260+Feature.261+Feature.262+Feature.263+Feature.264+Feature.265+Feature.266+Feature.267+Feature.268+Feature.269+Feature.270+Feature.271+Feature.272+Feature.273+Feature.274+Feature.275+Feature.276+Feature.277+Feature.278+Feature.279+Feature.280+Feature.281+Feature.282+Feature.283+Feature.284+Feature.285+Feature.286+Feature.287+Feature.288+Feature.289+Feature.290+Feature.291+Feature.292+Feature.293+Feature.294+Feature.295+Feature.296+Feature.297+Feature.298+Feature.299+Feature.300+Feature.301+Feature.302+Feature.303+Feature.304+Feature.305+Feature.306+Feature.307+Feature.308+Feature.309+Feature.310+Feature.311+Feature.312+Feature.313+Feature.314+Feature.315+Feature.316+Feature.317+Feature.318+Feature.319+Feature.320+Feature.321+Feature.322+Feature.323+Feature.324+Feature.325+Feature.326+Feature.327+Feature.328+Feature.329+Feature.330+Feature.331+Feature.332+Feature.333+Feature.334+Feature.335+Feature.336+Feature.337+Feature.338+Feature.339+Feature.340+Feature.341+Feature.342+Feature.343+Feature.344+Feature.345+Feature.346+Feature.347+Feature.348+Feature.349+Feature.350+Feature.351+Feature.352+Feature.353+Feature.354+Feature.355+Feature.356+Feature.357+Feature.358+Feature.359+Feature.360+Feature.361+Feature.362+Feature.363+Feature.364+Feature.365+Feature.366+Feature.367+Feature.368+Feature.369+Feature.370+Feature.371+Feature.372+Feature.373+Feature.374+Feature.375+Feature.376+Feature.377+Feature.378+Feature.379+Feature.380+Feature.381+Feature.382+Feature.383+Feature.384+Feature.385+Feature.386+Feature.387+Feature.388+Feature.389+Feature.390+Feature.391+Feature.392+Feature.393+Feature.394+Feature.395+Feature.396+Feature.397+Feature.398+Feature.399+Feature.400+Feature.401+Feature.402+Feature.403+Feature.404+Feature.405+Feature.406+Feature.407+Feature.408+Feature.409+Feature.410+Feature.411+Feature.412+Feature.413+Feature.414+Feature.415+Feature.416+Feature.417+Feature.418+Feature.419+Feature.420+Feature.421+Feature.422+Feature.423+Feature.424+Feature.425+Feature.426+Feature.427+Feature.428+Feature.429+Feature.430+Feature.431+Feature.432+Feature.433+Feature.434+Feature.435+Feature.436+Feature.437+Feature.438+Feature.439+Feature.440+Feature.441+Feature.442+Feature.443+Feature.444+Feature.445+Feature.446+Feature.447+Feature.448+Feature.449+Feature.450+Feature.451+Feature.452+Feature.453+Feature.454+Feature.455+Feature.456+Feature.457+Feature.458+Feature.459+Feature.460+Feature.461+Feature.462+Feature.463+Feature.464+Feature.465+Feature.466+Feature.467+Feature.468+Feature.469+Feature.470+Feature.471+Feature.472+Feature.473+Feature.474+Feature.475+Feature.476+Feature.477+Feature.478+Feature.479+Feature.480+Feature.481+Feature.482+Feature.483+Feature.484+Feature.485+Feature.486+Feature.487+Feature.488+Feature.489+Feature.490+Feature.491+Feature.492+Feature.493+Feature.494+Feature.495+Feature.496+Feature.497+Feature.498+Feature.499+Feature.500+Feature.501+Feature.502+Feature.503+Feature.504+Feature.505+Feature.506+Feature.507+Feature.508+Feature.509+Feature.510+Feature.511
+## Data: train_xdf (RxXdfData Data Source)
+## File name: data/train.xdf 
+## 
+## 
+## First 20 of 97 Non-zero Coefficients:
+## (Bias): 0.2091156
+## Feature.487: -1.327465
+## Feature.431: 0.9092103
+## Feature.460: -0.8586729
+## Feature.157: 0.7992205
+## Feature.47: -0.7986112
+## Feature.511: -0.6897881
+## Feature.315: -0.6197985
+## Feature.270: 0.6049663
+## Feature.233: -0.5948368
+## Feature.62: 0.5754997
+## Feature.456: 0.56534
+## Feature.293: 0.5637971
+## Feature.269: -0.5151423
+## Feature.441: -0.493934
+## Feature.88: 0.483808
+## Feature.406: -0.4684003
+## Feature.93: 0.465048
+## Feature.145: -0.4564239
+## Feature.224: -0.4489715</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">score &lt;-<span class="kw">rxPredict</span>(model, test_xdf, <span class="dt">extraVarsToWrite =</span> <span class="st">&quot;Label&quot;</span>)</code></pre></div>
+<pre><code>## Elapsed time: 00:00:00.1704341</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(score<span class="op">$</span>Label<span class="op">==</span>score<span class="op">$</span>PredictedLabel)<span class="op">/</span><span class="kw">nrow</span>(score)</code></pre></div>
+<pre><code>## [1] 0.9870968</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxRocCurve</span>(<span class="st">&quot;Label&quot;</span>,<span class="st">&quot;Probability&quot;</span>,score)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/featurizeImage-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="natural-language-processing.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Azure/learnAnalytics-MicrosoftML/edit/master/6-Transfer-Learning.Rmd",
+"text": "Edit"
+},
+"download": ["mml-tutorial.pdf", "mml-tutorial.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

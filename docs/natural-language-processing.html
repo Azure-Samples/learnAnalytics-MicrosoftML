@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with the MicrosoftML Package</title>
+  <meta name="description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with the MicrosoftML Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  <meta name="github-repo" content="Azure/learnAnalytics-MicrosoftML" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with the MicrosoftML Package" />
+  
+  <meta name="twitter:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  
+
+<meta name="author" content="Ali Zaidi">
+
+
+<meta name="date" content="2017-09-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="convolutional-neural-networks-for-computer-vision.html">
+<link rel="next" href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.2/d3.min.js"></script>
+<script src="libs/d3wordcloud-1/d3.layout.cloud.js"></script>
+<script src="libs/d3wordcloud-binding-0.1/d3wordcloud.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning with MicrosoftML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#microsoftml-references"><i class="fa fa-check"></i><b>1.1</b> MicrosoftML References</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#useful-resources"><i class="fa fa-check"></i><b>1.2</b> Useful Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis and Feature Engineering</a><ul>
+<li class="chapter" data-level="2.1" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#visualize-densities"><i class="fa fa-check"></i><b>2.1</b> Visualize Densities</a></li>
+<li class="chapter" data-level="2.2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#spatial-visualizations"><i class="fa fa-check"></i><b>2.2</b> Spatial Visualizations</a></li>
+<li class="chapter" data-level="2.3" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>3</b> Regression Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="regression-models.html"><a href="regression-models.html#splitting-into-train-and-test-sets"><i class="fa fa-check"></i><b>3.1</b> Splitting into Train and Test Sets</a></li>
+<li class="chapter" data-level="3.2" data-path="regression-models.html"><a href="regression-models.html#training-regression-learners"><i class="fa fa-check"></i><b>3.2</b> Training Regression Learners</a></li>
+<li class="chapter" data-level="3.3" data-path="regression-models.html"><a href="regression-models.html#scoring-our-data-on-the-test-set"><i class="fa fa-check"></i><b>3.3</b> Scoring Our Data on the Test Set</a></li>
+<li class="chapter" data-level="3.4" data-path="regression-models.html"><a href="regression-models.html#training-many-models-concurrently"><i class="fa fa-check"></i><b>3.4</b> Training Many Models Concurrently</a></li>
+<li class="chapter" data-level="3.5" data-path="regression-models.html"><a href="regression-models.html#exercise"><i class="fa fa-check"></i><b>3.5</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html"><i class="fa fa-check"></i><b>4</b> Classification Models for Computer Vision</a><ul>
+<li class="chapter" data-level="4.1" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#hand-written-digit-classifiation"><i class="fa fa-check"></i><b>4.1</b> Hand-Written Digit Classifiation</a></li>
+<li class="chapter" data-level="4.2" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualizing-digits"><i class="fa fa-check"></i><b>4.2</b> Visualizing Digits</a></li>
+<li class="chapter" data-level="4.3" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualize-digits"><i class="fa fa-check"></i><b>4.3</b> Visualize Digits</a></li>
+<li class="chapter" data-level="4.4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#split-the-data-into-train-and-test-sets"><i class="fa fa-check"></i><b>4.4</b> Split the Data into Train and Test Sets</a></li>
+<li class="chapter" data-level="4.5" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#exercises-1"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html"><i class="fa fa-check"></i><b>5</b> Convolutional Neural Networks for Computer Vision</a><ul>
+<li class="chapter" data-level="5.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#lenet-5"><i class="fa fa-check"></i><b>5.1</b> LeNet-5</a></li>
+<li class="chapter" data-level="5.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#model-metrics"><i class="fa fa-check"></i><b>5.2</b> Model Metrics</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#accuracy"><i class="fa fa-check"></i><b>5.2.1</b> Accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#precision"><i class="fa fa-check"></i><b>5.2.2</b> Precision</a></li>
+<li class="chapter" data-level="5.2.3" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#recall"><i class="fa fa-check"></i><b>5.2.3</b> Recall</a></li>
+<li class="chapter" data-level="5.2.4" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#visualzing-our-metrics"><i class="fa fa-check"></i><b>5.2.4</b> Visualzing our Metrics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="natural-language-processing.html"><a href="natural-language-processing.html"><i class="fa fa-check"></i><b>6</b> Natural Language Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#text-classification"><i class="fa fa-check"></i><b>6.1</b> Text Classification</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#imdb-data"><i class="fa fa-check"></i><b>6.1.1</b> IMDB Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#feature-transformers"><i class="fa fa-check"></i><b>6.1.2</b> Feature Transformers</a></li>
+<li class="chapter" data-level="6.1.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-logit-model"><i class="fa fa-check"></i><b>6.1.3</b> Testing the Logit Model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-fast-trees-model"><i class="fa fa-check"></i><b>6.1.4</b> Testing the Fast Trees Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#neural-networks"><i class="fa fa-check"></i><b>6.2</b> Neural Networks</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#scoring-the-neural-net"><i class="fa fa-check"></i><b>6.2.1</b> Scoring the Neural Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#exercises-2"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><i class="fa fa-check"></i><b>7</b> Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#pre-trained-models"><i class="fa fa-check"></i><b>7.1</b> Pre-Trained Models</a></li>
+<li class="chapter" data-level="7.2" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#cmu-faces-dataset"><i class="fa fa-check"></i><b>7.2</b> CMU Faces Dataset</a></li>
+<li class="chapter" data-level="7.3" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#on-the-fly-featurization"><i class="fa fa-check"></i><b>7.3</b> On-the Fly Featurization</a></li>
+<li class="chapter" data-level="7.4" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#retaining-features"><i class="fa fa-check"></i><b>7.4</b> Retaining Features</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/Azure/learnAnalytics-MicrosoftML" target="blank">Ali Zaidi</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with the <code>MicrosoftML</code> Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="natural-language-processing" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Natural Language Processing</h1>
+<div id="text-classification" class="section level2">
+<h2><span class="header-section-number">6.1</span> Text Classification</h2>
+<p>Let’s take a look at using <code>MML</code> to estimate a model that would be very hard to do with <code>RevoScaleR</code>.</p>
+<p>In particular, there are virtually no functionality in <code>RevoScaleR</code> for handling large text data. We will use <code>MML</code> to transform text data into useful features that we can use in a logistic regression learner. In order to deal with the high cardinality of text data, we will use the penalized regression models in <code>MML</code>.</p>
+<div id="imdb-data" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> IMDB Data</h3>
+<p>Our data is taken from the paper <strong>Learning Word Vectors for Sentiment Analysis</strong> written in 2011 by Andrew L. Maas, Raymond E. Daly, Peter T. Pham, Dan Huang, Andrew Y. Ng, and Christopher Potts. The paper and data are available here: <a href="http://ai.stanford.edu/~amaas/data/sentiment/" class="uri">http://ai.stanford.edu/~amaas/data/sentiment/</a>. I’ve already downloaded and converted the data into an XDF. Please see the <code>1-ingest-data.R</code> script if you are interested in the ingestion process.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MicrosoftML)
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(d3wordcloud)
+train_xdf &lt;-<span class="st"> </span><span class="kw">RxXdfData</span>(<span class="st">&quot;data/imdb-train.xdf&quot;</span>)
+test_xdf &lt;-<span class="st"> </span><span class="kw">RxXdfData</span>(<span class="st">&quot;data/imdb-test.xdf&quot;</span>)</code></pre></div>
+</div>
+<div id="feature-transformers" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Feature Transformers</h3>
+<p>MicrosoftML has a set of functions for feature engineering. In this example, let’s take a look at creating sparse word vectors.</p>
+<p>We’ll use the <code>featurizeText</code> function to convert our text data into numeric columns. In particular, we’ll ask for new columns with tri-grams after removing stopwords, punctuations, and numbers.</p>
+<p>We can do this transform directly in our modeling call, and in particular, we’ll train logistic regression models and a fast gradient boosted tree model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(logit_model &lt;-<span class="st"> </span><span class="kw">rxLogisticRegression</span>(sentiment <span class="op">~</span><span class="st"> </span>reviewTran,
+                                                <span class="dt">data =</span> train_xdf,
+                                                <span class="dt">l1Weight =</span> <span class="fl">0.05</span>,
+                                                <span class="dt">l2Weight =</span> <span class="fl">0.01</span>,
+                                                <span class="dt">mlTransforms =</span> 
+                                                  <span class="kw">list</span>(<span class="kw">featurizeText</span>(
+                                                    <span class="dt">vars =</span> <span class="kw">c</span>(<span class="dt">reviewTran =</span> <span class="st">&quot;review&quot;</span>),
+                                                    <span class="dt">language =</span> <span class="st">&quot;English&quot;</span>,
+                                                    <span class="dt">stopwordsRemover =</span> <span class="kw">stopwordsDefault</span>(),
+                                                    <span class="dt">wordFeatureExtractor =</span> 
+                                                      <span class="kw">ngramCount</span>(<span class="dt">ngramLength =</span> <span class="dv">3</span>,
+                                                                 <span class="dt">weighting =</span> <span class="st">&quot;tfidf&quot;</span>,
+                                                                 <span class="dt">maxNumTerms =</span> <span class="fl">1e+09</span>),
+                                                    <span class="dt">keepNumbers =</span> <span class="ot">FALSE</span>,
+                                                    <span class="dt">keepPunctuations =</span> <span class="ot">FALSE</span>)
+                                                    )
+                                                )
+            )</code></pre></div>
+<pre><code>## Not adding a normalizer.
+## Automatically converting column &#39;sentiment&#39; into a factor.
+## LBFGS multi-threading will attempt to load dataset into memory. In case of out-of-memory issues, turn off multi-threading by setting trainThreads to 1.
+## Beginning optimization
+## num vars: 4308438
+## improvement criterion: Mean Improvement
+## L1 regularization selected 28533 of 4308438 weights.
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:02:54.4185154
+## Elapsed time: 00:00:54.5115498</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.188   0.120 229.921</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(fast_trees &lt;-<span class="st"> </span><span class="kw">rxFastTrees</span>(sentiment <span class="op">~</span><span class="st"> </span>reviewTran,
+                                       <span class="dt">data =</span> train_xdf,
+                                       <span class="dt">mlTransforms =</span> 
+                                                  <span class="kw">list</span>(<span class="kw">featurizeText</span>(
+                                                    <span class="dt">vars =</span> <span class="kw">c</span>(<span class="dt">reviewTran =</span> <span class="st">&quot;review&quot;</span>),
+                                                    <span class="dt">language =</span> <span class="st">&quot;English&quot;</span>,
+                                                    <span class="dt">stopwordsRemover =</span> <span class="kw">stopwordsDefault</span>(),
+                                                    <span class="dt">wordFeatureExtractor =</span> 
+                                                      <span class="kw">ngramCount</span>(<span class="dt">ngramLength =</span> <span class="dv">3</span>,
+                                                                 <span class="dt">weighting =</span> <span class="st">&quot;tfidf&quot;</span>,
+                                                                 <span class="dt">maxNumTerms =</span> <span class="fl">1e+09</span>),
+                                                    <span class="dt">keepNumbers =</span> <span class="ot">FALSE</span>,
+                                                    <span class="dt">keepPunctuations =</span> <span class="ot">FALSE</span>)
+                                                    )
+                                      )
+            )</code></pre></div>
+<pre><code>## Not adding a normalizer.
+## Automatically converting column &#39;sentiment&#39; into a factor.
+## Making per-feature arrays
+## Changing data from row-wise to column-wise
+## Processed 25000 instances
+## Binning and forming Feature objects
+## Reserved memory for tree learner: 304827068 bytes
+## Starting to train ...
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:01:10.5571151</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.056   0.044  70.767</code></pre>
+<p>Now that we have our trained model, we can do some visualizations. For example, for the elastic net, we can visualize the coefficients.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit_cof &lt;-<span class="st"> </span><span class="kw">coefficients</span>(logit_model)
+coefs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">coef =</span> logit_cof, <span class="dt">word =</span> <span class="kw">names</span>(logit_cof))
+coefs &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(coefs)
+
+coefs &lt;-<span class="st"> </span>coefs <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(word <span class="op">!=</span><span class="st"> &quot;(Bias)&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">abs_value =</span> <span class="kw">abs</span>(coef), 
+         <span class="dt">sentiment =</span> <span class="kw">ifelse</span>(coef <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;Positive&quot;</span>, <span class="st">&quot;Negative&quot;</span>), 
+         <span class="dt">score =</span> <span class="kw">round</span>(abs_value, <span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(abs_value)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) 
+
+
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(ggrepel)
+
+coefs <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>ggplot <span class="op">+</span>
+<span class="st">    </span><span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">colour =</span> sentiment, <span class="dt">size =</span> score, <span class="dt">label =</span> word) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_text_repel</span>(<span class="dt">segment.size =</span> <span class="dv">0</span>, <span class="dt">force =</span> <span class="dv">10</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_size</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">15</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&#39;&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;&#39;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>sentiment)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/coefs-1.png" width="672" /></p>
+<p>Let’s try and makea more interactive visual. We’ll use <code>purrr</code> again to map our coefficients to the beautiful <a href="https://github.com/jbkunst/d3wordcloud">d3wordcloud</a> package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coefs <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">split</span>(.<span class="op">$</span>sentiment) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>purrr<span class="op">::</span><span class="kw">map</span>( <span class="op">~</span><span class="st"> </span><span class="kw">d3wordcloud</span>(.<span class="op">$</span>word, .<span class="op">$</span>score, <span class="dt">tooltip =</span> <span class="ot">TRUE</span>)) -&gt;<span class="st"> </span>d3_graphs
+
+d3_graphs[[<span class="dv">1</span>]]</code></pre></div>
+<div id="htmlwidget-59ac066633dbf852bb57" style="width:672px;height:480px;" class="d3wordcloud html-widget"></div>
+<script type="application/json" data-for="htmlwidget-59ac066633dbf852bb57">{"x":{"data":{"text":["worst","waste","awful","bad","boring","disappointment","poorly","poor","worse","horrible","unfortunately","mess","dull","disappointing","fails","lacks","terrible","pointless","annoying","ridiculous","avoid","badly","supposed","laughable","instead","save","lame","forgettable","redeeming","stupid","weak","script","oh","wonder","unfunny","mediocre","basically","minutes","attempt","alright","predictable","just","uninteresting","wooden","pathetic","reason","lousy","obnoxious","waste|time","bored","baldwin","wasted","insult","sadly","nt","unless","garbage","unconvincing","effort","sorry"],"freq":[51,39,38,37,34,32,30,29,28,27,26,26,25,25,25,24,24,24,23,23,22,22,21,21,20,20,20,20,19,19,19,19,19,18,18,18,18,18,16,16,16,16,16,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,14],"size":[51,39,38,37,34,32,30,29,28,27,26,26,25,25,25,24,24,24,23,23,22,22,21,21,20,20,20,20,19,19,19,19,19,18,18,18,18,18,16,16,16,16,16,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,14]},"pars":{"font":"Open Sans","padding":1,"rotmin":-30,"rotmax":30,"tooltip":true,"rangesizefont":[10,90],"sizescale":"linear","colorscale":"linear","spiral":"archimedean","colors":null,"every_word_has_own_color":false,"missing_colors":true,"label":null}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d3_graphs[[<span class="dv">2</span>]]</code></pre></div>
+<div id="htmlwidget-fa65618f76326d171d70" style="width:672px;height:480px;" class="d3wordcloud html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fa65618f76326d171d70">{"x":{"data":{"text":["great","excellent","best","perfect","wonderful","amazing","favorite","today","fun","brilliant","superb","wonderfully","funniest","refreshing","rare","enjoyable","entertaining","perfectly","loved","beautiful","bit","subtle","definitely","makes","incredible","fantastic","enjoyed","enjoy","gem","touching","atmosphere","moving","flawless","surprisingly","hilarious","seen","true","simple","job","powerful"],"freq":[37,36,30,28,27,25,23,23,22,21,21,21,20,20,19,19,18,18,18,18,18,17,17,17,16,16,16,16,15,15,15,15,15,15,15,15,15,14,14,14],"size":[37,36,30,28,27,25,23,23,22,21,21,21,20,20,19,19,18,18,18,18,18,17,17,17,16,16,16,16,15,15,15,15,15,15,15,15,15,14,14,14]},"pars":{"font":"Open Sans","padding":1,"rotmin":-30,"rotmax":30,"tooltip":true,"rangesizefont":[10,90],"sizescale":"linear","colorscale":"linear","spiral":"archimedean","colors":null,"every_word_has_own_color":false,"missing_colors":true,"label":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="testing-the-logit-model" class="section level3">
+<h3><span class="header-section-number">6.1.3</span> Testing the Logit Model</h3>
+<p>In order to predict our classifer on test data, we will use the <code>mxPredict</code> function from the <code>MML</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions &lt;-<span class="st"> </span><span class="kw">rxPredict</span>(logit_model, <span class="dt">data =</span> test_xdf, <span class="dt">extraVarsToWrite =</span> <span class="st">&quot;sentiment&quot;</span>)</code></pre></div>
+<pre><code>## Elapsed time: 00:00:25.9695782</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">roc_results &lt;-<span class="st"> </span><span class="kw">rxRoc</span>(<span class="dt">actualVarName =</span> <span class="st">&quot;sentiment&quot;</span>, <span class="dt">predVarNames =</span> <span class="st">&quot;Probability.1&quot;</span>, <span class="dt">data =</span> predictions)
+roc_results<span class="op">$</span>predVarName &lt;-<span class="st"> </span><span class="kw">factor</span>(roc_results<span class="op">$</span>predVarName)
+<span class="kw">plot</span>(roc_results)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/scorelogit-1.png" width="672" /></p>
+</div>
+<div id="testing-the-fast-trees-model" class="section level3">
+<h3><span class="header-section-number">6.1.4</span> Testing the Fast Trees Model</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions &lt;-<span class="st"> </span><span class="kw">rxPredict</span>(fast_trees, <span class="dt">data =</span> test_xdf, <span class="dt">extraVarsToWrite =</span> <span class="st">&quot;sentiment&quot;</span>)</code></pre></div>
+<pre><code>## Elapsed time: 00:00:29.8938884</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">roc_results &lt;-<span class="st"> </span><span class="kw">rxRoc</span>(<span class="dt">actualVarName =</span> <span class="st">&quot;sentiment&quot;</span>, <span class="dt">predVarNames =</span> <span class="st">&quot;Probability.1&quot;</span>, <span class="dt">data =</span> predictions)
+roc_results<span class="op">$</span>predVarName &lt;-<span class="st"> </span><span class="kw">factor</span>(roc_results<span class="op">$</span>predVarName)
+<span class="kw">plot</span>(roc_results)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/score_sdca-1.png" width="672" /></p>
+</div>
+</div>
+<div id="neural-networks" class="section level2">
+<h2><span class="header-section-number">6.2</span> Neural Networks</h2>
+<p>Let’s try to estimate another binary classifier from this dataset, but with a Neural Network architecture rather than a logistic regression model.</p>
+<p>In the following chunk, we call our neural network model, and set the optimizer to be a stochastic gradient descent optimizer with a learning rate of 0.2. Furthermore, we use the <code>type</code> argument to ensure we are learning a binary classifier. By default our network architecture will have 100 hidden nodes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nn_sentiment &lt;-<span class="st"> </span><span class="kw">rxNeuralNet</span>(sentiment <span class="op">~</span><span class="st"> </span>reviewTran,
+                            <span class="dt">data =</span> train_xdf,
+                            <span class="dt">type =</span> <span class="st">&quot;binary&quot;</span>,
+                            <span class="dt">mlTransforms =</span> <span class="kw">list</span>(<span class="kw">featurizeText</span>(<span class="dt">vars =</span> <span class="kw">c</span>(<span class="dt">reviewTran =</span> <span class="st">&quot;review&quot;</span>),
+                                                         <span class="dt">language =</span> <span class="st">&quot;English&quot;</span>,
+                                                         <span class="dt">stopwordsRemover =</span> <span class="kw">stopwordsDefault</span>(),
+                                                         <span class="dt">keepPunctuations =</span> <span class="ot">FALSE</span>)),
+                          <span class="co"># acceleration = &quot;gpu&quot;,</span>
+                          <span class="dt">miniBatchSize =</span> <span class="dv">4</span>)</code></pre></div>
+<pre><code>## Not adding a normalizer.
+## Automatically converting column &#39;sentiment&#39; into a factor.
+## Using: SSE Math
+## Warning: Math acceleration mode not compatible with mini-batches. Setting batch size to 1.
+## ***** Net definition *****
+##   input Data [74398];
+##   hidden H [100] sigmoid { // Depth 1
+##     from Data all;
+##   }
+##   output Result [1] sigmoid { // Depth 0
+##     from H all;
+##   }
+## ***** End net definition *****
+## Input count: 74398
+## Output count: 1
+## Output Function: Sigmoid
+## Loss Function: CrossEntropy
+## PreTrainer: NoPreTrainer
+## ___________________________________________________________________
+## Starting training...
+## Learning rate: 0.001000
+## Momentum: 0.000000
+## InitWtsDiameter: 0.100000
+## ___________________________________________________________________
+## Initializing 1 Hidden Layers, 7440001 Weights...
+## Estimated Pre-training MeanError = 0.704585
+## Iter:1/100, MeanErr=0.694443(-1.44%), 123281.76M WeightUpdates/sec
+## Iter:2/100, MeanErr=0.694329(-0.02%), 125708.18M WeightUpdates/sec
+## Iter:3/100, MeanErr=0.694192(-0.02%), 126223.11M WeightUpdates/sec
+## Iter:4/100, MeanErr=0.694030(-0.02%), 122886.14M WeightUpdates/sec
+## Iter:5/100, MeanErr=0.694215(0.03%), 122435.11M WeightUpdates/sec
+## Iter:6/100, MeanErr=0.693894(-0.05%), 124689.77M WeightUpdates/sec
+## Iter:7/100, MeanErr=0.693471(-0.06%), 124035.94M WeightUpdates/sec
+## Iter:8/100, MeanErr=0.692859(-0.09%), 122583.35M WeightUpdates/sec
+## Iter:9/100, MeanErr=0.692376(-0.07%), 124059.98M WeightUpdates/sec
+## Iter:10/100, MeanErr=0.691277(-0.16%), 125373.62M WeightUpdates/sec
+## Iter:11/100, MeanErr=0.690757(-0.08%), 121531.60M WeightUpdates/sec
+## Iter:12/100, MeanErr=0.689446(-0.19%), 124433.26M WeightUpdates/sec
+## Iter:13/100, MeanErr=0.687619(-0.26%), 126394.10M WeightUpdates/sec
+## Iter:14/100, MeanErr=0.685640(-0.29%), 122750.60M WeightUpdates/sec
+## Iter:15/100, MeanErr=0.683191(-0.36%), 124343.16M WeightUpdates/sec
+## Iter:16/100, MeanErr=0.680226(-0.43%), 125794.01M WeightUpdates/sec
+## Iter:17/100, MeanErr=0.676299(-0.58%), 122731.56M WeightUpdates/sec
+## Iter:18/100, MeanErr=0.671884(-0.65%), 123546.53M WeightUpdates/sec
+## Iter:19/100, MeanErr=0.666806(-0.76%), 123488.72M WeightUpdates/sec
+## Iter:20/100, MeanErr=0.660784(-0.90%), 124040.20M WeightUpdates/sec
+## Iter:21/100, MeanErr=0.653908(-1.04%), 120503.42M WeightUpdates/sec
+## Iter:22/100, MeanErr=0.645968(-1.21%), 126882.57M WeightUpdates/sec
+## Iter:23/100, MeanErr=0.637465(-1.32%), 135168.28M WeightUpdates/sec
+## Iter:24/100, MeanErr=0.628361(-1.43%), 131442.95M WeightUpdates/sec
+## Iter:25/100, MeanErr=0.618374(-1.59%), 132633.83M WeightUpdates/sec
+## Iter:26/100, MeanErr=0.607630(-1.74%), 134216.83M WeightUpdates/sec
+## Iter:27/100, MeanErr=0.596812(-1.78%), 125134.96M WeightUpdates/sec
+## Iter:28/100, MeanErr=0.585189(-1.95%), 120578.85M WeightUpdates/sec
+## Iter:29/100, MeanErr=0.573419(-2.01%), 122527.99M WeightUpdates/sec
+## Iter:30/100, MeanErr=0.561505(-2.08%), 132514.50M WeightUpdates/sec
+## Iter:31/100, MeanErr=0.549777(-2.09%), 120517.41M WeightUpdates/sec
+## Iter:32/100, MeanErr=0.538191(-2.11%), 123541.32M WeightUpdates/sec
+## Iter:33/100, MeanErr=0.526569(-2.16%), 126636.69M WeightUpdates/sec
+## Iter:34/100, MeanErr=0.515547(-2.09%), 124143.43M WeightUpdates/sec
+## Iter:35/100, MeanErr=0.504761(-2.09%), 123055.91M WeightUpdates/sec
+## Iter:36/100, MeanErr=0.494128(-2.11%), 123197.09M WeightUpdates/sec
+## Iter:37/100, MeanErr=0.484511(-1.95%), 125135.73M WeightUpdates/sec
+## Iter:38/100, MeanErr=0.474862(-1.99%), 122756.15M WeightUpdates/sec
+## Iter:39/100, MeanErr=0.465674(-1.93%), 122876.37M WeightUpdates/sec
+## Iter:40/100, MeanErr=0.456896(-1.88%), 124783.00M WeightUpdates/sec
+## Iter:41/100, MeanErr=0.448901(-1.75%), 121760.39M WeightUpdates/sec
+## Iter:42/100, MeanErr=0.441171(-1.72%), 122997.06M WeightUpdates/sec
+## Iter:43/100, MeanErr=0.433480(-1.74%), 123051.94M WeightUpdates/sec
+## Iter:44/100, MeanErr=0.426293(-1.66%), 123078.74M WeightUpdates/sec
+## Iter:45/100, MeanErr=0.419575(-1.58%), 121552.74M WeightUpdates/sec
+## Iter:46/100, MeanErr=0.413401(-1.47%), 121503.90M WeightUpdates/sec
+## Iter:47/100, MeanErr=0.406957(-1.56%), 123305.25M WeightUpdates/sec
+## Iter:48/100, MeanErr=0.401313(-1.39%), 122880.33M WeightUpdates/sec
+## Iter:49/100, MeanErr=0.395543(-1.44%), 123718.70M WeightUpdates/sec
+## Iter:50/100, MeanErr=0.390251(-1.34%), 124812.16M WeightUpdates/sec
+## Iter:51/100, MeanErr=0.385156(-1.31%), 120727.29M WeightUpdates/sec
+## Iter:52/100, MeanErr=0.380155(-1.30%), 124529.75M WeightUpdates/sec
+## Iter:53/100, MeanErr=0.375252(-1.29%), 120880.86M WeightUpdates/sec
+## Iter:54/100, MeanErr=0.371025(-1.13%), 123749.92M WeightUpdates/sec
+## Iter:55/100, MeanErr=0.366597(-1.19%), 124759.17M WeightUpdates/sec
+## Iter:56/100, MeanErr=0.362269(-1.18%), 124623.17M WeightUpdates/sec
+## Iter:57/100, MeanErr=0.358292(-1.10%), 122364.78M WeightUpdates/sec
+## Iter:58/100, MeanErr=0.354345(-1.10%), 123185.02M WeightUpdates/sec
+## Iter:59/100, MeanErr=0.350553(-1.07%), 124192.87M WeightUpdates/sec
+## Iter:60/100, MeanErr=0.346730(-1.09%), 124668.77M WeightUpdates/sec
+## Iter:61/100, MeanErr=0.343272(-1.00%), 118709.90M WeightUpdates/sec
+## Iter:62/100, MeanErr=0.339770(-1.02%), 122861.13M WeightUpdates/sec
+## Iter:63/100, MeanErr=0.336230(-1.04%), 124964.10M WeightUpdates/sec
+## Iter:64/100, MeanErr=0.333191(-0.90%), 127110.62M WeightUpdates/sec
+## Iter:65/100, MeanErr=0.330051(-0.94%), 129673.59M WeightUpdates/sec
+## Iter:66/100, MeanErr=0.326981(-0.93%), 125489.57M WeightUpdates/sec
+## Iter:67/100, MeanErr=0.323995(-0.91%), 121677.17M WeightUpdates/sec
+## Iter:68/100, MeanErr=0.321182(-0.87%), 125561.40M WeightUpdates/sec
+## Iter:69/100, MeanErr=0.318367(-0.88%), 128463.47M WeightUpdates/sec
+## Iter:70/100, MeanErr=0.315463(-0.91%), 127737.31M WeightUpdates/sec
+## Iter:71/100, MeanErr=0.313039(-0.77%), 121736.55M WeightUpdates/sec
+## Iter:72/100, MeanErr=0.310367(-0.85%), 124133.90M WeightUpdates/sec
+## Iter:73/100, MeanErr=0.307799(-0.83%), 123346.86M WeightUpdates/sec
+## Iter:74/100, MeanErr=0.305068(-0.89%), 125222.46M WeightUpdates/sec
+## Iter:75/100, MeanErr=0.302958(-0.69%), 122067.92M WeightUpdates/sec
+## Iter:76/100, MeanErr=0.300405(-0.84%), 130354.63M WeightUpdates/sec
+## Iter:77/100, MeanErr=0.297983(-0.81%), 121103.98M WeightUpdates/sec
+## Iter:78/100, MeanErr=0.295944(-0.68%), 123852.93M WeightUpdates/sec
+## Iter:79/100, MeanErr=0.293907(-0.69%), 129011.84M WeightUpdates/sec
+## Iter:80/100, MeanErr=0.291620(-0.78%), 131935.73M WeightUpdates/sec
+## Iter:81/100, MeanErr=0.289745(-0.64%), 123613.06M WeightUpdates/sec
+## Iter:82/100, MeanErr=0.287662(-0.72%), 128522.67M WeightUpdates/sec
+## Iter:83/100, MeanErr=0.285591(-0.72%), 121631.79M WeightUpdates/sec
+## Iter:84/100, MeanErr=0.283583(-0.70%), 123042.63M WeightUpdates/sec
+## Iter:85/100, MeanErr=0.281815(-0.62%), 128366.97M WeightUpdates/sec
+## Iter:86/100, MeanErr=0.279837(-0.70%), 129162.80M WeightUpdates/sec
+## Iter:87/100, MeanErr=0.278120(-0.61%), 127484.00M WeightUpdates/sec
+## Iter:88/100, MeanErr=0.276277(-0.66%), 127757.02M WeightUpdates/sec
+## Iter:89/100, MeanErr=0.274533(-0.63%), 129199.10M WeightUpdates/sec
+## Iter:90/100, MeanErr=0.272938(-0.58%), 126966.61M WeightUpdates/sec
+## Iter:91/100, MeanErr=0.270917(-0.74%), 127917.72M WeightUpdates/sec
+## Iter:92/100, MeanErr=0.269519(-0.52%), 123309.13M WeightUpdates/sec
+## Iter:93/100, MeanErr=0.267711(-0.67%), 127397.42M WeightUpdates/sec
+## Iter:94/100, MeanErr=0.266137(-0.59%), 128667.11M WeightUpdates/sec
+## Iter:95/100, MeanErr=0.264770(-0.51%), 122467.54M WeightUpdates/sec
+## Iter:96/100, MeanErr=0.262845(-0.73%), 120989.12M WeightUpdates/sec
+## Iter:97/100, MeanErr=0.261513(-0.51%), 122038.13M WeightUpdates/sec
+## Iter:98/100, MeanErr=0.259934(-0.60%), 123533.81M WeightUpdates/sec
+## Iter:99/100, MeanErr=0.258394(-0.59%), 121401.90M WeightUpdates/sec
+## Iter:100/100, MeanErr=0.257150(-0.48%), 125299.77M WeightUpdates/sec
+## Done!
+## Estimated Post-training MeanError = 0.256146
+## ___________________________________________________________________
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:02:39.1847866</code></pre>
+<div id="scoring-the-neural-net" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Scoring the Neural Net</h3>
+<p>We can similary score our results from the neural network model</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions &lt;-<span class="st"> </span><span class="kw">rxPredict</span>(nn_sentiment, <span class="dt">data =</span> test_xdf, <span class="dt">extraVarsToWrite =</span> <span class="st">&quot;sentiment&quot;</span>)</code></pre></div>
+<pre><code>## Elapsed time: 00:00:13.5690285</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">roc_results &lt;-<span class="st"> </span><span class="kw">rxRoc</span>(<span class="dt">actualVarName =</span> <span class="st">&quot;sentiment&quot;</span>, <span class="dt">predVarNames =</span> <span class="st">&quot;Probability.1&quot;</span>, <span class="dt">data =</span> predictions)
+roc_results<span class="op">$</span>predVarName &lt;-<span class="st"> </span><span class="kw">factor</span>(roc_results<span class="op">$</span>predVarName)
+<span class="kw">plot</span>(roc_results)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/predsentiment-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exercises-2" class="section level2">
+<h2><span class="header-section-number">6.3</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>The Rscript <a href="../Rscripts/9-Other-Sentiment-Datasets.R">Rscripts/9-Other-Sentiment-Datasets.R</a> has two additional datasets with reviews and ratings (binarized). Try the above analysis on the other two datasets.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="convolutional-neural-networks-for-computer-vision.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Azure/learnAnalytics-MicrosoftML/edit/master/5-Sentiment-Analysis.Rmd",
+"text": "Edit"
+},
+"download": ["mml-tutorial.pdf", "mml-tutorial.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

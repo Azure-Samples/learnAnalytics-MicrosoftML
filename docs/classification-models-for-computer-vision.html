@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with the MicrosoftML Package</title>
+  <meta name="description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with the MicrosoftML Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  <meta name="github-repo" content="Azure/learnAnalytics-MicrosoftML" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with the MicrosoftML Package" />
+  
+  <meta name="twitter:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  
+
+<meta name="author" content="Ali Zaidi">
+
+
+<meta name="date" content="2017-09-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="regression-models.html">
+<link rel="next" href="convolutional-neural-networks-for-computer-vision.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.2/d3.min.js"></script>
+<script src="libs/d3wordcloud-1/d3.layout.cloud.js"></script>
+<script src="libs/d3wordcloud-binding-0.1/d3wordcloud.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning with MicrosoftML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#microsoftml-references"><i class="fa fa-check"></i><b>1.1</b> MicrosoftML References</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#useful-resources"><i class="fa fa-check"></i><b>1.2</b> Useful Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis and Feature Engineering</a><ul>
+<li class="chapter" data-level="2.1" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#visualize-densities"><i class="fa fa-check"></i><b>2.1</b> Visualize Densities</a></li>
+<li class="chapter" data-level="2.2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#spatial-visualizations"><i class="fa fa-check"></i><b>2.2</b> Spatial Visualizations</a></li>
+<li class="chapter" data-level="2.3" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>3</b> Regression Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="regression-models.html"><a href="regression-models.html#splitting-into-train-and-test-sets"><i class="fa fa-check"></i><b>3.1</b> Splitting into Train and Test Sets</a></li>
+<li class="chapter" data-level="3.2" data-path="regression-models.html"><a href="regression-models.html#training-regression-learners"><i class="fa fa-check"></i><b>3.2</b> Training Regression Learners</a></li>
+<li class="chapter" data-level="3.3" data-path="regression-models.html"><a href="regression-models.html#scoring-our-data-on-the-test-set"><i class="fa fa-check"></i><b>3.3</b> Scoring Our Data on the Test Set</a></li>
+<li class="chapter" data-level="3.4" data-path="regression-models.html"><a href="regression-models.html#training-many-models-concurrently"><i class="fa fa-check"></i><b>3.4</b> Training Many Models Concurrently</a></li>
+<li class="chapter" data-level="3.5" data-path="regression-models.html"><a href="regression-models.html#exercise"><i class="fa fa-check"></i><b>3.5</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html"><i class="fa fa-check"></i><b>4</b> Classification Models for Computer Vision</a><ul>
+<li class="chapter" data-level="4.1" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#hand-written-digit-classifiation"><i class="fa fa-check"></i><b>4.1</b> Hand-Written Digit Classifiation</a></li>
+<li class="chapter" data-level="4.2" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualizing-digits"><i class="fa fa-check"></i><b>4.2</b> Visualizing Digits</a></li>
+<li class="chapter" data-level="4.3" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualize-digits"><i class="fa fa-check"></i><b>4.3</b> Visualize Digits</a></li>
+<li class="chapter" data-level="4.4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#split-the-data-into-train-and-test-sets"><i class="fa fa-check"></i><b>4.4</b> Split the Data into Train and Test Sets</a></li>
+<li class="chapter" data-level="4.5" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#exercises-1"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html"><i class="fa fa-check"></i><b>5</b> Convolutional Neural Networks for Computer Vision</a><ul>
+<li class="chapter" data-level="5.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#lenet-5"><i class="fa fa-check"></i><b>5.1</b> LeNet-5</a></li>
+<li class="chapter" data-level="5.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#model-metrics"><i class="fa fa-check"></i><b>5.2</b> Model Metrics</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#accuracy"><i class="fa fa-check"></i><b>5.2.1</b> Accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#precision"><i class="fa fa-check"></i><b>5.2.2</b> Precision</a></li>
+<li class="chapter" data-level="5.2.3" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#recall"><i class="fa fa-check"></i><b>5.2.3</b> Recall</a></li>
+<li class="chapter" data-level="5.2.4" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#visualzing-our-metrics"><i class="fa fa-check"></i><b>5.2.4</b> Visualzing our Metrics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="natural-language-processing.html"><a href="natural-language-processing.html"><i class="fa fa-check"></i><b>6</b> Natural Language Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#text-classification"><i class="fa fa-check"></i><b>6.1</b> Text Classification</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#imdb-data"><i class="fa fa-check"></i><b>6.1.1</b> IMDB Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#feature-transformers"><i class="fa fa-check"></i><b>6.1.2</b> Feature Transformers</a></li>
+<li class="chapter" data-level="6.1.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-logit-model"><i class="fa fa-check"></i><b>6.1.3</b> Testing the Logit Model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-fast-trees-model"><i class="fa fa-check"></i><b>6.1.4</b> Testing the Fast Trees Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#neural-networks"><i class="fa fa-check"></i><b>6.2</b> Neural Networks</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#scoring-the-neural-net"><i class="fa fa-check"></i><b>6.2.1</b> Scoring the Neural Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#exercises-2"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><i class="fa fa-check"></i><b>7</b> Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#pre-trained-models"><i class="fa fa-check"></i><b>7.1</b> Pre-Trained Models</a></li>
+<li class="chapter" data-level="7.2" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#cmu-faces-dataset"><i class="fa fa-check"></i><b>7.2</b> CMU Faces Dataset</a></li>
+<li class="chapter" data-level="7.3" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#on-the-fly-featurization"><i class="fa fa-check"></i><b>7.3</b> On-the Fly Featurization</a></li>
+<li class="chapter" data-level="7.4" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#retaining-features"><i class="fa fa-check"></i><b>7.4</b> Retaining Features</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/Azure/learnAnalytics-MicrosoftML" target="blank">Ali Zaidi</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with the <code>MicrosoftML</code> Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="classification-models-for-computer-vision" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Classification Models for Computer Vision</h1>
+<div id="hand-written-digit-classifiation" class="section level2">
+<h2><span class="header-section-number">4.1</span> Hand-Written Digit Classifiation</h2>
+<p>In this module, we will examine the <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> dataset, which is a set of 70,000 images of digits handwritten by high school students and employees of the US Census Bureau.</p>
+<p>MNIST is considered the “hello-world” of the machine-learning world, and is often a good place to start for understanding classification algorithms.</p>
+<p>Let’s load the MNIST dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MicrosoftML)
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(magrittr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     set_names</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyrXdf)
+<span class="kw">theme_set</span>(<span class="kw">theme_minimal</span>())
+
+mnist_xdf &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;MNIST.xdf&quot;</span>)
+mnist_xdf &lt;-<span class="st"> </span><span class="kw">RxXdfData</span>(mnist_xdf)</code></pre></div>
+<p>Let’s take a look at the data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxGetInfo</span>(mnist_xdf)</code></pre></div>
+<pre><code>## File name: /home/alizaidi/bookdown-demo/data/MNIST.xdf 
+## Number of observations: 70000 
+## Number of variables: 786 
+## Number of blocks: 7 
+## Compression type: zlib</code></pre>
+<p>Our dataset contains 70K records, and 786 columns. There are actually 784 features, because each image in the dataset is a 28x28 pixel image. The two additional columns are for the label, and a column with a pre-sampled train and test split.</p>
+</div>
+<div id="visualizing-digits" class="section level2">
+<h2><span class="header-section-number">4.2</span> Visualizing Digits</h2>
+<p>Let’s make some visualizations to examine the MNIST data and see what we can use for a classifier to classify the digits.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mnist_df &lt;-<span class="st"> </span><span class="kw">rxDataStep</span>(<span class="dt">inData =</span> mnist_xdf, <span class="dt">outFile =</span> <span class="ot">NULL</span>,
+                       <span class="dt">maxRowsByCols =</span> <span class="kw">nrow</span>(mnist_xdf)<span class="op">*</span><span class="kw">ncol</span>(mnist_xdf)) <span class="op">%&gt;%</span><span class="st"> </span>tbl_df</code></pre></div>
+<p>Let’s see the average for each digit:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mnist_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">keep</span>(is.numeric) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rowMeans</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">intensity =</span> .) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>tbl_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">bind_cols</span>(mnist_df) <span class="op">%T&gt;%</span><span class="st"> </span>print -&gt;<span class="st"> </span>mnist_df</code></pre></div>
+<pre><code>## # A tibble: 70,000 x 787
+##    intensity  Label    V2    V3    V4    V5    V6    V7    V8    V9   V10
+##        &lt;dbl&gt; &lt;fctr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  35.10842      5     0     0     0     0     0     0     0     0     0
+##  2  39.66199      0     0     0     0     0     0     0     0     0     0
+##  3  24.79974      4     0     0     0     0     0     0     0     0     0
+##  4  21.85587      1     0     0     0     0     0     0     0     0     0
+##  5  29.60969      9     0     0     0     0     0     0     0     0     0
+##  6  37.75638      2     0     0     0     0     0     0     0     0     0
+##  7  22.50765      1     0     0     0     0     0     0     0     0     0
+##  8  45.74872      3     0     0     0     0     0     0     0     0     0
+##  9  13.86990      1     0     0     0     0     0     0     0     0     0
+## 10  27.93878      4     0     0     0     0     0     0     0     0     0
+## # ... with 69,990 more rows, and 776 more variables: V11 &lt;int&gt;, V12 &lt;int&gt;,
+## #   V13 &lt;int&gt;, V14 &lt;int&gt;, V15 &lt;int&gt;, V16 &lt;int&gt;, V17 &lt;int&gt;, V18 &lt;int&gt;,
+## #   V19 &lt;int&gt;, V20 &lt;int&gt;, V21 &lt;int&gt;, V22 &lt;int&gt;, V23 &lt;int&gt;, V24 &lt;int&gt;,
+## #   V25 &lt;int&gt;, V26 &lt;int&gt;, V27 &lt;int&gt;, V28 &lt;int&gt;, V29 &lt;int&gt;, V30 &lt;int&gt;,
+## #   V31 &lt;int&gt;, V32 &lt;int&gt;, V33 &lt;int&gt;, V34 &lt;int&gt;, V35 &lt;int&gt;, V36 &lt;int&gt;,
+## #   V37 &lt;int&gt;, V38 &lt;int&gt;, V39 &lt;int&gt;, V40 &lt;int&gt;, V41 &lt;int&gt;, V42 &lt;int&gt;,
+## #   V43 &lt;int&gt;, V44 &lt;int&gt;, V45 &lt;int&gt;, V46 &lt;int&gt;, V47 &lt;int&gt;, V48 &lt;int&gt;,
+## #   V49 &lt;int&gt;, V50 &lt;int&gt;, V51 &lt;int&gt;, V52 &lt;int&gt;, V53 &lt;int&gt;, V54 &lt;int&gt;,
+## #   V55 &lt;int&gt;, V56 &lt;int&gt;, V57 &lt;int&gt;, V58 &lt;int&gt;, V59 &lt;int&gt;, V60 &lt;int&gt;,
+## #   V61 &lt;int&gt;, V62 &lt;int&gt;, V63 &lt;int&gt;, V64 &lt;int&gt;, V65 &lt;int&gt;, V66 &lt;int&gt;,
+## #   V67 &lt;int&gt;, V68 &lt;int&gt;, V69 &lt;int&gt;, V70 &lt;int&gt;, V71 &lt;int&gt;, V72 &lt;int&gt;,
+## #   V73 &lt;int&gt;, V74 &lt;int&gt;, V75 &lt;int&gt;, V76 &lt;int&gt;, V77 &lt;int&gt;, V78 &lt;int&gt;,
+## #   V79 &lt;int&gt;, V80 &lt;int&gt;, V81 &lt;int&gt;, V82 &lt;int&gt;, V83 &lt;int&gt;, V84 &lt;int&gt;,
+## #   V85 &lt;int&gt;, V86 &lt;int&gt;, V87 &lt;int&gt;, V88 &lt;int&gt;, V89 &lt;int&gt;, V90 &lt;int&gt;,
+## #   V91 &lt;int&gt;, V92 &lt;int&gt;, V93 &lt;int&gt;, V94 &lt;int&gt;, V95 &lt;int&gt;, V96 &lt;int&gt;,
+## #   V97 &lt;int&gt;, V98 &lt;int&gt;, V99 &lt;int&gt;, V100 &lt;int&gt;, V101 &lt;int&gt;, V102 &lt;int&gt;,
+## #   V103 &lt;int&gt;, V104 &lt;int&gt;, V105 &lt;int&gt;, V106 &lt;int&gt;, V107 &lt;int&gt;,
+## #   V108 &lt;int&gt;, V109 &lt;int&gt;, V110 &lt;int&gt;, ...</code></pre>
+<p>Visualize average intensity by label:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mnist_df, <span class="kw">aes</span>(<span class="dt">x =</span> intensity, <span class="dt">y =</span> ..density..)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Label), <span class="dt">alpha =</span> <span class="fl">0.3</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/density-1.png" width="672" /></p>
+<p>Let’s try a boxplot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mnist_df, <span class="kw">aes</span>(<span class="dt">x =</span> Label, <span class="dt">y =</span> intensity)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Label), <span class="dt">alpha =</span> <span class="fl">0.3</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/boxplot-1.png" width="672" /></p>
+</div>
+<div id="visualize-digits" class="section level2">
+<h2><span class="header-section-number">4.3</span> Visualize Digits</h2>
+<p>Let’s plot a sample set of digits:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flip &lt;-<span class="st"> </span><span class="cf">function</span>(matrix) {
+
+      <span class="kw">apply</span>(matrix, <span class="dv">2</span>, rev)
+}
+
+plot_digit &lt;-<span class="st"> </span><span class="cf">function</span>(samp) {
+  
+  digit &lt;-<span class="st"> </span><span class="kw">unlist</span>(samp)
+  m &lt;-<span class="st"> </span><span class="kw">flip</span>(<span class="kw">matrix</span>(<span class="kw">rev</span>(<span class="kw">as.numeric</span>(digit)), <span class="dt">nrow =</span> <span class="dv">28</span>))
+  <span class="kw">image</span>(m, <span class="dt">col =</span> <span class="kw">grey.colors</span>(<span class="dv">255</span>))
+  
+}
+
+mnist_df[<span class="dv">11</span>, ] <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Label, <span class="op">-</span>intensity, <span class="op">-</span>splitVar) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span>plot_digit</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/displayimage-1.png" width="672" /></p>
+</div>
+<div id="split-the-data-into-train-and-test-sets" class="section level2">
+<h2><span class="header-section-number">4.4</span> Split the Data into Train and Test Sets</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">splits &lt;-<span class="st"> </span><span class="kw">rxSplit</span>(mnist_xdf,
+                  <span class="dt">splitByFactor =</span> <span class="st">&quot;splitVar&quot;</span>, 
+                  <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
+<span class="kw">names</span>(splits) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;train&quot;</span>, <span class="st">&quot;test&quot;</span>)</code></pre></div>
+<p>Let’s first train a softmax classifier using the <code>rxLogisticRegression</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">softmax &lt;-<span class="st"> </span><span class="kw">estimate_model</span>(<span class="dt">xdf_data =</span> splits<span class="op">$</span>train,
+                          <span class="dt">form =</span> <span class="kw">make_form</span>(splits<span class="op">$</span>train, 
+                                           <span class="dt">resp_var =</span> <span class="st">&quot;Label&quot;</span>, 
+                                           <span class="dt">vars_to_skip =</span> <span class="kw">c</span>(<span class="st">&quot;splitVar&quot;</span>)),
+                          <span class="dt">model =</span> rxLogisticRegression,
+                          <span class="dt">type =</span> <span class="st">&quot;multiClass&quot;</span>)</code></pre></div>
+<pre><code>## Automatically adding a MinMax normalization transform, use &#39;norm=Warn&#39; or &#39;norm=No&#39; to turn this behavior off.
+## LBFGS multi-threading will attempt to load dataset into memory. In case of out-of-memory issues, turn off multi-threading by setting trainThreads to 1.
+## Beginning optimization
+## num vars: 7850
+## improvement criterion: Mean Improvement
+## L1 regularization selected 3699 of 7850 weights.
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:00:18.6072601
+## Elapsed time: 00:00:00.0334469</code></pre>
+<p>Let’s see how we did. Let’s examine our results on the train set:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">softmax_scores &lt;-<span class="st"> </span><span class="kw">rxPredict</span>(<span class="dt">modelObject =</span> softmax, 
+                            <span class="dt">data =</span> splits<span class="op">$</span>test, 
+                            <span class="dt">outData =</span> <span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xdf&quot;</span>),
+                            <span class="dt">overwrite =</span> <span class="ot">TRUE</span>,
+                            <span class="dt">extraVarsToWrite =</span> <span class="st">&quot;Label&quot;</span>)</code></pre></div>
+<pre><code>## Elapsed time: 00:00:01.0520198</code></pre>
+<p>We can make a confusion matrix of all our results:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxCube</span>( <span class="op">~</span><span class="st"> </span>Label <span class="op">:</span><span class="st"> </span>PredictedLabel , <span class="dt">data =</span> softmax_scores,
+       <span class="dt">returnDataFrame =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>softmax_scores_df
+
+softmax_scores_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Label, <span class="dt">y =</span> PredictedLabel,
+                                 <span class="dt">fill =</span> Counts)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_raster</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low =</span> <span class="st">&quot;steelblue2&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;mediumblue&quot;</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/conf_softmax-1.png" width="672" /></p>
+<p>Here we are plotting the raw counts. This might unfairly represent the more populated classes. Let’s weight each count by the total number of samples in that class:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">label_rates &lt;-<span class="st"> </span>softmax_scores_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>tbl_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(Label) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> Counts<span class="op">/</span><span class="kw">sum</span>(Counts))
+
+label_rates <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Label, <span class="dt">y =</span> PredictedLabel, <span class="dt">fill =</span> rate)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_raster</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low =</span> <span class="st">&quot;steelblue2&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;mediumblue&quot;</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/rates-1.png" width="672" /></p>
+<p>Let’s fill out all the correct scores with zeros so we can see the errors more clearly:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">label_rates <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">error_rate =</span> <span class="kw">ifelse</span>(Label <span class="op">==</span><span class="st"> </span>PredictedLabel,
+                             <span class="dv">0</span>, rate)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Label, <span class="dt">y =</span> PredictedLabel, <span class="dt">fill =</span> error_rate)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_raster</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low =</span> <span class="st">&quot;steelblue2&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;mediumblue&quot;</span>,
+                        <span class="dt">labels =</span> scales<span class="op">::</span>percent)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/errors-1.png" width="672" /></p>
+</div>
+<div id="exercises-1" class="section level2">
+<h2><span class="header-section-number">4.5</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>Take a look at David Robinson’s <a href="https://twitter.com/drob/status/869991240099549185">tweet</a> on using a single pixel to distinguish between pairs of digits.</li>
+<li>You can find his <a href="https://gist.github.com/dgrtwo/aaef94ecc6a60cd50322c0054cc04478">gist</a> saved in the <a href="../Rscripts/8-drob-just-a-pixel.R">Rscripts directory</a>.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regression-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="convolutional-neural-networks-for-computer-vision.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Azure/learnAnalytics-MicrosoftML/edit/master/3-Classification-Models.Rmd",
+"text": "Edit"
+},
+"download": ["mml-tutorial.pdf", "mml-tutorial.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

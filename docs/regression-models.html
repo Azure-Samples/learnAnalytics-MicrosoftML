@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with the MicrosoftML Package</title>
+  <meta name="description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with the MicrosoftML Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  <meta name="github-repo" content="Azure/learnAnalytics-MicrosoftML" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with the MicrosoftML Package" />
+  
+  <meta name="twitter:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  
+
+<meta name="author" content="Ali Zaidi">
+
+
+<meta name="date" content="2017-09-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="exploratory-data-analysis-and-feature-engineering.html">
+<link rel="next" href="classification-models-for-computer-vision.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.2/d3.min.js"></script>
+<script src="libs/d3wordcloud-1/d3.layout.cloud.js"></script>
+<script src="libs/d3wordcloud-binding-0.1/d3wordcloud.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning with MicrosoftML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#microsoftml-references"><i class="fa fa-check"></i><b>1.1</b> MicrosoftML References</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#useful-resources"><i class="fa fa-check"></i><b>1.2</b> Useful Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis and Feature Engineering</a><ul>
+<li class="chapter" data-level="2.1" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#visualize-densities"><i class="fa fa-check"></i><b>2.1</b> Visualize Densities</a></li>
+<li class="chapter" data-level="2.2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#spatial-visualizations"><i class="fa fa-check"></i><b>2.2</b> Spatial Visualizations</a></li>
+<li class="chapter" data-level="2.3" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>3</b> Regression Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="regression-models.html"><a href="regression-models.html#splitting-into-train-and-test-sets"><i class="fa fa-check"></i><b>3.1</b> Splitting into Train and Test Sets</a></li>
+<li class="chapter" data-level="3.2" data-path="regression-models.html"><a href="regression-models.html#training-regression-learners"><i class="fa fa-check"></i><b>3.2</b> Training Regression Learners</a></li>
+<li class="chapter" data-level="3.3" data-path="regression-models.html"><a href="regression-models.html#scoring-our-data-on-the-test-set"><i class="fa fa-check"></i><b>3.3</b> Scoring Our Data on the Test Set</a></li>
+<li class="chapter" data-level="3.4" data-path="regression-models.html"><a href="regression-models.html#training-many-models-concurrently"><i class="fa fa-check"></i><b>3.4</b> Training Many Models Concurrently</a></li>
+<li class="chapter" data-level="3.5" data-path="regression-models.html"><a href="regression-models.html#exercise"><i class="fa fa-check"></i><b>3.5</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html"><i class="fa fa-check"></i><b>4</b> Classification Models for Computer Vision</a><ul>
+<li class="chapter" data-level="4.1" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#hand-written-digit-classifiation"><i class="fa fa-check"></i><b>4.1</b> Hand-Written Digit Classifiation</a></li>
+<li class="chapter" data-level="4.2" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualizing-digits"><i class="fa fa-check"></i><b>4.2</b> Visualizing Digits</a></li>
+<li class="chapter" data-level="4.3" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualize-digits"><i class="fa fa-check"></i><b>4.3</b> Visualize Digits</a></li>
+<li class="chapter" data-level="4.4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#split-the-data-into-train-and-test-sets"><i class="fa fa-check"></i><b>4.4</b> Split the Data into Train and Test Sets</a></li>
+<li class="chapter" data-level="4.5" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#exercises-1"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html"><i class="fa fa-check"></i><b>5</b> Convolutional Neural Networks for Computer Vision</a><ul>
+<li class="chapter" data-level="5.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#lenet-5"><i class="fa fa-check"></i><b>5.1</b> LeNet-5</a></li>
+<li class="chapter" data-level="5.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#model-metrics"><i class="fa fa-check"></i><b>5.2</b> Model Metrics</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#accuracy"><i class="fa fa-check"></i><b>5.2.1</b> Accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#precision"><i class="fa fa-check"></i><b>5.2.2</b> Precision</a></li>
+<li class="chapter" data-level="5.2.3" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#recall"><i class="fa fa-check"></i><b>5.2.3</b> Recall</a></li>
+<li class="chapter" data-level="5.2.4" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#visualzing-our-metrics"><i class="fa fa-check"></i><b>5.2.4</b> Visualzing our Metrics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="natural-language-processing.html"><a href="natural-language-processing.html"><i class="fa fa-check"></i><b>6</b> Natural Language Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#text-classification"><i class="fa fa-check"></i><b>6.1</b> Text Classification</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#imdb-data"><i class="fa fa-check"></i><b>6.1.1</b> IMDB Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#feature-transformers"><i class="fa fa-check"></i><b>6.1.2</b> Feature Transformers</a></li>
+<li class="chapter" data-level="6.1.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-logit-model"><i class="fa fa-check"></i><b>6.1.3</b> Testing the Logit Model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-fast-trees-model"><i class="fa fa-check"></i><b>6.1.4</b> Testing the Fast Trees Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#neural-networks"><i class="fa fa-check"></i><b>6.2</b> Neural Networks</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#scoring-the-neural-net"><i class="fa fa-check"></i><b>6.2.1</b> Scoring the Neural Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#exercises-2"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><i class="fa fa-check"></i><b>7</b> Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#pre-trained-models"><i class="fa fa-check"></i><b>7.1</b> Pre-Trained Models</a></li>
+<li class="chapter" data-level="7.2" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#cmu-faces-dataset"><i class="fa fa-check"></i><b>7.2</b> CMU Faces Dataset</a></li>
+<li class="chapter" data-level="7.3" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#on-the-fly-featurization"><i class="fa fa-check"></i><b>7.3</b> On-the Fly Featurization</a></li>
+<li class="chapter" data-level="7.4" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#retaining-features"><i class="fa fa-check"></i><b>7.4</b> Retaining Features</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/Azure/learnAnalytics-MicrosoftML" target="blank">Ali Zaidi</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with the <code>MicrosoftML</code> Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression-models" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Regression Models</h1>
+<div id="splitting-into-train-and-test-sets" class="section level2">
+<h2><span class="header-section-number">3.1</span> Splitting into Train and Test Sets</h2>
+<p>Let’s sample our data into train and test sets. In order to do this efficiently, we will use the <code>RevoScaleR</code> package.</p>
+<p>We’ll first create a <code>RxXdfData</code> object, which is a more efficient and scalable data structure than R <code>data.frames</code>. Their primary distinction is that they do not reside in memory, but on-disk.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(dplyrXdf)
+<span class="kw">library</span>(foreach)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;foreach&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:purrr&#39;:
+## 
+##     accumulate, when</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(doRSR)</code></pre></div>
+<pre><code>## Loading required package: iterators</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MicrosoftML)
+<span class="kw">theme_set</span>(<span class="kw">theme_minimal</span>())
+
+out_xdf &lt;-<span class="st"> </span><span class="kw">file.path</span>(
+                     <span class="st">&quot;data&quot;</span>,
+                     <span class="st">&quot;housing.xdf&quot;</span>)
+
+housing_xdf &lt;-<span class="st"> </span><span class="kw">rxDataStep</span>(<span class="dt">inData =</span> housing,
+                          <span class="dt">outFile =</span> out_xdf,
+                          <span class="dt">maxRowsByCols =</span> <span class="kw">nrow</span>(housing)<span class="op">*</span><span class="kw">ncol</span>(housing),
+                          <span class="dt">rowsPerRead =</span> <span class="dv">5000</span>,
+                          <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
+
+housing_xdf <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">factorise</span>(ocean_proximity) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">persist</span>(out_xdf, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>The <code>RevoScaleR</code> and <code>MicrosoftML</code> functions are primarily prefixed with <code>rx</code>. In this function below, we will use the <code>rxSplit</code> function to split our data into train and test sets. Observe that since our data is now on-disk, and compromises of multiple blocks, we have to use the <code>.rxNumRows</code> argument to inform the session how many rows are currently being processed in the current block:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">split_xdf &lt;-<span class="st"> </span><span class="cf">function</span>(data) {
+
+    splits &lt;-<span class="st"> </span><span class="kw">rxSplit</span>(data,
+                      <span class="dt">outFileSuffixes =</span> <span class="kw">c</span>(<span class="st">&quot;Train&quot;</span>, <span class="st">&quot;Test&quot;</span>, <span class="st">&quot;Validate&quot;</span>),
+                         <span class="dt">splitByFactor =</span> <span class="st">&quot;splitVar&quot;</span>,
+                         <span class="dt">overwrite =</span> <span class="ot">TRUE</span>,
+                         <span class="dt">transforms =</span> <span class="kw">list</span>(<span class="dt">splitVar =</span> <span class="kw">factor</span>(
+                           <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Train&quot;</span>, <span class="st">&quot;Test&quot;</span>, <span class="st">&quot;Validate&quot;</span>),
+                                  <span class="dt">size =</span> .rxNumRows,
+                                  <span class="dt">replace =</span> <span class="ot">TRUE</span>,
+                                  <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.65</span>, <span class="fl">0.25</span>, <span class="fl">0.1</span>)),
+                           <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Train&quot;</span>, <span class="st">&quot;Test&quot;</span>, <span class="st">&quot;Validate&quot;</span>))),
+                         <span class="dt">rngSeed =</span> <span class="dv">123</span>,
+                         <span class="dt">consoleOutput =</span> <span class="ot">TRUE</span>)
+  <span class="kw">return</span>(splits)
+}
+
+
+splits &lt;-<span class="st"> </span><span class="kw">split_xdf</span>(housing_xdf)
+<span class="kw">names</span>(splits) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;train&quot;</span>, <span class="st">&quot;test&quot;</span>, <span class="st">&quot;validate&quot;</span>)</code></pre></div>
+<p>Now that we have our train and test sets, we can conduct begin to train our models.</p>
+</div>
+<div id="training-regression-learners" class="section level2">
+<h2><span class="header-section-number">3.2</span> Training Regression Learners</h2>
+<p>Let’s train our first regression model.</p>
+<p>We can start with the a <code>glm</code> model. GLMs, short for generalized linear models, are a general class of linear algorithms. In this exercise, our goal is to predict the median housing value given the other variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lin_mod &lt;-<span class="st"> </span><span class="kw">rxLinMod</span>(median_house_value <span class="op">~</span><span class="st"> </span>housing_median_age <span class="op">+</span><span class="st"> </span>total_rooms <span class="op">+</span><span class="st"> </span>total_bedrooms <span class="op">+</span>
+<span class="st">                      </span>population <span class="op">+</span><span class="st"> </span>households <span class="op">+</span><span class="st"> </span>median_income <span class="op">+</span><span class="st"> </span>ocean_proximity,
+                    <span class="dt">data =</span> splits<span class="op">$</span>train)</code></pre></div>
+<p>That was pretty easy, but let’s generalize our approach so that we can estimate a variety of models quickly and efficiently.</p>
+<p>First, we’ll create a wrapper function to automatically create our model matrix for us dynamically from our data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_form &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">xdf =</span> housing_xdf,
+                      <span class="dt">resp_var =</span> <span class="st">&quot;median_house_value&quot;</span>,
+                      <span class="dt">vars_to_skip =</span> <span class="kw">c</span>(<span class="st">&quot;splitVar&quot;</span>, <span class="st">&quot;longitude&quot;</span>, 
+                                       <span class="st">&quot;latitude&quot;</span>)) {
+  
+  <span class="kw">library</span>(stringr)
+  
+  non_incl &lt;-<span class="st"> </span><span class="kw">paste</span>(vars_to_skip, <span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)
+  
+  x_names &lt;-<span class="st"> </span><span class="kw">names</span>(xdf)
+  
+  features &lt;-<span class="st"> </span>x_names[<span class="op">!</span><span class="kw">str_detect</span>(x_names, resp_var)]
+  features &lt;-<span class="st"> </span>features[<span class="op">!</span><span class="kw">str_detect</span>(features, non_incl)]
+  
+  form &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">paste</span>(resp_var, <span class="kw">paste0</span>(features, <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>),
+                           <span class="dt">sep  =</span> <span class="st">&quot; ~ &quot;</span>))
+  
+  <span class="kw">return</span>(form)
+}
+
+<span class="kw">make_form</span>(<span class="dt">xdf =</span> splits<span class="op">$</span>train)</code></pre></div>
+<pre><code>## median_house_value ~ housing_median_age + total_rooms + total_bedrooms + 
+##     population + households + median_income + ocean_proximity
+## &lt;environment: 0xadfcc10&gt;</code></pre>
+<p>Now let’s create a modeling wrapper, which will take our dataset, a formula, and a model, and train it for us.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">estimate_model &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">xdf_data =</span> splits<span class="op">$</span>train,
+                           <span class="dt">form =</span> <span class="kw">make_form</span>(<span class="dt">xdf =</span> xdf_data),
+                           <span class="dt">model =</span> rxLogit, ...) {
+  
+  rx_model &lt;-<span class="st"> </span><span class="kw">model</span>(form, <span class="dt">data =</span> xdf_data, ...)
+  
+  <span class="kw">return</span>(rx_model)
+  
+  
+}</code></pre></div>
+<p>Now we can quickly iterate over our data and train models using different learning algorithms. For example, the above example suffers from the issue that we didn’t scale our data prior to learning. This can have an adverse effect on the optimization function of the learning algorithm, as it’ll favor the variables with more disperse scales.</p>
+<p>We’ll use the <a href="http://dl.acm.org/citation.cfm?id=2783412">SDCA - Stochastic Dual Coordinate Ascent</a> learning algorithm, which automatically applies a min-max scaling to our data prior to training.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sdca &lt;-<span class="st"> </span><span class="kw">estimate_model</span>(<span class="dt">model =</span> rxFastLinear, <span class="dt">type =</span> <span class="st">&quot;regression&quot;</span>)</code></pre></div>
+<pre><code>## Automatically adding a MinMax normalization transform, use &#39;norm=Warn&#39; or &#39;norm=No&#39; to turn this behavior off.
+## Using 2 threads to train.
+## Automatically choosing a check frequency of 2.
+## Warning: Skipped 141 instances with missing features/label during training
+## Auto-tuning parameters: maxIterations = 110.
+## Auto-tuning parameters: L2 = 0.0001.
+## Auto-tuning parameters: L1Threshold (L1/L2) = 0.
+## Using best model from iteration 48.
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:00:01.6831767
+## Elapsed time: 00:00:00.0678240</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(sdca)</code></pre></div>
+<pre><code>## Call:
+## model(formula = form, data = xdf_data, type = &quot;regression&quot;)
+## 
+## SDCAR (RegressorTrainer) for: median_house_value~housing_median_age+total_rooms+total_bedrooms+population+households+median_income+ocean_proximity
+## Data: xdf_data (RxXdfData Data Source)
+## File name: /home/alizaidi/bookdown-demo/housing.splitVar.Train.xdf 
+## 
+## First 12 of 12 Non-zero Coefficients:
+## (Bias): -221101.6
+## population: -893426.4
+## median_income: 539692.2
+## total_bedrooms: 338512.2
+## ocean_proximity.ISLAND: 324354.5
+## ocean_proximity.NEAR BAY: 288516.2
+## ocean_proximity.NEAR OCEAN: 285277.7
+## ocean_proximity.&lt;1H OCEAN: 271619.3
+## households: 251829.5
+## ocean_proximity.INLAND: 202295.3
+## total_rooms: -81016.05
+## housing_median_age: 32083.27</code></pre>
+</div>
+<div id="scoring-our-data-on-the-test-set" class="section level2">
+<h2><span class="header-section-number">3.3</span> Scoring Our Data on the Test Set</h2>
+<p>Now that we our model trained, we can score it on our test set.</p>
+<p>Let’s create a prediction XDF where we’ll save our results to.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred_xdf &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;/home&quot;</span>, <span class="kw">system</span>(<span class="st">&quot;whoami&quot;</span>, <span class="dt">intern =</span> <span class="ot">TRUE</span>), <span class="st">&quot;scored.xdf&quot;</span>)
+<span class="cf">if</span> (<span class="kw">file.exists</span>(pred_xdf)) <span class="kw">file.remove</span>(pred_xdf)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scored_xdf &lt;-<span class="st"> </span><span class="kw">RxXdfData</span>(pred_xdf)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxPredict</span>(lin_mod, <span class="dt">data =</span> splits<span class="op">$</span>test, 
+          <span class="dt">outData =</span> pred_xdf, <span class="dt">writeModelVars =</span> T, 
+          <span class="dt">predVarNames =</span> <span class="kw">c</span>(<span class="st">&quot;linmod&quot;</span>), <span class="dt">overwrite =</span> T)
+<span class="kw">rxGetInfo</span>(pred_xdf)</code></pre></div>
+<pre><code>## File name: /home/alizaidi/scored.xdf 
+## Number of observations: 5150 
+## Number of variables: 9 
+## Number of blocks: 5 
+## Compression type: zlib</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxLinePlot</span>(linmod <span class="op">~</span><span class="st"> </span>median_house_value, <span class="dt">data =</span> pred_xdf, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/predict-1.png" width="672" /></p>
+<p>Let’s also score our SDCA model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxPredict</span>(sdca, <span class="dt">data =</span> splits<span class="op">$</span>test, 
+          <span class="dt">outData =</span> pred_xdf, <span class="dt">writeModelVars =</span> T)</code></pre></div>
+<pre><code>## Elapsed time: 00:00:00.2908180</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rxGetInfo(pred_xdf, numRows = 2)</span>
+<span class="kw">rxLinePlot</span>(Score <span class="op">~</span><span class="st"> </span>median_house_value, <span class="dt">data =</span> pred_xdf, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/sdca-preds-1.png" width="672" /></p>
+</div>
+<div id="training-many-models-concurrently" class="section level2">
+<h2><span class="header-section-number">3.4</span> Training Many Models Concurrently</h2>
+<p>Let’s take our functions and train multiple models in parallel. We have already trained two linear models. Let’s add two ensemble tree algorithms to the mix, <code>rxBTrees</code>, and simultaneously train a random forest using <code>rxDForest</code>.</p>
+<p>To run them in parallel, we can use the foreach package with a local parallel backend.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxSetComputeContext</span>(<span class="kw">RxLocalParallel</span>())
+<span class="kw">registerDoRSR</span>(<span class="dt">computeContext =</span> <span class="kw">rxGetComputeContext</span>())
+
+models &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;btrees&quot;</span> =<span class="st"> </span>rxBTrees, 
+               <span class="st">&quot;forest&quot;</span> =<span class="st"> </span>rxDForest)
+models &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">i =</span> models) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">estimate_model</span>(<span class="dt">model =</span> i)
+<span class="kw">names</span>(models) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;btrees&quot;</span>, <span class="st">&quot;forest&quot;</span>)
+models</code></pre></div>
+<pre><code>## $btrees
+## 
+## Call:
+## model(formula = form, data = xdf_data)
+## 
+## 
+##       Loss function of boosted trees: bernoulli 
+##        Number of boosting iterations: 10 
+## No. of variables tried at each split: 2 
+## 
+##             OOB estimate of deviance: NA 
+## 
+## $forest
+## 
+## Call:
+## model(formula = form, data = xdf_data)
+## 
+## 
+##              Type of decision forest: anova 
+##                      Number of trees: 10 
+## No. of variables tried at each split: 2 
+## 
+##           Mean of squared residuals: 4591841792
+##                     % Var explained: 65</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(models, summary)</code></pre></div>
+<pre><code>## $btrees
+##           Length Class      Mode     
+## ntree      1     -none-     numeric  
+## mtry       1     -none-     numeric  
+## type       1     -none-     character
+## forest    10     -none-     list     
+## oob.err    4     data.frame list     
+## init.pred  1     -none-     numeric  
+## params    65     -none-     list     
+## formula    3     formula    call     
+## call       3     -none-     call     
+## 
+## $forest
+##         Length Class      Mode     
+## ntree    1     -none-     numeric  
+## mtry     1     -none-     numeric  
+## type     1     -none-     character
+## forest  10     -none-     list     
+## oob.err  4     data.frame list     
+## params  65     -none-     list     
+## formula  3     formula    call     
+## call     3     -none-     call</code></pre>
+</div>
+<div id="exercise" class="section level2">
+<h2><span class="header-section-number">3.5</span> Exercise</h2>
+<ol style="list-style-type: decimal">
+<li>Use the <code>rxDTree</code> function to sit a single regression tree to this dataset.</li>
+<li>Visualize the fit of your decision tree using the <code>RevoTreeView</code> library and it’s <code>createTreeView</code> and <code>plot</code> functions.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploratory-data-analysis-and-feature-engineering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="classification-models-for-computer-vision.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Azure/learnAnalytics-MicrosoftML/edit/master/2-Regression-Models.Rmd",
+"text": "Edit"
+},
+"download": ["mml-tutorial.pdf", "mml-tutorial.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

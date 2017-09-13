@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with the MicrosoftML Package</title>
+  <meta name="description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with the MicrosoftML Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  <meta name="github-repo" content="Azure/learnAnalytics-MicrosoftML" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with the MicrosoftML Package" />
+  
+  <meta name="twitter:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  
+
+<meta name="author" content="Ali Zaidi">
+
+
+<meta name="date" content="2017-09-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+
+<link rel="next" href="exploratory-data-analysis-and-feature-engineering.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.2/d3.min.js"></script>
+<script src="libs/d3wordcloud-1/d3.layout.cloud.js"></script>
+<script src="libs/d3wordcloud-binding-0.1/d3wordcloud.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning with MicrosoftML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#microsoftml-references"><i class="fa fa-check"></i><b>1.1</b> MicrosoftML References</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#useful-resources"><i class="fa fa-check"></i><b>1.2</b> Useful Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis and Feature Engineering</a><ul>
+<li class="chapter" data-level="2.1" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#visualize-densities"><i class="fa fa-check"></i><b>2.1</b> Visualize Densities</a></li>
+<li class="chapter" data-level="2.2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#spatial-visualizations"><i class="fa fa-check"></i><b>2.2</b> Spatial Visualizations</a></li>
+<li class="chapter" data-level="2.3" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>3</b> Regression Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="regression-models.html"><a href="regression-models.html#splitting-into-train-and-test-sets"><i class="fa fa-check"></i><b>3.1</b> Splitting into Train and Test Sets</a></li>
+<li class="chapter" data-level="3.2" data-path="regression-models.html"><a href="regression-models.html#training-regression-learners"><i class="fa fa-check"></i><b>3.2</b> Training Regression Learners</a></li>
+<li class="chapter" data-level="3.3" data-path="regression-models.html"><a href="regression-models.html#scoring-our-data-on-the-test-set"><i class="fa fa-check"></i><b>3.3</b> Scoring Our Data on the Test Set</a></li>
+<li class="chapter" data-level="3.4" data-path="regression-models.html"><a href="regression-models.html#training-many-models-concurrently"><i class="fa fa-check"></i><b>3.4</b> Training Many Models Concurrently</a></li>
+<li class="chapter" data-level="3.5" data-path="regression-models.html"><a href="regression-models.html#exercise"><i class="fa fa-check"></i><b>3.5</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html"><i class="fa fa-check"></i><b>4</b> Classification Models for Computer Vision</a><ul>
+<li class="chapter" data-level="4.1" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#hand-written-digit-classifiation"><i class="fa fa-check"></i><b>4.1</b> Hand-Written Digit Classifiation</a></li>
+<li class="chapter" data-level="4.2" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualizing-digits"><i class="fa fa-check"></i><b>4.2</b> Visualizing Digits</a></li>
+<li class="chapter" data-level="4.3" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualize-digits"><i class="fa fa-check"></i><b>4.3</b> Visualize Digits</a></li>
+<li class="chapter" data-level="4.4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#split-the-data-into-train-and-test-sets"><i class="fa fa-check"></i><b>4.4</b> Split the Data into Train and Test Sets</a></li>
+<li class="chapter" data-level="4.5" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#exercises-1"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html"><i class="fa fa-check"></i><b>5</b> Convolutional Neural Networks for Computer Vision</a><ul>
+<li class="chapter" data-level="5.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#lenet-5"><i class="fa fa-check"></i><b>5.1</b> LeNet-5</a></li>
+<li class="chapter" data-level="5.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#model-metrics"><i class="fa fa-check"></i><b>5.2</b> Model Metrics</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#accuracy"><i class="fa fa-check"></i><b>5.2.1</b> Accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#precision"><i class="fa fa-check"></i><b>5.2.2</b> Precision</a></li>
+<li class="chapter" data-level="5.2.3" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#recall"><i class="fa fa-check"></i><b>5.2.3</b> Recall</a></li>
+<li class="chapter" data-level="5.2.4" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#visualzing-our-metrics"><i class="fa fa-check"></i><b>5.2.4</b> Visualzing our Metrics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="natural-language-processing.html"><a href="natural-language-processing.html"><i class="fa fa-check"></i><b>6</b> Natural Language Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#text-classification"><i class="fa fa-check"></i><b>6.1</b> Text Classification</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#imdb-data"><i class="fa fa-check"></i><b>6.1.1</b> IMDB Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#feature-transformers"><i class="fa fa-check"></i><b>6.1.2</b> Feature Transformers</a></li>
+<li class="chapter" data-level="6.1.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-logit-model"><i class="fa fa-check"></i><b>6.1.3</b> Testing the Logit Model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-fast-trees-model"><i class="fa fa-check"></i><b>6.1.4</b> Testing the Fast Trees Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#neural-networks"><i class="fa fa-check"></i><b>6.2</b> Neural Networks</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#scoring-the-neural-net"><i class="fa fa-check"></i><b>6.2.1</b> Scoring the Neural Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#exercises-2"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><i class="fa fa-check"></i><b>7</b> Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#pre-trained-models"><i class="fa fa-check"></i><b>7.1</b> Pre-Trained Models</a></li>
+<li class="chapter" data-level="7.2" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#cmu-faces-dataset"><i class="fa fa-check"></i><b>7.2</b> CMU Faces Dataset</a></li>
+<li class="chapter" data-level="7.3" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#on-the-fly-featurization"><i class="fa fa-check"></i><b>7.3</b> On-the Fly Featurization</a></li>
+<li class="chapter" data-level="7.4" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#retaining-features"><i class="fa fa-check"></i><b>7.4</b> Retaining Features</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/Azure/learnAnalytics-MicrosoftML" target="blank">Ali Zaidi</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with the <code>MicrosoftML</code> Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Machine Learning with the <code>MicrosoftML</code> Package</h1>
+<h4 class="author"><em>Ali Zaidi</em></h4>
+<h4 class="date"><em>2017-09-13</em></h4>
+</div>
+<div id="prerequisites" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
+<p>This workshop covers the fundamentals of statistical machine learning with the <a href="https://msdn.microsoft.com/en-us/microsoft-r/microsoftml-introduction">MicrosoftML package</a>.</p>
+<p><a href="https://www.youtube.com/watch?v=arskgQaKlVs"><img src="https://img.youtube.com/vi/arskgQaKlVs/0.jpg" alt="MRS" /></a></p>
+<p>MicrosoftML is a package that works in tandem with the <a href="https://msdn.microsoft.com/en-us/microsoft-r/scaler-getting-started">RevoScaleR</a> package and Microsoft R Server. In order to use the <code>MicrosoftML</code> and <code>RevoScaleR</code> libraries, you need an installation of Microsoft R Server or Microsoft R Client. You can download <strong>Microsoft R Server</strong> through MSDN here:</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/rserver-install-linux-server">R Server for Linux</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/rserver-install-hadoop">R Server for Hadoop</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/rserver-install-windows">R Server for Windows</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sql/advanced-analytics/r/set-up-sql-server-r-services-in-database">R Server for SQL Server (In-Database)</a></li>
+</ol>
+<p>You can download <strong>Microsoft R Client</strong> through the following sources:</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/r-client-install-windows">R Client for Windows</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/r-client-install-linux">R Client for Linux</a></li>
+<li><a href="https://github.com/akzaidi/mrclient-docker">R Client Docker Image</a></li>
+</ol>
+<div id="microsoftml-references" class="section level2">
+<h2><span class="header-section-number">1.1</span> MicrosoftML References</h2>
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/microsoftml-algorithm-cheat-sheet">Cheat Sheet</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/overview-microsoftml-functions">Overview of MicrosoftML Functions</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/microsoftml/microsoftml">Function Reference</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/microsoftml-quickstarts">Quickstarts</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/">MSDN Site for Microsoft R Server</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/microsoft-r/r-client">MSDN Site for Microsoft R Client</a>
+<ul>
+<li><a href="https://channel9.msdn.com/blogs/MicrosoftR/Microsoft-Introduces-new-free-Microsoft-R-Client">R Client Overview</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="useful-resources" class="section level2">
+<h2><span class="header-section-number">1.2</span> Useful Resources</h2>
+<ul>
+<li><a href="https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about">Introduction to Statistical Learning Video Lectures</a>
+<ul>
+<li>My favorite course on statistical learning</li>
+<li>Worth doing twice!</li>
+</ul></li>
+<li><a href="http://www-bcf.usc.edu/~gareth/ISL/">Introduction to Statistical Learning Textbook</a>
+<ul>
+<li><em>Baby Statistical Learning</em></li>
+</ul></li>
+<li><a href="http://statweb.stanford.edu/~tibs/ElemStatLearn/">Elements of Statistical Learning Textbook</a>
+<ul>
+<li><strong>Papa Statistical Learning</strong></li>
+</ul></li>
+<li><a href="http://r4ds.had.co.nz/">R for Data Science</a>
+<ul>
+<li>Covers the core tools in the <a href="http://tidyverse.org/"><code>tidyverse</code></a> ecosystem for data science and analytics</li>
+</ul></li>
+<li><a href="https://github.com/Azure/LearnAnalytics-mr4ds">Microsoft R for Data Science</a>
+<ul>
+<li>My two-day workshop on Microsoft R Server for Data Science</li>
+</ul></li>
+<li><a href="https://github.com/Azure/LearnAnalytics-mrs-spark">Microsoft R Server and Spark</a>
+<ul>
+<li>My 1.5 day course on Microsoft R Server and Spark Integration</li>
+</ul></li>
+<li><a href="https://bookdown.org/alizaidi/mrs-spark-ml/">Scalable Data Science with Microsoft R Server and Spark</a>
+<ul>
+<li>In progress book on data science with Microsoft R Server and Spark</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="exploratory-data-analysis-and-feature-engineering.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Azure/learnAnalytics-MicrosoftML/edit/master/index.Rmd",
+"text": "Edit"
+},
+"download": ["mml-tutorial.pdf", "mml-tutorial.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

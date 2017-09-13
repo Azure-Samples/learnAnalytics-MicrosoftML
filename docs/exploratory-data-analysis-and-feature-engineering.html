@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with the MicrosoftML Package</title>
+  <meta name="description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with the MicrosoftML Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  <meta name="github-repo" content="Azure/learnAnalytics-MicrosoftML" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with the MicrosoftML Package" />
+  
+  <meta name="twitter:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  
+
+<meta name="author" content="Ali Zaidi">
+
+
+<meta name="date" content="2017-09-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="regression-models.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.2/d3.min.js"></script>
+<script src="libs/d3wordcloud-1/d3.layout.cloud.js"></script>
+<script src="libs/d3wordcloud-binding-0.1/d3wordcloud.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning with MicrosoftML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#microsoftml-references"><i class="fa fa-check"></i><b>1.1</b> MicrosoftML References</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#useful-resources"><i class="fa fa-check"></i><b>1.2</b> Useful Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis and Feature Engineering</a><ul>
+<li class="chapter" data-level="2.1" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#visualize-densities"><i class="fa fa-check"></i><b>2.1</b> Visualize Densities</a></li>
+<li class="chapter" data-level="2.2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#spatial-visualizations"><i class="fa fa-check"></i><b>2.2</b> Spatial Visualizations</a></li>
+<li class="chapter" data-level="2.3" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>3</b> Regression Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="regression-models.html"><a href="regression-models.html#splitting-into-train-and-test-sets"><i class="fa fa-check"></i><b>3.1</b> Splitting into Train and Test Sets</a></li>
+<li class="chapter" data-level="3.2" data-path="regression-models.html"><a href="regression-models.html#training-regression-learners"><i class="fa fa-check"></i><b>3.2</b> Training Regression Learners</a></li>
+<li class="chapter" data-level="3.3" data-path="regression-models.html"><a href="regression-models.html#scoring-our-data-on-the-test-set"><i class="fa fa-check"></i><b>3.3</b> Scoring Our Data on the Test Set</a></li>
+<li class="chapter" data-level="3.4" data-path="regression-models.html"><a href="regression-models.html#training-many-models-concurrently"><i class="fa fa-check"></i><b>3.4</b> Training Many Models Concurrently</a></li>
+<li class="chapter" data-level="3.5" data-path="regression-models.html"><a href="regression-models.html#exercise"><i class="fa fa-check"></i><b>3.5</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html"><i class="fa fa-check"></i><b>4</b> Classification Models for Computer Vision</a><ul>
+<li class="chapter" data-level="4.1" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#hand-written-digit-classifiation"><i class="fa fa-check"></i><b>4.1</b> Hand-Written Digit Classifiation</a></li>
+<li class="chapter" data-level="4.2" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualizing-digits"><i class="fa fa-check"></i><b>4.2</b> Visualizing Digits</a></li>
+<li class="chapter" data-level="4.3" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualize-digits"><i class="fa fa-check"></i><b>4.3</b> Visualize Digits</a></li>
+<li class="chapter" data-level="4.4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#split-the-data-into-train-and-test-sets"><i class="fa fa-check"></i><b>4.4</b> Split the Data into Train and Test Sets</a></li>
+<li class="chapter" data-level="4.5" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#exercises-1"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html"><i class="fa fa-check"></i><b>5</b> Convolutional Neural Networks for Computer Vision</a><ul>
+<li class="chapter" data-level="5.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#lenet-5"><i class="fa fa-check"></i><b>5.1</b> LeNet-5</a></li>
+<li class="chapter" data-level="5.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#model-metrics"><i class="fa fa-check"></i><b>5.2</b> Model Metrics</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#accuracy"><i class="fa fa-check"></i><b>5.2.1</b> Accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#precision"><i class="fa fa-check"></i><b>5.2.2</b> Precision</a></li>
+<li class="chapter" data-level="5.2.3" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#recall"><i class="fa fa-check"></i><b>5.2.3</b> Recall</a></li>
+<li class="chapter" data-level="5.2.4" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#visualzing-our-metrics"><i class="fa fa-check"></i><b>5.2.4</b> Visualzing our Metrics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="natural-language-processing.html"><a href="natural-language-processing.html"><i class="fa fa-check"></i><b>6</b> Natural Language Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#text-classification"><i class="fa fa-check"></i><b>6.1</b> Text Classification</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#imdb-data"><i class="fa fa-check"></i><b>6.1.1</b> IMDB Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#feature-transformers"><i class="fa fa-check"></i><b>6.1.2</b> Feature Transformers</a></li>
+<li class="chapter" data-level="6.1.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-logit-model"><i class="fa fa-check"></i><b>6.1.3</b> Testing the Logit Model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-fast-trees-model"><i class="fa fa-check"></i><b>6.1.4</b> Testing the Fast Trees Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#neural-networks"><i class="fa fa-check"></i><b>6.2</b> Neural Networks</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#scoring-the-neural-net"><i class="fa fa-check"></i><b>6.2.1</b> Scoring the Neural Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#exercises-2"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><i class="fa fa-check"></i><b>7</b> Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#pre-trained-models"><i class="fa fa-check"></i><b>7.1</b> Pre-Trained Models</a></li>
+<li class="chapter" data-level="7.2" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#cmu-faces-dataset"><i class="fa fa-check"></i><b>7.2</b> CMU Faces Dataset</a></li>
+<li class="chapter" data-level="7.3" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#on-the-fly-featurization"><i class="fa fa-check"></i><b>7.3</b> On-the Fly Featurization</a></li>
+<li class="chapter" data-level="7.4" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#retaining-features"><i class="fa fa-check"></i><b>7.4</b> Retaining Features</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/Azure/learnAnalytics-MicrosoftML" target="blank">Ali Zaidi</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with the <code>MicrosoftML</code> Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-data-analysis-and-feature-engineering" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Exploratory Data Analysis and Feature Engineering</h1>
+<p>Import your favorite libraries and set up your favorite plotting theme.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">theme_set</span>(<span class="kw">theme_minimal</span>())</code></pre></div>
+<p>Now let’s import some data. Our <a href="http://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html">data source</a> is 1990-census level of housing in California.</p>
+<p>We’ll use easy the <code>readr</code> package to load in our data. You could equivalently use <code>read.csv</code>, or <code>data.table::fread</code> if you wanted incredible speed. We’ll later see how to use data sources using the <code>RevoScaleR</code> readers.</p>
+<p>Since we’re using <code>readr</code>, our data is a <code>tbl</code>. This means we will get some <code>dplyr</code> and <code>tibble</code> features, and it’ll behave a little differently than a traditional <code>data.frame</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/housing.csv&quot;</span>)
+<span class="kw">class</span>(housing)</code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(housing)</code></pre></div>
+<pre><code>## Observations: 20,640
+## Variables: 10
+## $ longitude          &lt;dbl&gt; -122.23, -122.22, -122.24, -122.25, -122.25...
+## $ latitude           &lt;dbl&gt; 37.88, 37.86, 37.85, 37.85, 37.85, 37.85, 3...
+## $ housing_median_age &lt;dbl&gt; 41, 21, 52, 52, 52, 52, 52, 52, 42, 52, 52,...
+## $ total_rooms        &lt;dbl&gt; 880, 7099, 1467, 1274, 1627, 919, 2535, 310...
+## $ total_bedrooms     &lt;dbl&gt; 129, 1106, 190, 235, 280, 213, 489, 687, 66...
+## $ population         &lt;dbl&gt; 322, 2401, 496, 558, 565, 413, 1094, 1157, ...
+## $ households         &lt;dbl&gt; 126, 1138, 177, 219, 259, 193, 514, 647, 59...
+## $ median_income      &lt;dbl&gt; 8.3252, 8.3014, 7.2574, 5.6431, 3.8462, 4.0...
+## $ median_house_value &lt;dbl&gt; 452600, 358500, 352100, 341300, 342200, 269...
+## $ ocean_proximity    &lt;chr&gt; &quot;NEAR BAY&quot;, &quot;NEAR BAY&quot;, &quot;NEAR BAY&quot;, &quot;NEAR B...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing</code></pre></div>
+<pre><code>## # A tibble: 20,640 x 10
+##    longitude latitude housing_median_age total_rooms total_bedrooms
+##        &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;
+##  1   -122.23    37.88                 41         880            129
+##  2   -122.22    37.86                 21        7099           1106
+##  3   -122.24    37.85                 52        1467            190
+##  4   -122.25    37.85                 52        1274            235
+##  5   -122.25    37.85                 52        1627            280
+##  6   -122.25    37.85                 52         919            213
+##  7   -122.25    37.84                 52        2535            489
+##  8   -122.25    37.84                 52        3104            687
+##  9   -122.26    37.84                 42        2555            665
+## 10   -122.25    37.84                 52        3549            707
+## # ... with 20,630 more rows, and 5 more variables: population &lt;dbl&gt;,
+## #   households &lt;dbl&gt;, median_income &lt;dbl&gt;, median_house_value &lt;dbl&gt;,
+## #   ocean_proximity &lt;chr&gt;</code></pre>
+<div id="visualize-densities" class="section level2">
+<h2><span class="header-section-number">2.1</span> Visualize Densities</h2>
+<p>Suppose we want to visualize the distribution of the numeric columns, such as <strong>housing_median_age</strong>. How would you visualize that density?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">keep</span>(is_double) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>gather <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</code></pre></div>
+<pre><code>## Warning: Removed 207 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="mml-tutorial_files/figure-html/gather-1.png" width="672" /></p>
+</div>
+<div id="spatial-visualizations" class="section level2">
+<h2><span class="header-section-number">2.2</span> Spatial Visualizations</h2>
+<p>The histograms of the longitude and latitude columns seem like they are in some reasonable range of data. Let’s visualize the locations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/spatial-visuals-1.png" width="672" /></p>
+<p>Looks indeed like California!</p>
+<p>We can improve this chart in many ways. Let’s first add some transparency so we can get a better sense of the <em>density</em> of points:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.15</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/alpha-1.png" width="672" /></p>
+<p>Nice, we can already see some dense clusters for higher population regions like the Bay Area, Sacramento and Los Angeles.</p>
+<p>Let’s add some additional attributes, like the population:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude,
+                       <span class="dt">size =</span> population)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.15</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/population-1.png" width="672" /></p>
+<p>And now let’s see if we can add a gradient fill for another numeric value, like the median housing price:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude,
+                       <span class="dt">size =</span> population,
+                       <span class="dt">colour =</span> median_house_value)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.095</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/gradient-fill-1.png" width="672" /></p>
+<p>Interesting, we can definitely see the higher price ranges in LA and the Bay Area. Let’s see if we can change the colour scheme to get an even better visualization:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude,
+                       <span class="dt">size =</span> population,
+                       <span class="dt">colour =</span> median_house_value)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.095</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/colour-1.png" width="672" /></p>
+<p>If you want to plot the points on top of an actual polygon of the state map, you can do that using <code>geom_map</code> and using the <code>map_data</code> function in ggplot2. I find it a bit messy, but it might be worthwile if you are plotting various regions/states.</p>
+<p>While we’re at it, let’s put some final themes on our plot to make it more aesthetically pleasing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">housing <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">state =</span> <span class="st">&quot;california&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude,
+             <span class="dt">size =</span> population,
+             <span class="dt">colour =</span> median_house_value)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_map</span>(<span class="dt">map =</span> <span class="kw">filter</span>(<span class="kw">map_data</span>(<span class="st">&quot;state&quot;</span>), region <span class="op">==</span><span class="st"> &quot;california&quot;</span>),
+           <span class="kw">aes</span>(<span class="dt">map_id =</span> state), 
+           <span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span>,
+           <span class="dt">colour =</span> <span class="st">&quot;lightgrey&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),
+        <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>()) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_size_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>comma) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>,
+                        <span class="dt">labels =</span> scales<span class="op">::</span>dollar)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/geommap-1.png" width="672" /></p>
+</div>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">2.3</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>How does proximity to the ocean effect median house values? Try to visualize housing prices the above using the ocean proximity variable as the colour/fill aesthetic and median_house_value as the size aesthetic.</li>
+<li>We saw that faceting could allow us to compare distributions rather easily. Try a facetted plot where you facet by quantiles of the <code>median_income</code> column. This will allow you to compare the distribution of housing values, populations/demographics across different income groups. The <code>dplyr::mutate</code>, <code>stats::quntile</code>, and <code>ggplot2::facet_wrap</code> functions should be useful here.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Azure/learnAnalytics-MicrosoftML/edit/master/1-Feature-Engineering.Rmd",
+"text": "Edit"
+},
+"download": ["mml-tutorial.pdf", "mml-tutorial.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with the MicrosoftML Package</title>
+  <meta name="description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with the MicrosoftML Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  <meta name="github-repo" content="Azure/learnAnalytics-MicrosoftML" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with the MicrosoftML Package" />
+  
+  <meta name="twitter:description" content="This is a collection of tutorials on using the <code>MicrosoftML</code> package for machine learning and data analysis." />
+  
+
+<meta name="author" content="Ali Zaidi">
+
+
+<meta name="date" content="2017-09-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="classification-models-for-computer-vision.html">
+<link rel="next" href="natural-language-processing.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.2/d3.min.js"></script>
+<script src="libs/d3wordcloud-1/d3.layout.cloud.js"></script>
+<script src="libs/d3wordcloud-binding-0.1/d3wordcloud.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning with MicrosoftML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#microsoftml-references"><i class="fa fa-check"></i><b>1.1</b> MicrosoftML References</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#useful-resources"><i class="fa fa-check"></i><b>1.2</b> Useful Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis and Feature Engineering</a><ul>
+<li class="chapter" data-level="2.1" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#visualize-densities"><i class="fa fa-check"></i><b>2.1</b> Visualize Densities</a></li>
+<li class="chapter" data-level="2.2" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#spatial-visualizations"><i class="fa fa-check"></i><b>2.2</b> Spatial Visualizations</a></li>
+<li class="chapter" data-level="2.3" data-path="exploratory-data-analysis-and-feature-engineering.html"><a href="exploratory-data-analysis-and-feature-engineering.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>3</b> Regression Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="regression-models.html"><a href="regression-models.html#splitting-into-train-and-test-sets"><i class="fa fa-check"></i><b>3.1</b> Splitting into Train and Test Sets</a></li>
+<li class="chapter" data-level="3.2" data-path="regression-models.html"><a href="regression-models.html#training-regression-learners"><i class="fa fa-check"></i><b>3.2</b> Training Regression Learners</a></li>
+<li class="chapter" data-level="3.3" data-path="regression-models.html"><a href="regression-models.html#scoring-our-data-on-the-test-set"><i class="fa fa-check"></i><b>3.3</b> Scoring Our Data on the Test Set</a></li>
+<li class="chapter" data-level="3.4" data-path="regression-models.html"><a href="regression-models.html#training-many-models-concurrently"><i class="fa fa-check"></i><b>3.4</b> Training Many Models Concurrently</a></li>
+<li class="chapter" data-level="3.5" data-path="regression-models.html"><a href="regression-models.html#exercise"><i class="fa fa-check"></i><b>3.5</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html"><i class="fa fa-check"></i><b>4</b> Classification Models for Computer Vision</a><ul>
+<li class="chapter" data-level="4.1" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#hand-written-digit-classifiation"><i class="fa fa-check"></i><b>4.1</b> Hand-Written Digit Classifiation</a></li>
+<li class="chapter" data-level="4.2" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualizing-digits"><i class="fa fa-check"></i><b>4.2</b> Visualizing Digits</a></li>
+<li class="chapter" data-level="4.3" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#visualize-digits"><i class="fa fa-check"></i><b>4.3</b> Visualize Digits</a></li>
+<li class="chapter" data-level="4.4" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#split-the-data-into-train-and-test-sets"><i class="fa fa-check"></i><b>4.4</b> Split the Data into Train and Test Sets</a></li>
+<li class="chapter" data-level="4.5" data-path="classification-models-for-computer-vision.html"><a href="classification-models-for-computer-vision.html#exercises-1"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html"><i class="fa fa-check"></i><b>5</b> Convolutional Neural Networks for Computer Vision</a><ul>
+<li class="chapter" data-level="5.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#lenet-5"><i class="fa fa-check"></i><b>5.1</b> LeNet-5</a></li>
+<li class="chapter" data-level="5.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#model-metrics"><i class="fa fa-check"></i><b>5.2</b> Model Metrics</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#accuracy"><i class="fa fa-check"></i><b>5.2.1</b> Accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#precision"><i class="fa fa-check"></i><b>5.2.2</b> Precision</a></li>
+<li class="chapter" data-level="5.2.3" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#recall"><i class="fa fa-check"></i><b>5.2.3</b> Recall</a></li>
+<li class="chapter" data-level="5.2.4" data-path="convolutional-neural-networks-for-computer-vision.html"><a href="convolutional-neural-networks-for-computer-vision.html#visualzing-our-metrics"><i class="fa fa-check"></i><b>5.2.4</b> Visualzing our Metrics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="natural-language-processing.html"><a href="natural-language-processing.html"><i class="fa fa-check"></i><b>6</b> Natural Language Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#text-classification"><i class="fa fa-check"></i><b>6.1</b> Text Classification</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#imdb-data"><i class="fa fa-check"></i><b>6.1.1</b> IMDB Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#feature-transformers"><i class="fa fa-check"></i><b>6.1.2</b> Feature Transformers</a></li>
+<li class="chapter" data-level="6.1.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-logit-model"><i class="fa fa-check"></i><b>6.1.3</b> Testing the Logit Model</a></li>
+<li class="chapter" data-level="6.1.4" data-path="natural-language-processing.html"><a href="natural-language-processing.html#testing-the-fast-trees-model"><i class="fa fa-check"></i><b>6.1.4</b> Testing the Fast Trees Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="natural-language-processing.html"><a href="natural-language-processing.html#neural-networks"><i class="fa fa-check"></i><b>6.2</b> Neural Networks</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="natural-language-processing.html"><a href="natural-language-processing.html#scoring-the-neural-net"><i class="fa fa-check"></i><b>6.2.1</b> Scoring the Neural Net</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="natural-language-processing.html"><a href="natural-language-processing.html#exercises-2"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><i class="fa fa-check"></i><b>7</b> Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#pre-trained-models"><i class="fa fa-check"></i><b>7.1</b> Pre-Trained Models</a></li>
+<li class="chapter" data-level="7.2" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#cmu-faces-dataset"><i class="fa fa-check"></i><b>7.2</b> CMU Faces Dataset</a></li>
+<li class="chapter" data-level="7.3" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#on-the-fly-featurization"><i class="fa fa-check"></i><b>7.3</b> On-the Fly Featurization</a></li>
+<li class="chapter" data-level="7.4" data-path="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html"><a href="transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html#retaining-features"><i class="fa fa-check"></i><b>7.4</b> Retaining Features</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/Azure/learnAnalytics-MicrosoftML" target="blank">Ali Zaidi</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with the <code>MicrosoftML</code> Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="convolutional-neural-networks-for-computer-vision" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Convolutional Neural Networks for Computer Vision</h1>
+<p>In the previous section we conducted multi-class classification using a softmax regression algorithm. The most popular approach for image classification is now convolutional neural networks. This module describes how to use convolutional networks.</p>
+<p>MicrosoftML uses the <a href="https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-azure-ml-netsharp-reference-guide">Net#</a> specification for defining neural network architectures. In the <code>../nnet</code> directory, we have already created the specifications for you.</p>
+<p>Examine the architecture in “MNIST.nn”. In this network, we have two convolutional layers and one fully connected layer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(MicrosoftML)
+<span class="kw">theme_set</span>(<span class="kw">theme_minimal</span>())
+
+rxNeuralNetFile &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;nnet/MNIST.nn&quot;</span>)
+nn &lt;-<span class="st"> </span><span class="kw">readChar</span>(rxNeuralNetFile, <span class="kw">file.info</span>(rxNeuralNetFile)<span class="op">$</span>size)
+nnet_fit &lt;-<span class="st"> </span><span class="kw">rxNeuralNet</span>(<span class="kw">make_form</span>(splits<span class="op">$</span>train,
+                                  <span class="dt">resp_var =</span> <span class="st">&quot;Label&quot;</span>,
+                                  <span class="dt">vars_to_skip =</span> <span class="kw">c</span>(<span class="st">&quot;splitVar&quot;</span>)),
+                              <span class="dt">data =</span> splits<span class="op">$</span>train,
+                              <span class="dt">type =</span> <span class="st">&quot;multiClass&quot;</span>,
+                              <span class="dt">numIterations =</span> <span class="dv">9</span>,
+                              <span class="dt">netDefinition =</span> nn,
+                              <span class="dt">initWtsDiameter =</span> <span class="fl">1.0</span>,
+                              <span class="dt">normalize =</span> <span class="st">&quot;No&quot;</span>)</code></pre></div>
+<pre><code>## Not adding a normalizer.
+## Using: SSE Math
+## Loading net from: 
+## ***** Net definition *****
+##   const T = true;
+##   const F = false;
+##   input Picture [28, 28];
+##   hidden Convolve1 [5, 12, 12] from Picture convolve {
+##     InputShape = [28, 28];
+##     KernelShape = [5, 5];
+##     Stride = [2, 2];
+##     MapCount = 5;
+##   }
+##   hidden Convolve2 [50, 4, 4] from Convolve1 convolve {
+##     InputShape = [5, 12, 12];
+##     KernelShape = [1, 5, 5];
+##     Stride = [1, 2, 2];
+##     Sharing = [F, T, T];
+##     MapCount = 10;
+##   }
+##   hidden Full3 [100] from Convolve2 all;
+##   output Result [10] from Full3 all;
+## ***** Reduced *****
+##   const T = true;
+##   const F = false;
+##   input Picture [28, 28];
+##   hidden Convolve1 [5, 12, 12] from Picture convolve {
+##     InputShape = [28, 28];
+##     KernelShape = [5, 5];
+##     Stride = [2, 2];
+##     MapCount = 5;
+##   }
+##   hidden Convolve2 [50, 4, 4] from Convolve1 convolve {
+##     InputShape = [5, 12, 12];
+##     KernelShape = [1, 5, 5];
+##     Stride = [1, 2, 2];
+##     Sharing = [false, true, true];
+##     MapCount = 10;
+##   }
+##   hidden Full3 100 from Convolve2 all;
+##   output Result 10 from Full3 all;
+## ***** End net definition *****
+## Input count: 784
+## Output count: 10
+## Output Function: SoftMax
+## Loss Function: CrossEntropy
+## PreTrainer: NoPreTrainer
+## ___________________________________________________________________
+## Starting training...
+## Learning rate: 0.001000
+## Momentum: 0.000000
+## InitWtsDiameter: 1.000000
+## ___________________________________________________________________
+## Initializing 3 Hidden Layers, 82540 Weights...
+## Estimated Pre-training MeanError = 4.142561
+## Iter:1/9, MeanErr=1.582342(-61.80%), 610.87M WeightUpdates/sec
+## Iter:2/9, MeanErr=0.651257(-58.84%), 615.72M WeightUpdates/sec
+## Iter:3/9, MeanErr=0.474688(-27.11%), 626.65M WeightUpdates/sec
+## Iter:4/9, MeanErr=0.390425(-17.75%), 627.81M WeightUpdates/sec
+## Iter:5/9, MeanErr=0.344977(-11.64%), 620.60M WeightUpdates/sec
+## Iter:6/9, MeanErr=0.314282(-8.90%), 613.83M WeightUpdates/sec
+## Iter:7/9, MeanErr=0.290820(-7.47%), 611.50M WeightUpdates/sec
+## Iter:8/9, MeanErr=0.273693(-5.89%), 616.90M WeightUpdates/sec
+## Iter:9/9, MeanErr=0.256158(-6.41%), 631.15M WeightUpdates/sec
+## Done!
+## Estimated Post-training MeanError = 0.247149
+## ___________________________________________________________________
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:01:24.7007751</code></pre>
+<p>As in the previous section with linear classifiers, we can create our confusion matrices:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nnet_score &lt;-<span class="st"> </span><span class="kw">rxPredict</span>(<span class="dt">modelObject =</span> nnet_fit,
+                        <span class="dt">data =</span> splits<span class="op">$</span>test,
+                        <span class="dt">outData =</span> <span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xdf&quot;</span>),
+                        <span class="dt">overwrite =</span> <span class="ot">TRUE</span>,
+                        <span class="dt">extraVarsToWrite =</span> <span class="st">&quot;Label&quot;</span>)</code></pre></div>
+<pre><code>## Elapsed time: 00:00:01.5443943</code></pre>
+<p>Now that we have our scored results, let’s put them in a confusion matrix:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxCube</span>( <span class="op">~</span><span class="st"> </span>Label <span class="op">:</span><span class="st"> </span>PredictedLabel , <span class="dt">data =</span> nnet_score,
+       <span class="dt">returnDataFrame =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>nnet_scores_df
+
+nnet_scores_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>tbl_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(Label) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> Counts<span class="op">/</span><span class="kw">sum</span>(Counts)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">error_rate =</span> <span class="kw">ifelse</span>(Label <span class="op">==</span><span class="st"> </span>PredictedLabel,
+                             <span class="dv">0</span>, rate)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Label, <span class="dt">y =</span> PredictedLabel, <span class="dt">fill =</span> error_rate)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_raster</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low =</span> <span class="st">&quot;steelblue2&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;mediumblue&quot;</span>,
+                        <span class="dt">labels =</span> scales<span class="op">::</span>percent)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/nnet_confusion-1.png" width="672" /></p>
+<p>Just judging from the label it looks we have already done better than the linear classifier.</p>
+<div id="lenet-5" class="section level2">
+<h2><span class="header-section-number">5.1</span> LeNet-5</h2>
+<p>Convolutional neural networks were popularized by Yann LeCun. In this section, we’ll fit his model from 1998, effectionately called <a href="http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf">LeNet-5</a>.</p>
+<p>The network differs from the previous implementation in that there are now more layers, but in between layers there is a pooling/sampling layer. This helps preventing the neural network from overfitting in between layers and allows for extracting higher-order representations from the data.</p>
+<p>Because this neural network has significantly more weights to learn, it’ll take a while longer, especially if we aren’t using GPUs (which would give us at least 5-7x speed improvement). If you’re especially impatient, you can lower the <code>numIterations</code> parameter.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rxNeuralNetFile &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;nnet/LeCun5.nn&quot;</span>)
+lecun &lt;-<span class="st"> </span><span class="kw">readChar</span>(rxNeuralNetFile, <span class="kw">file.info</span>(rxNeuralNetFile)<span class="op">$</span>size)
+<span class="kw">system.time</span>(lenet_fit &lt;-<span class="st"> </span><span class="kw">rxNeuralNet</span>(<span class="kw">make_form</span>(splits<span class="op">$</span>train,
+                                               <span class="dt">resp_var =</span> <span class="st">&quot;Label&quot;</span>,
+                                               <span class="dt">vars_to_skip =</span> <span class="kw">c</span>(<span class="st">&quot;splitVar&quot;</span>)),
+                                     <span class="dt">data =</span> splits<span class="op">$</span>train,
+                                     <span class="dt">type =</span> <span class="st">&quot;multiClass&quot;</span>,
+                                     <span class="dt">numIterations =</span> <span class="dv">9</span>,
+                                     <span class="dt">netDefinition =</span> lecun,
+                                     <span class="dt">initWtsDiameter =</span> <span class="fl">1.0</span>,
+                                     <span class="dt">normalize =</span> <span class="st">&quot;No&quot;</span>))</code></pre></div>
+<pre><code>## Not adding a normalizer.
+## Using: SSE Math
+## Loading net from: 
+## ***** Net definition *****
+##   const T = true;
+##   const F = false;
+##   input Picture [28, 28];
+##   hidden Convolve1 [6, 28, 28] from Picture convolve {
+##     Padding = T;
+##     InputShape = [28, 28];
+##     KernelShape = [5, 5];
+##     MapCount = 6;
+##   }
+##   hidden Subsample2 [6, 14, 14] linear from Convolve1 convolve {
+##     InputShape = [6, 28, 28];
+##     KernelShape = [1, 2, 2];
+##     Stride = [1, 2, 2];
+##     Sharing = [F, T, T];
+##   }
+##   hidden Convolve3 [16, 10, 10] from Subsample2 convolve {
+##     InputShape = [6, 14, 14];
+##     KernelShape = [6, 5, 5];
+##     MapCount = 16;
+##   }
+##   hidden Subsample4 [16, 5, 5] linear from Convolve3 convolve {
+##     InputShape = [16, 10, 10];
+##     KernelShape = [1, 2, 2];
+##     Stride = [1, 2, 2];
+##     Sharing = [F, T, T];
+##   }
+##   hidden Convolve5 [120] from Subsample4 convolve {
+##     InputShape = [16, 5, 5];
+##     KernelShape = [16, 5, 5];
+##     MapCount = 120;
+##   }
+##   hidden Full6 [84] from Convolve5 all;
+##   output Result [10] softmax from Full6 all;
+## ***** Reduced *****
+##   const T = true;
+##   const F = false;
+##   input Picture [28, 28];
+##   hidden Convolve1 [6, 28, 28] from Picture convolve {
+##     Padding = true;
+##     InputShape = [28, 28];
+##     KernelShape = [5, 5];
+##     MapCount = 6;
+##   }
+##   hidden Subsample2 [6, 14, 14] linear from Convolve1 convolve {
+##     InputShape = [6, 28, 28];
+##     KernelShape = [1, 2, 2];
+##     Stride = [1, 2, 2];
+##     Sharing = [false, true, true];
+##   }
+##   hidden Convolve3 [16, 10, 10] from Subsample2 convolve {
+##     InputShape = [6, 14, 14];
+##     KernelShape = [6, 5, 5];
+##     MapCount = 16;
+##   }
+##   hidden Subsample4 [16, 5, 5] linear from Convolve3 convolve {
+##     InputShape = [16, 10, 10];
+##     KernelShape = [1, 2, 2];
+##     Stride = [1, 2, 2];
+##     Sharing = [false, true, true];
+##   }
+##   hidden Convolve5 120 from Subsample4 convolve {
+##     InputShape = [16, 5, 5];
+##     KernelShape = [16, 5, 5];
+##     MapCount = 120;
+##   }
+##   hidden Full6 84 from Convolve5 all;
+##   output Result 10 softmax from Full6 all;
+## ***** End net definition *****
+## Input count: 784
+## Output count: 10
+## Output Function: SoftMax
+## Loss Function: CrossEntropy
+## PreTrainer: NoPreTrainer
+## ___________________________________________________________________
+## Starting training...
+## Learning rate: 0.001000
+## Momentum: 0.000000
+## InitWtsDiameter: 1.000000
+## ___________________________________________________________________
+## Initializing 6 Hidden Layers, 61816 Weights...
+## Estimated Pre-training MeanError = 4.016721
+## Iter:1/9, MeanErr=1.566115(-61.01%), 80.01M WeightUpdates/sec
+## Iter:2/9, MeanErr=0.508592(-67.53%), 80.71M WeightUpdates/sec
+## Iter:3/9, MeanErr=0.350416(-31.10%), 80.86M WeightUpdates/sec
+## Iter:4/9, MeanErr=0.274144(-21.77%), 81.07M WeightUpdates/sec
+## Iter:5/9, MeanErr=0.231398(-15.59%), 81.38M WeightUpdates/sec
+## Iter:6/9, MeanErr=0.200124(-13.52%), 81.60M WeightUpdates/sec
+## Iter:7/9, MeanErr=0.180827(-9.64%), 81.64M WeightUpdates/sec
+## Iter:8/9, MeanErr=0.165253(-8.61%), 81.35M WeightUpdates/sec
+## Iter:9/9, MeanErr=0.154163(-6.71%), 81.24M WeightUpdates/sec
+## Done!
+## Estimated Post-training MeanError = 0.140622
+## ___________________________________________________________________
+## Not training a calibrator because it is not needed.
+## Elapsed time: 00:07:30.0053335</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.040   0.000 450.133</code></pre>
+<p>As before, let’s score our pretty model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lescores &lt;-<span class="st"> </span><span class="kw">rxPredict</span>(<span class="dt">modelObject =</span> lenet_fit,
+                      <span class="dt">data =</span> splits<span class="op">$</span>test,
+                      <span class="dt">outData =</span> <span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xdf&quot;</span>),
+                      <span class="dt">overwrite =</span> <span class="ot">TRUE</span>,
+                      <span class="dt">extraVarsToWrite =</span> <span class="st">&quot;Label&quot;</span>)</code></pre></div>
+<pre><code>## Elapsed time: 00:00:03.7402924</code></pre>
+<p>and visualize our error rates:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rxCube</span>( <span class="op">~</span><span class="st"> </span>Label <span class="op">:</span><span class="st"> </span>PredictedLabel , <span class="dt">data =</span> lescores,
+       <span class="dt">returnDataFrame =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>le_scores_df
+
+le_scores_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>tbl_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(Label) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> Counts<span class="op">/</span><span class="kw">sum</span>(Counts)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">error_rate =</span> <span class="kw">ifelse</span>(Label <span class="op">==</span><span class="st"> </span>PredictedLabel,
+                             <span class="dv">0</span>, rate)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Label, <span class="dt">y =</span> PredictedLabel, <span class="dt">fill =</span> error_rate)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_raster</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low =</span> <span class="st">&quot;steelblue2&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;mediumblue&quot;</span>,
+                        <span class="dt">labels =</span> scales<span class="op">::</span>percent)</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/leconfusion-1.png" width="672" /></p>
+<p>Looks even better!</p>
+</div>
+<div id="model-metrics" class="section level2">
+<h2><span class="header-section-number">5.2</span> Model Metrics</h2>
+<p>While our visualizations provide some insight into our model’s improvement, let’s try to calculate empricial metrics of our models’ performacne.</p>
+<p>The three metrics we’ll focus on are “accuracy”, “precision”, and “recall”. Accuracy simply measures how many of our estimates we classified correctly. While simple and intuitive, it does not account for class-imbalances. For example, if 99% of our data is in class A, and we simply use the rule that everything is class A, we’ll get an accuracy of 99%. Sounds impressive, but probably not going to win any Turing tests.</p>
+<div id="accuracy" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Accuracy</h3>
+<p>To calculate accuracy, we can simply measure the sum of our confusion matrix’s diagonal over all values. Our data was in a long format to make it amenable for visualizations using ggplot2. Here we’ll use <code>tidyr</code> to put it into a wide format amenable for calculating model metrics quickly and efficiently.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">calc_accuracy &lt;-<span class="st"> </span><span class="cf">function</span>(scores_df) {
+  
+  <span class="kw">library</span>(tidyr)
+  
+  scores_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(scores_df)
+  scores_conf &lt;-<span class="st"> </span>scores_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(PredictedLabel, Counts)
+  
+  scores_conf &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(scores_conf[, <span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(scores_conf)])
+  <span class="kw">sum</span>(<span class="kw">diag</span>(scores_conf))<span class="op">/</span><span class="kw">sum</span>(scores_conf)
+  
+}
+
+<span class="kw">sprintf</span>(<span class="st">&quot;Accuracy of the softmax model is %s&quot;</span>, <span class="kw">calc_accuracy</span>(softmax_scores_df))</code></pre></div>
+<pre><code>## [1] &quot;Accuracy of the softmax model is 0.927&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sprintf</span>(<span class="st">&quot;Accuracy of the convolutional model is %s&quot;</span>, <span class="kw">calc_accuracy</span>(nnet_scores_df))</code></pre></div>
+<pre><code>## [1] &quot;Accuracy of the convolutional model is 0.9628&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sprintf</span>(<span class="st">&quot;Accuracy of the LeCun-5 model is %s&quot;</span>, <span class="kw">calc_accuracy</span>(le_scores_df))</code></pre></div>
+<pre><code>## [1] &quot;Accuracy of the LeCun-5 model is 0.977&quot;</code></pre>
+</div>
+<div id="precision" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Precision</h3>
+<p>Precision is another measure of model performance. It calculates the ratio of true positives to all values, i.e., how precise your model is in classifying any digit. To calculate precision, we’ll take the diagonal of our confusion matrix over the sum of that column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">calc_precision &lt;-<span class="st"> </span><span class="cf">function</span>(scores_df) {
+  
+  <span class="kw">library</span>(tidyr)
+  
+  scores_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(scores_df)
+  scores_conf &lt;-<span class="st"> </span>scores_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(PredictedLabel, Counts)
+  
+  scores_conf &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(scores_conf[, <span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(scores_conf)])
+  <span class="kw">diag</span>(scores_conf)<span class="op">/</span><span class="kw">colSums</span>(scores_conf)
+  
+}
+
+<span class="kw">calc_precision</span>(softmax_scores_df)</code></pre></div>
+<pre><code>##         0         1         2         3         4         5         6 
+## 0.9513406 0.9636049 0.9375629 0.9065880 0.9311044 0.9013921 0.9421488 
+##         7         8         9 
+## 0.9332024 0.8810976 0.9128713</code></pre>
+</div>
+<div id="recall" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> Recall</h3>
+<p>Lastly, we can calculate recall. Recall is a measure of how relevant the predictions are for the given class, i.e., how many of the actual classes were properly predicted. In this case, we’ll sum over the predicted labels rather than the actual labels:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">calc_recall &lt;-<span class="st"> </span><span class="cf">function</span>(scores_df) {
+  
+  <span class="kw">library</span>(tidyr)
+  
+  scores_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(scores_df)
+  scores_conf &lt;-<span class="st"> </span>scores_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(PredictedLabel, Counts)
+  
+  scores_conf &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(scores_conf[, <span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(scores_conf)])
+  <span class="kw">diag</span>(scores_conf)<span class="op">/</span><span class="kw">rowSums</span>(scores_conf)
+  
+}
+
+<span class="kw">calc_recall</span>(softmax_scores_df)</code></pre></div>
+<pre><code>##         1         2         3         4         5         6         7 
+## 0.9775510 0.9797357 0.9021318 0.9128713 0.9358452 0.8710762 0.9519833 
+##         8         9        10 
+## 0.9241245 0.8901437 0.9137760</code></pre>
+</div>
+<div id="visualzing-our-metrics" class="section level3">
+<h3><span class="header-section-number">5.2.4</span> Visualzing our Metrics</h3>
+<p>Let’s calculate the metrics for all three of our mdoels and visualize them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">softmax =</span> softmax_scores_df,
+                <span class="dt">nnet =</span> nnet_scores_df,
+                <span class="dt">lecun5 =</span> le_scores_df)
+
+metrics_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="kw">map_df</span>(results, calc_precision),
+  <span class="dt">digits =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">9</span>,
+  <span class="dt">metric =</span> <span class="kw">rep</span>(<span class="st">&quot;precision&quot;</span>, <span class="dv">10</span>)
+) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(
+    <span class="kw">map_df</span>(results, calc_recall),
+    <span class="dt">digits =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">9</span>,
+    <span class="dt">metric =</span> <span class="kw">rep</span>(<span class="st">&quot;recall&quot;</span>, <span class="dv">10</span>))
+  )</code></pre></div>
+<pre><code>## Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">metrics_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(model, metrics, <span class="op">-</span>digits, <span class="op">-</span>metric) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(digits),
+             <span class="dt">y =</span> metrics,
+             <span class="dt">fill =</span> model)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&#39;identity&#39;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>metric) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="mml-tutorial_files/figure-html/calc_metrics-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="classification-models-for-computer-vision.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="natural-language-processing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Azure/learnAnalytics-MicrosoftML/edit/master/4-Convolutional-Neural-Networks.Rmd",
+"text": "Edit"
+},
+"download": ["mml-tutorial.pdf", "mml-tutorial.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
