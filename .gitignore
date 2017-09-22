@@ -12,3 +12,6 @@ log.txt
 
 ## ignore vs directory
 .vs/
+
+## ignore etc/
+etc/

@@ -1,6 +1,8 @@
 Statistical Machine Learning with MicrosoftML
 ===============================================
 
+## Description
+
 This workshop covers the fundamentals of statistical machine learning with the [MicrosoftML package](https://msdn.microsoft.com/en-us/microsoft-r/microsoftml-introduction).
 
 [![MRS](https://img.youtube.com/vi/arskgQaKlVs/0.jpg)](https://www.youtube.com/watch?v=arskgQaKlVs)
@@ -17,6 +19,7 @@ You can download **Microsoft R Client** through the following sources:
 1. [R Client for Windows](https://msdn.microsoft.com/en-us/microsoft-r/r-client-install-windows)
 2. [R Client for Linux](https://msdn.microsoft.com/en-us/microsoft-r/r-client-install-linux)
 3. [R Client Docker Image](https://github.com/akzaidi/mrclient-docker)
+	- [R Client Docker Image with RStudio Server and Course Repository](https://github.com/akzaidi/mrclient-rstudio)
 
 ## MicrosoftML References
 
@@ -28,15 +31,28 @@ You can download **Microsoft R Client** through the following sources:
 + [MSDN Site for Microsoft R Client](https://msdn.microsoft.com/en-us/microsoft-r/r-client)
 	* [R Client Overview](https://channel9.msdn.com/blogs/MicrosoftR/Microsoft-Introduces-new-free-Microsoft-R-Client)
 
-## Table of Contents
+### Intended Audience
 
-1. [Feature Engineering](https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/1-Feature-Engineering.nb.html)
-2. [Regression Models](http://htmlpreview.github.io/?https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/2-Regression-Models.nb.html)
-3. [Classification Models](http://htmlpreview.github.io/?https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/3-Classification-Models.nb.html)
-4. [Convolutional Neural Networks](http://htmlpreview.github.io/?https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/4-Convolutional-Neural-Networks.nb.html)
-5. [Sentiment Analysis](http://htmlpreview.github.io/?https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/5-Sentiment-Analysis.nb.html)
-6. [Transfer Learning - The Shallow End of Deep Learning](http://htmlpreview.github.io/?https://github.com/Azure/learnAnalytics-MicrosoftML/blob/master/Student-Resources/rmarkdown/6-Transfer-Learning.nb.html)
+This course will be useful to anyone looking to use the advanced analytics capabilities provided by Microsoft ML Server. A minimal background in R and statistics are assumed, which you can refresh with the resources below.
 
+## Syllabus
+
+1. [Exploratory Data Analysis and Feature Engineering](https://azure.github.io/learnAnalytics-MicrosoftML/exploratory-data-analysis-and-feature-engineering.html)
+1. [Training Regression Models with ML Server](https://azure.github.io/learnAnalytics-MicrosoftML/regression-models.html)
+1. [Classification Models for Computer Vision](https://azure.github.io/learnAnalytics-MicrosoftML/classification-models-for-computer-vision.html)
+1. [Convolutional Neural Networks for Computer Vision](https://azure.github.io/learnAnalytics-MicrosoftML/convolutional-neural-networks-for-computer-vision.html)
+1. [Natural Language Processing and Text Classification](https://azure.github.io/learnAnalytics-MicrosoftML/natural-language-processing.html)
+1. [Transfer Learning with Pre-Trained Deep Neural Network Architectures – The Shallow End of Deep Learning](https://azure.github.io/learnAnalytics-MicrosoftML/transfer-learning-with-pre-trained-deep-neural-network-architectures-the-shallow-end-of-deep-learning.html)
+
+## Prerequisities
+
+This course assumes some R background.
+
+### Introductory Courses
+
++ [Introduction to R for Data Science](https://www.edx.org/course/introduction-r-data-science-microsoft-dat204x-6)
++ [Programming with R for Data Science](https://www.edx.org/course/programming-r-data-science-microsoft-dat209x-5)
++ [Introduction to R by DataCamp](https://www.datacamp.com/courses/free-introduction-to-r)
 
 ## Useful Resources
 
@@ -49,6 +65,9 @@ You can download **Microsoft R Client** through the following sources:
 	* **Papa Statistical Learning**
 + [R for Data Science](http://r4ds.had.co.nz/)
 	* Covers the core tools in the [`tidyverse`](http://tidyverse.org/) ecosystem for data science and analytics
++ [STAT545 - Data wrangling, exploration and analysis with R](http://stat545.com/)
+	* Jenny Bryan's incredible course and resources
+	* We will use the `purrr` package a few times in this course. You can find some awesome tutorials by Jenny here at [purrr-tutorial](https://jennybc.github.io/purrr-tutorial/).
 + [Microsoft R for Data Science](https://github.com/Azure/LearnAnalytics-mr4ds)
 	* My two-day workshop on Microsoft R Server for Data Science
 + [Microsoft R Server and Spark](https://github.com/Azure/LearnAnalytics-mrs-spark)
