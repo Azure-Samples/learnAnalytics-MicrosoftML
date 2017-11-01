@@ -18,6 +18,9 @@ Transfer learning is a pretty incredible method for learning expressive models w
 `MicrosoftML` ships with a number of pre-trained DNNs on the [ImageNet](http://www.image-net.org/) challenge dataset.
 
 ```{r pretrainedDNN}
+library(tidyverse)
+library(stringr)
+
 AlexNetFeatures <- read.csv(system.file(
   "extdata/ImageAnalyticsTestData/featurizeImage_alexnet_output.csv",
   package = "MicrosoftML"), 
@@ -97,10 +100,10 @@ mlTransform <- list(loadImage(vars = list(Image = "Path")),
                                 width = 224, height = 224, 
                                 resizingOption = "IsoPad"),
                     extractPixels(vars = list(Pixels = "Image")),
-                    featurizeImage(var = "Pixels", outVar = "Feature", 
-                                   dnnModel = "resnet101"))
+                    featurizeImage(var = "Pixels", 
+                                   dnnModel = "resnet18"))
 
-model <- rxLogisticRegression(Label ~ Feature, 
+model <- rxLogisticRegression(Label ~ Pixels, 
                               data = train_df,
                               mlTransforms = mlTransform, mlTransformVars = "Path")
 summary(model)
@@ -117,40 +120,105 @@ While the above approach is scalable beyond datasets that can fit in memory, it 
 
 If you would like to retain the features you trained on, you can do so by using the `featurizeImage` function in MicrosoftML directly. It is analogous to the `mlTransforms` argumenet above.
 
-```{r featurizeImage}
-rxFeaturize(data = train_df, 
-            outData = "../data/train.xdf", 
-            overwrite = TRUE,
-            mlTransforms = list(loadImage(vars = list(Image = "Path")),
-                                resizeImage(vars = "Image", 
-                                            width = 224, height = 224, 
-                                            resizingOption = "IsoPad"),
-                                extractPixels(vars = list(Pixels = "Image")),
-                                featurizeImage(var = "Pixels", 
-                                               outVar = "Feature", 
-                                               dnnModel = "resnet18")),
-            mlTransformVars = c("Path", "Label")) -> train_xdf
+```{r featurize}
+# rxFeaturize(data = train_df, 
+#             outData = "../data/train.xdf", 
+#             overwrite = TRUE,
+#             mlTransforms = list(loadImage(vars = list(Image = "Path")),
+#                                 resizeImage(vars = "Image", 
+#                                             width = 224, height = 224, 
+#                                             resizingOption = "IsoPad"),
+#                                 extractPixels(vars = list(Pixels = "Image")),
+#                                 featurizeImage(var = "Pixels", 
+#                                                dnnModel = "resnet18")),
+#             mlTransformVars = c("Path", "Label")) -> train_xdf
+# 
+# rxFeaturize(data = test_df, outData = "../data/test.xdf", overwrite = TRUE,
+#             mlTransforms = list(loadImage(vars = list(Image = "Path")),
+#                                 resizeImage(vars = "Image", width = 224, height = 224,
+#                                             resizingOption = "IsoPad"),
+#                                 extractPixels(vars = list(Pixels = "Image")),
+#                                 featurizeImage(var = "Pixels", 
+#                                                dnnModel = "resnet18")),
+#             mlTransformVars = c("Path", "Label")) -> test_xdf
+# 
+# varInfo <- rxGetVarInfo(train_xdf)
 
-rxFeaturize(data = test_df, outData = "../data/test.xdf", overwrite = TRUE,
-            mlTransforms = list(loadImage(vars = list(Image = "Path")),
-                                resizeImage(vars = "Image", width = 224, height = 224,
-                                            resizingOption = "IsoPad"),
-                                extractPixels(vars = list(Pixels = "Image")),
-                                featurizeImage(var = "Pixels", 
-                                               outVar = "Feature", 
-                                               dnnModel = "resnet18")),
-            mlTransformVars = c("Path", "Label")) -> test_xdf
-
-varInfo <- rxGetVarInfo(train_xdf)
-
-features <- paste("Feature", 0:511, sep=".", collapse = " + ")
-form <- as.formula(paste("Label", features, sep="~"))
-model <- rxLogisticRegression(formula = form, data = train_xdf)
-
-summary(model)
-score <-rxPredict(model, test_xdf, extraVarsToWrite = "Label")
-sum(score$Label==score$PredictedLabel)/nrow(score)
-rxRocCurve("Label","Probability",score)
+# features <- paste("Feature", 0:511, sep=".", collapse = " + ")
+# form <- as.formula(paste("Label", features, sep="~"))
+# model <- rxLogisticRegression(formula = form, data = train_xdf)
+# 
+# summary(model)
+# score <-rxPredict(model, test_xdf, extraVarsToWrite = "Label")
+# sum(score$Label==score$PredictedLabel)/nrow(score)
+# rxRocCurve("Label","Probability",score)
 ```
 
+
+## Classifying People
+
+Let's create another dataset for distinguishing between individuals in the dataset.
+
+```{r faces}
+
+
+faces <- data.frame(
+  path = list.files("../data/faces", recursive = TRUE, full.names = TRUE),
+  stringsAsFactors = FALSE
+) %>% tbl_df
+
+faces$label <- str_split(faces$path, "/") %>% map_chr(c(4))
+
+
+sample_len <- floor(0.5 * nrow(faces))
+set.seed(123)
+train_indices <- sample(seq_len(nrow(faces)), size = sample_len)
+
+train_df <- faces[train_indices, ]
+test_df <- faces[-train_indices, ]
+```
+
+
+Now we can featurize and train our model:
+
+```{r featurize and train}
+
+mlTransform <- list(loadImage(vars = list(image = "path")),
+                    resizeImage(vars = "image", 
+                                width = 224, height = 224, 
+                                resizingOption = "IsoPad"),
+                    extractPixels(vars = list(pixels = "image")),
+                    featurizeImage(var = "pixels", 
+                                   dnnModel = "resnet18"))
+
+model <- rxLogisticRegression(label ~ pixels, 
+                              data = train_df,
+                              mlTransforms = mlTransform, 
+                              mlTransformVars = "path",
+                              type = "multiClass")
+summary(model)
+```
+
+## Evaluation
+
+```{r}
+
+preds <- rxPredict(model, test_df, extraVarsToWrite = "label")
+preds <- preds %>% mutate(label = factor(label),
+                          PredictedLabel = factor(label))
+rxCube( ~ label : PredictedLabel , data = preds,
+       returnDataFrame = TRUE) -> pred_conf
+
+pred_conf %>% 
+  tbl_df %>% 
+  group_by(label) %>% 
+  mutate(rate = Counts/sum(Counts)) %>%
+  mutate(error_rate = ifelse(label == PredictedLabel,
+                             0, rate)) %>% 
+  ggplot(aes(x = label, y = PredictedLabel, fill = error_rate)) +
+  geom_raster() +
+  scale_fill_continuous(low = "steelblue2", high = "mediumblue",
+                        labels = scales::percent)
+
+```
 
