@@ -11,7 +11,7 @@ reg_pkgs <- c("tidyverse",
               "ggrepel",
               "maps", "scales", "foreach", "devtools")
 pks_missing <- reg_pkgs[!(reg_pkgs %in% installed.packages()[, 1])]
-install.packages(c(pks_missing, 'knitr', 'formatR', 'rmarkdown'))
+install.packages(c(pks_missing, 'knitr', 'formatR', 'rmarkdown', 'curl', 'httr'))
 
 ## install github packages
 dev_pkgs <- c("RevolutionAnalytics/dplyrXdf", "jbkunst/d3wordcloud")
