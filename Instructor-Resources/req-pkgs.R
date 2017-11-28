@@ -4,6 +4,10 @@ mran_date <- Sys.Date() - 1
 r[["CRAN"]] <- paste0("https://mran.revolutionanalytics.com/snapshot/", mran_date)
 options(repos = r)
 
+Rlib <- "~/Rlib"
+dir.create(Rlib)
+.libPaths(c(Rlib, .libPaths()))
+
 ## install CRAN packages
 reg_pkgs <- c("tidyverse",
               "scales", 
