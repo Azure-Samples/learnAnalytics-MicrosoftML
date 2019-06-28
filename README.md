@@ -1,6 +1,8 @@
 Statistical Machine Learning with MicrosoftML
 ===============================================
 
+> **NOTE** This content is no longer maintained. Visit the [Azure Machine Learning Notebook](https://github.com/Azure/MachineLearningNotebooks) project for sample Jupyter notebooks for ML and deep learning with Azure Machine Learning.
+
 ## Description
 
 This workshop covers the fundamentals of statistical machine learning with the [MicrosoftML package](https://msdn.microsoft.com/en-us/microsoft-r/microsoftml-introduction). MicrosoftML provides a R interface to a set of scalable and distributed learning algorithms and data transformers. The package was initially developed by the research team at Microsoft (MSR), and powers the majority of machine learning applications within Microsoft and within the Azure cloud machine learning ecosystem. In this workshop, you will learn how you can use MicrosoftML’s state-of-the-art machine learning capabilities within R to train high-accuracy machine learning algorithms at blazingly fast speed. We’ll learn the core syntax of the package, how to use it in tandem with your favorite packages for tidy data processing and visualization, and finally how to deploy your trained algorithms in production environments (including Spark clusters).
